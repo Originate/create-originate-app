@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "typecheck": "yarn tsc -b packages/**/tsconfig.json",
+    "console": "yarn typecheck --watch"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-eslint-plugin": "^2.3.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.5",
+    "jest": "^26.1.0",
+    "patch-package": "^6.2.2",
+    "prettier": "^1.19.1",
+    "typescript": "^3.9.6"
+  }
+}

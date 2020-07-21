@@ -1,0 +1,21 @@
+{
+  "name": "@/server",
+  "version": "1.0.0",
+  "scripts": {
+    "_node": "ts-node --transpile-only -r tsconfig-paths/register",
+    "_prettier": "prettier \"./**/*.{js,jsx,ts,tsx,css,json}\"",
+    "_knex": "yarn _node node_modules/.bin/knex",
+    "_jest": "jest --maxWorkers=1",
+    "fix": "yarn _prettier --write > /dev/null",
+    "dev": "nodemon --watch ..",
+    "lint": "eslint --cache --ext .ts .",
+    "heroku": "yarn _node index.ts",
+    "typecheck": "echo server && tsc -p .",
+    "console": "yarn typecheck --watch",
+    "test": "LOG_LEVEL=warn yarn _jest --config=jest.config.js",
+    "test:db": "LOG_LEVEL=warn yarn _jest --config=jest.config.db.js"
+  },
+  "private": true,
+  "dependencies": {
+  }
+}

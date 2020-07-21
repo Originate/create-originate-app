@@ -1,0 +1,23 @@
+{
+  "name": "create-originate-app",
+  "version": "1.0.1",
+  "description": "`npx create-originate-app my-app` to get started",
+  "main": "index.js",
+  "scripts": {
+    "create-originate-app": "echo activating...",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Originate/create-originate-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Originate/create-originate-app/issues"
+  },
+  "homepage": "https://github.com/Originate/create-originate-app#readme",
+  "bin": {
+    "create-originate-app": "./index.pl"
+  }
+}
