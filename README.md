@@ -1,1 +1,1 @@
-`npx create-originate-app my-app` to get started
+`npx github:Originate/create-originate-app [app name]` to get started
