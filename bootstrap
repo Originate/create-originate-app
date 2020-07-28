@@ -15,7 +15,10 @@ function sync {
 function main {
     [[ -f package.json ]] && echo "error: package.json already exists!" && exit 1
     sync "$here"/template/package.json
+    sync "$here"/template/{.prettierrc,.prettierignore}
     sync "$here"/template/packages/tsconfig.base.json
+    sync "$here"/template/packages/.eslintrc.base.js
+    sync "$here"/template/packages/{lib,react,server}/.eslintrc.js
     sync "$here"/template/packages/{lib,react,server}/package.json
     sync "$here"/template/packages/{lib,react,server}/tsconfig.json
     sync "$here"/template/packages/{lib,server}/index.ts
@@ -25,6 +28,7 @@ function main {
     sync "$here"/template/packages/react/.env.example
     sync "$here"/template/packages/react/{src,public}/
     sync "$here"/template/packages/react/babel.config.js
+    sync "$here"/template/.github/
     yarn
 }
 

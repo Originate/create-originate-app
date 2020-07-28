@@ -4,7 +4,8 @@
     "_prettier": "prettier \"./**/*.{js,jsx,ts,tsx,css,json}\"",
     "typecheck": "yarn tsc -b packages/**/tsconfig.json",
     "console": "yarn typecheck --watch",
-    "dev": "./vendor/dev"
+    "dev": "./vendor/dev",
+    "lint": "yarn workspaces run lint"
   },
   "workspaces": [
     "packages/*"

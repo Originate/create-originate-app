@@ -1,0 +1,66 @@
+name: workflows/test.yml
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - deploy/production
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache node_modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS}}-build-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Cache TypeScript output
+      uses: actions/cache@v1
+      with:
+        path: ignored
+        key: ignored
+
+    - name: Debug
+      run: |
+        echo ${{ github.event_name }}
+        echo ${{ github.ref }}
+
+    - run: yarn --frozen-lockfile
+    - run: yarn typecheck
+    - run: yarn lint
+
+    - name: Git authorship
+      if: github.ref == 'refs/heads/deploy/production'
+      run: |
+        git config --global user.email "ci@example.com"
+        git config --global user.name "CI"
+    - name: Heroku credentials
+      if: github.ref == 'refs/heads/deploy/production'
+      env:
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+        HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+        HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
+      run: |
+        cat >~/.netrc <<EOF
+        machine api.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_TOKEN
+        machine git.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_TOKEN
+        EOF
+        chmod 600 ~/.netrc
+        git remote add heroku https://git.heroku.com/$HEROKU_APP.git
+    - name: Deploy
+      if: github.ref == 'refs/heads/deploy/production'
+      run: |
+        export VERSION="$(git rev-list --count HEAD)"
+        export TAG="v${VERSION}"
+        yarn workspace @/react build
+        git add --force packages/server/public/_/*.{js,html}
+        git commit -m Deploy
+        git push heroku HEAD:master -f
