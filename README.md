@@ -1,5 +1,11 @@
 `npx github:Originate/create-originate-app [app name]` to get started
 
+## prerequisites
+
+- Fairly modern macOS or Linux
+- Yarn
+- Git
+
 ## design document
 
 See [issue 1](https://github.com/Originate/create-originate-app/issues/1).
