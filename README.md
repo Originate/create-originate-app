@@ -30,3 +30,8 @@ Runs TypeScript on the much-beloved Watch Mode™ so you can keep an eye on type
 ### `yarn dev`
 
 This spins up the HTTP service on endpoint `http://localhost:3000` and webpack-dev-server on endpoint `http://localhost:8080`. (We've taught Webpack to proxy server requests back to `:3000`.) If you open `:8080` in a browser, you should see the changes you make to your React components appear on the page in realtime. You may know this feature variously as Hot Module Reloading or Fast Refresh. No matter what you call it, it's cool.
+
+
+### ci
+
+Push to a GitHub repo to run the CI, which typechecks and lints the repo on each push to each branch.
