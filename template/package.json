@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
+    "_prettier": "prettier \"./**/*.{js,jsx,ts,tsx,css,json}\"",
     "typecheck": "yarn tsc -b packages/**/tsconfig.json",
-    "console": "yarn typecheck --watch"
+    "console": "yarn typecheck --watch",
+    "dev": "./vendor/dev"
   },
   "workspaces": [
     "packages/*"
@@ -22,7 +24,10 @@
     "eslint-plugin-react-hooks": "^4.0.5",
     "jest": "^26.1.0",
     "patch-package": "^6.2.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.4"
   }
 }

@@ -1,24 +1,12 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "incremental": true,
-    "sourceMap": true,
-    "strict": true,
+    "outDir": "ignored",
     "jsx": "react",
     "module": "esnext",
     "target": "esnext",
-    "baseUrl": ".",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "types": ["react", "jest"],
     "lib": ["es2019", "dom"],
-    "preserveSymlinks": true,
-    "outDir": "ignored",
-    "esModuleInterop": true
   },
   "references": [
     { "path": "../lib" }

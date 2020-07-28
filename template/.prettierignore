@@ -1,0 +1,5 @@
+dist
+*.json
+packages/server/public/_/
+ignored/
+.yarn/

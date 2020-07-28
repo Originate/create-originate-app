@@ -8,17 +8,23 @@ function sync {
     for arg; do
         local dest=${arg#$here/template/}
         mkdir -p $(dirname "$dest")
-        cp "$arg" "$dest"
+        cp -r "$arg" "$dest"
     done
 }
 
 function main {
     [[ -f package.json ]] && echo "error: package.json already exists!" && exit 1
     sync "$here"/template/package.json
+    sync "$here"/template/packages/tsconfig.base.json
     sync "$here"/template/packages/{lib,react,server}/package.json
     sync "$here"/template/packages/{lib,react,server}/tsconfig.json
     sync "$here"/template/packages/{lib,server}/index.ts
+    sync "$here"/template/packages/server/nodemon.json
     sync "$here"/template/packages/react/index.tsx
+    sync "$here"/template/packages/react/webpack.{common,dev,prod}.js
+    sync "$here"/template/packages/react/.env.example
+    sync "$here"/template/packages/react/{src,public}/
+    sync "$here"/template/packages/react/babel.config.js
     yarn
 }
 

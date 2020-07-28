@@ -1,3 +1,3 @@
 export enum Hello {
-  world = 'world'
+  world = 'world',
 }
