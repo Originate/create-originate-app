@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Originate/create-originate-app#readme",
   "bin": {
-    "create-originate-app": "./index.pl"
+    "create-originate-app": "./index.sh"
   },
   "dependencies": {
     "prettier": "^2.0.5"
