@@ -4,7 +4,7 @@
     "outDir": "ignored",
     "lib": ["esnext"],
     "module": "commonjs",
-    "target": "es2016",
+    "target": "es2019",
     "allowJs": true,
     "baseUrl": ".",
     "types": ["jest", "node"]

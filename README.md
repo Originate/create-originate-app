@@ -3,6 +3,7 @@
 ## prerequisites
 
 - Fairly modern macOS or Linux
+- Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions)
 - Yarn
 - Git
 

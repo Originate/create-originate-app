@@ -5,6 +5,7 @@
     "typecheck": "yarn tsc -b packages/**/tsconfig.json",
     "console": "yarn typecheck --watch",
     "dev": "./vendor/dev",
+    "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint"
   },
   "workspaces": [

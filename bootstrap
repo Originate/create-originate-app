@@ -16,15 +16,20 @@ function main {
     [[ -f package.json ]] && echo "error: package.json already exists!" && exit 1
     # common
     sync "$here"/template/package.json
-    sync "$here"/template/{.prettierrc,.prettierignore}
     sync "$here"/template/packages/tsconfig.base.json
-    sync "$here"/template/packages/.eslintrc.base.js
-    sync "$here"/template/packages/{lib,react,server}/.eslintrc.js
     sync "$here"/template/packages/{lib,react,server}/package.json
     sync "$here"/template/packages/{lib,react,server}/tsconfig.json
     sync "$here"/template/packages/{lib,server}/index.ts
     sync "$here"/template/packages/react/index.tsx
     sync "$here"/template/.github/
+    # jest
+    sync "$here"/template/packages/jest.base.config.js
+    sync "$here"/template/packages/{lib,react,server}/jest.config.js
+    sync "$here"/template/packages/{lib,react,server}/index.test.ts
+    # linting
+    sync "$here"/template/{.prettierrc,.prettierignore}
+    sync "$here"/template/packages/.eslintrc.base.js
+    sync "$here"/template/packages/{lib,react,server}/.eslintrc.js
     # server
     sync "$here"/template/Procfile
     sync "$here"/template/packages/server/nodemon.json

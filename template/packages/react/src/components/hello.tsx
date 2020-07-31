@@ -11,9 +11,7 @@ export const Hello = () => (
       <li>
         Modify <code>src/components/hello.tsx</code> and watch the changes happen live here
       </li>
-      <li>
-        Push to a GitHub repo to run the continuous integration
-      </li>
+      <li>Push to a GitHub repo to run the continuous integration</li>
     </ul>
   </>
 );

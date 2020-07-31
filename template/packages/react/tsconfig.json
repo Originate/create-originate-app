@@ -6,7 +6,7 @@
     "module": "esnext",
     "target": "esnext",
     "types": ["react", "jest"],
-    "lib": ["es2019", "dom"],
+    "lib": ["es2019", "dom"]
   },
   "references": [
     { "path": "../lib" }
