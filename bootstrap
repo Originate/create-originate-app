@@ -15,7 +15,7 @@ function sync {
 function main {
     [[ -f package.json ]] && echo "error: package.json already exists!" && exit 1
     # common
-    sync "$here"/template/package.json
+    sync "$here"/template/{package.json,.gitignore}
     sync "$here"/template/packages/tsconfig.base.json
     sync "$here"/template/packages/{lib,react,server}/package.json
     sync "$here"/template/packages/{lib,react,server}/tsconfig.json
