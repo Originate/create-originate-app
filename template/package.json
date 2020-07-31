@@ -6,7 +6,8 @@
     "console": "yarn typecheck --watch",
     "dev": "./vendor/dev",
     "test": "yarn workspaces run test",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "fix": "yarn workspaces run lint --fix"
   },
   "workspaces": [
     "packages/*"

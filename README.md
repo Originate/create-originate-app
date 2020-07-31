@@ -32,6 +32,9 @@ Runs TypeScript on the much-beloved Watch Mode™ so you can keep an eye on type
 
 This spins up the HTTP service on endpoint `http://localhost:3000` and webpack-dev-server on endpoint `http://localhost:8080`. (We've taught Webpack to proxy server requests back to `:3000`.) If you open `:8080` in a browser, you should see the changes you make to your React components appear on the page in realtime. You may know this feature variously as Hot Module Reloading or Fast Refresh. No matter what you call it, it's cool.
 
+### `yarn lint`
+
+Checks ESLint (which also runs Prettier) against the codebase. Run `yarn fix` to automatically fix problems that can be automatically fixed. Let us know if your text editor is able to run Prettier upon file saves; it should be able to pick up Prettier from its location in the project's `node_modules/`.
 
 ### ci
 
