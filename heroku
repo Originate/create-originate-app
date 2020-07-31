@@ -8,8 +8,12 @@ function main {
     yarn workspace @/react build
     git add .
     git add --force packages/server/public/_/*.{js,html}
-    git commit -m Deploy
-    git push heroku HEAD:master -f
+
+    # https://stackoverflow.com/questions/38617367/create-dangling-commit-without-checking-out
+    local tree=$(git write-tree)
+    local commit=$(git commit-tree "$tree" -p HEAD -m Deploy)
+    git push heroku "$commit":master -f
+    git reset .
 }
 
 
