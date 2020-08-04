@@ -17,7 +17,7 @@ module.exports = merge(common('.env'), {
   devServer: {
     hot: true,
     compress: true,
-    contentBase: path.resolve(__dirname, '../server/public/'),
+    contentBase: path.resolve(__dirname, '../backend/public/'),
     historyApiFallback: true,
     proxy: {
       '/api': 'http://localhost:3000',
@@ -25,7 +25,7 @@ module.exports = merge(common('.env'), {
   },
   plugins: [new ReactRefreshPlugin()],
   output: {
-    path: path.resolve(__dirname, '../server/public/webpack/'),
+    path: path.resolve(__dirname, '../backend/public/webpack/'),
     publicPath: '/',
     filename: '[name].[hash].js',
   },

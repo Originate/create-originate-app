@@ -60,7 +60,7 @@ jobs:
       run: |
         export VERSION="$(git rev-list --count HEAD)"
         export TAG="v${VERSION}"
-        yarn workspace @/react build
-        git add --force packages/server/public/webpack/*.{js,html}
+        yarn workspace @/frontend build
+        git add --force packages/backend/public/webpack/*.{js,html}
         git commit -m Deploy
         git push heroku HEAD:master -f

@@ -5,9 +5,9 @@ set -euo pipefail
 function main {
     local repo="https://git.heroku.com/$1.git"
     git config remote.heroku.url >&- || git remote add heroku "$repo"
-    yarn workspace @/react build
+    yarn workspace @/frontend build
     git add .
-    git add --force packages/server/public/webpack/*.{js,html}
+    git add --force packages/backend/public/webpack/*.{js,html}
 
     # https://stackoverflow.com/questions/38617367/create-dangling-commit-without-checking-out
     local tree=$(git write-tree)

@@ -39,7 +39,7 @@ module.exports = (envFile) => ({
     ],
   },
   output: {
-    path: resolve('../server/public/webpack/'),
+    path: resolve('../backend/public/webpack/'),
     publicPath: '/webpack/',
     filename: '[name].[hash].js',
   },
@@ -51,7 +51,7 @@ module.exports = (envFile) => ({
       alwaysWriteToDisk: true,
     }),
     new HtmlWebpackHarddiskPlugin({
-      outputPath: resolve('../server/public/webpack/'),
+      outputPath: resolve('../backend/public/webpack/'),
     }),
   ],
   resolve: {

@@ -22,4 +22,4 @@ node_modules/
 ignored/
 
 # webpack
-packages/server/public/webpack/
+packages/backend/public/webpack/

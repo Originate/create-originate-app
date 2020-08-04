@@ -1,1 +1,1 @@
-web: cd packages/server && yarn heroku
+web: cd packages/backend && yarn heroku

@@ -1,5 +1,5 @@
 {
-  "name": "@/server",
+  "name": "@/backend",
   "version": "1.0.0",
   "scripts": {
     "_node": "ts-node --transpile-only -r tsconfig-paths/register",

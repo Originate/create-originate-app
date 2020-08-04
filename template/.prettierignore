@@ -1,5 +1,5 @@
 dist
 *.json
-packages/server/public/webpack/
+packages/backend/public/webpack/
 ignored/
 .yarn/
