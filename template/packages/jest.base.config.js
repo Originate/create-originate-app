@@ -7,7 +7,6 @@ module.exports = {
       isolatedModules: true,
       diagnostics: {
         warnOnly: true,
-        ignoreCodes: [151001],
       },
     },
   },
