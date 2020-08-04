@@ -7,7 +7,7 @@ function main {
     git config remote.heroku.url >&- || git remote add heroku "$repo"
     yarn workspace @/react build
     git add .
-    git add --force packages/server/public/_/*.{js,html}
+    git add --force packages/server/public/webpack/*.{js,html}
 
     # https://stackoverflow.com/questions/38617367/create-dangling-commit-without-checking-out
     local tree=$(git write-tree)
