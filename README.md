@@ -25,7 +25,7 @@ You won't want to constantly run `npx` as you work on COA. You can instead clone
 
 ## features thus far
 
-### `yarn console`
+### `yarn typecheck:watch` (or `yarn tw`)
 
 Runs TypeScript on the much-beloved Watch Mode™ so you can keep an eye on type mishaps across the whole project while you write new code or refactor. You can run `yarn typecheck` to just typecheck once.
 

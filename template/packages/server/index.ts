@@ -1,3 +1,3 @@
 if (require.main === module) {
-  console.log('hello world');
+  typecheck:watch.log('hello world');
 }

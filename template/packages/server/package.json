@@ -11,7 +11,7 @@
     "lint": "eslint --cache --ext .ts .",
     "heroku": "yarn _node index.ts",
     "typecheck": "echo server && tsc -p .",
-    "console": "yarn typecheck --watch",
+    "typecheck:watch": "yarn typecheck --watch",
     "test": "LOG_LEVEL=warn yarn _jest --config=jest.config.js"
   },
   "private": true,

@@ -6,7 +6,7 @@ export const Hello = () => (
     <p>Some things to try next:</p>
     <ul>
       <li>
-        Run <code>yarn console</code> (<em>ooh, aah</em>)
+        Run <code>yarn typecheck:watch</code> or <code>yarn tw</code> (<em>ooh, aah</em>)
       </li>
       <li>
         Modify <code>src/components/hello.tsx</code> and watch the changes happen live here
