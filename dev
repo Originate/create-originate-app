@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function start_server {
+  yarn workspace @/backend dev
+}
+
+function start_react {
+  yarn workspace @/frontend dev
+}
+
+trap 'pkill -P $$' SIGINT SIGTERM
+start_server &
+start_react &
+wait

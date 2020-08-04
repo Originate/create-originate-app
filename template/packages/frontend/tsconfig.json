@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "ignored",
+    "jsx": "react",
+    "module": "esnext",
+    "target": "esnext",
+    "types": ["react", "jest"],
+    "lib": ["es2019", "dom"]
+  },
+  "references": [
+    { "path": "../lib" }
+  ],
+  "exclude": [
+    "node_modules",
+    "ignored",
+    "*.config.js"
+  ]
+}

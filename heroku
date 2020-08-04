@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function main {
+    local repo="https://git.heroku.com/$1.git"
+    git config remote.heroku.url >&- || git remote add heroku "$repo"
+    yarn workspace @/frontend build
+    git add .
+    git add --force packages/backend/public/webpack/*.{js,html}
+
+    # https://stackoverflow.com/questions/38617367/create-dangling-commit-without-checking-out
+    local tree=$(git write-tree)
+    local commit=$(git commit-tree "$tree" -p HEAD -m Deploy)
+    git push heroku "$commit":master -f
+    git reset .
+}
+
+
+if (( $# < 1 )); then
+    echo "error: ./vendor/heroku [name of heroku app]" 1>&2
+fi
+
+main "$1"
