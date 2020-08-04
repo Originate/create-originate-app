@@ -12,8 +12,7 @@
     "heroku": "yarn _node index.ts",
     "typecheck": "echo server && tsc -p .",
     "console": "yarn typecheck --watch",
-    "test": "LOG_LEVEL=warn yarn _jest --config=jest.config.js",
-    "test:db": "LOG_LEVEL=warn yarn _jest --config=jest.config.db.js"
+    "test": "LOG_LEVEL=warn yarn _jest --config=jest.config.js"
   },
   "private": true,
   "dependencies": {
