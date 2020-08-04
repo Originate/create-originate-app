@@ -8,7 +8,8 @@
     "dev": "./vendor/dev",
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
-    "fix": "yarn workspaces run lint --fix"
+    "fix": "yarn workspaces run lint --fix",
+    "run:heroku": "yarn workspace @/backend run:heroku"
   },
   "workspaces": [
     "packages/*"

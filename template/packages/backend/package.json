@@ -9,7 +9,7 @@
     "fix": "yarn _prettier --write > /dev/null",
     "dev": "nodemon --watch ..",
     "lint": "eslint --cache --ext .ts .",
-    "heroku": "yarn _node index.ts",
+    "run:heroku": "yarn _node index.ts",
     "typecheck": "echo server && tsc -p .",
     "typecheck:watch": "yarn typecheck --watch",
     "test": "LOG_LEVEL=warn yarn _jest --config=jest.config.js"
