@@ -8,5 +8,8 @@
     "lint": "eslint --cache --ext .ts .",
     "test": "jest --maxWorkers=1"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@Originate/leash": "^1.0.6"
+  }
 }
