@@ -16,6 +16,8 @@
   },
   "private": true,
   "dependencies": {
+    "@Originate/leash": "^1.0.6",
+    "@types/express": "^4.17.7",
     "@types/node": "^14.0.26",
     "dotenv": "^8.2.0",
     "ts-node": "^8.10.2",
