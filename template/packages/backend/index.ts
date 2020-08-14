@@ -1,6 +1,6 @@
 import {good} from '@Originate/leash';
 import express from 'express';
-import {router} from '@/lib/routes';
+import {router} from '@/lib';
 
 import {delay} from '@/backend/src/utils';
 

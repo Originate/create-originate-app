@@ -30,6 +30,8 @@ function main {
     sync "$here"/template/{.prettierrc,.prettierignore}
     sync "$here"/template/packages/.eslintrc.base.js
     sync "$here"/template/packages/{lib,frontend,backend}/.eslintrc.js
+    # lib
+    sync "$here"/template/packages/lib/src/
     # backend
     sync "$here"/template/Procfile
     sync "$here"/template/packages/backend/nodemon.json

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {router} from '@/lib/routes';
+import {router} from '@/lib';
 
 const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: string}>}) => (
   <div>
