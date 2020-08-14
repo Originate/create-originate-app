@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {router} from '@/lib/routes';
 
-const Hello_ = ({onClick, response}: {onClick: () => void; response: object | undefined}) => (
+const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: string}>}) => (
   <div>
     <h1>Hello, Again</h1>
     <p>Some things to try next:</p>
@@ -11,7 +11,7 @@ const Hello_ = ({onClick, response}: {onClick: () => void; response: object | un
       </dt>
       <dd>
         <button onClick={onClick}>Talk to the backend</button>
-        <pre>{response ? JSON.stringify(response) : '...'}</pre>
+        <pre>{moods ? (moods.length ? JSON.stringify(moods) : 'loading...') : '...'}</pre>
       </dd>
       <dt>
         <strong>Typecheck</strong>
@@ -40,15 +40,15 @@ const Hello_ = ({onClick, response}: {onClick: () => void; response: object | un
 );
 
 export const Hello = () => {
-  const [response, setResponse] = React.useState<{mood: string}[] | undefined>(undefined);
+  const [moods, setMoods] = React.useState<{mood: string}[] | undefined>(undefined);
   const onClick = React.useCallback(() => {
-    setResponse(undefined);
+    setMoods([]);
     router.ping
-      .client('big')
-      .then(setResponse)
+      .client({mood: 'big'})
+      .then(setMoods)
       .catch((e) => {
         throw e;
       });
   }, []);
-  return <Hello_ onClick={onClick} response={response} />;
+  return <HelloView onClick={onClick} moods={moods} />;
 };
