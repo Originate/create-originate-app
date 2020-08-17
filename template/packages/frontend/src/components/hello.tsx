@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {router} from '@/lib';
+import {Env} from '../env';
 
 const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: string}>}) => (
   <div>
@@ -39,7 +40,7 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
   </div>
 );
 
-export const Hello = () => {
+export const Hello: React.FC<{env: Env}> = ({env}: {env: Env}) => {
   const [moods, setMoods] = React.useState<{mood: string}[] | undefined>(undefined);
   const onClick = React.useCallback(() => {
     setMoods([]);
@@ -50,5 +51,6 @@ export const Hello = () => {
         throw e;
       });
   }, []);
+  console.log('Environment loaded:', env);
   return <HelloView onClick={onClick} moods={moods} />;
 };

@@ -1,9 +1,9 @@
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 
 const resolve = (subdir) => path.resolve(__dirname, subdir);
@@ -44,7 +44,9 @@ module.exports = (envFile) => ({
     filename: '[name].[hash].js',
   },
   plugins: [
-    new Dotenv({systemvars: true, safe: true, path: envFile}),
+    new webpack.DefinePlugin({
+      MAGIC_WEBPACK_ENVIRONMENT: JSON.stringify(dotenv.config(envFile).parsed)
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
