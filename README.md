@@ -1,12 +1,24 @@
-`npx github:Originate/create-originate-app [app name]` to get started
+`npx github:Originate/create-originate-app [app name]` to get started.
 
 ## prerequisites
 
 - Fairly modern macOS or Linux
 - Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
+- Set up your ~/.npmrc (see below)
 - Yarn
 - Git
 - zsh
+
+## ~/.npmrc
+
+[Create a personal access token](https://github.com/settings/tokens) and then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
+
+```
+@Originate:registry=https://npm.pkg.github.com
+
+_authToken=<PASTE AUTH TOKEN HERE>
+always-auth=true
+```
 
 ## design document
 
