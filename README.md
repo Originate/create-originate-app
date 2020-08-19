@@ -11,7 +11,16 @@
 
 ## ~/.npmrc
 
-[Create a personal access token](https://github.com/settings/tokens) and then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
+[Create a personal access token](https://github.com/settings/tokens) and make sure to add these scopes:
+
+```
+write:packages
+read:packages
+delete:packages
+``` 
+
+Then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
+
 
 ```
 @Originate:registry=https://npm.pkg.github.com
