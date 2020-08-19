@@ -2,6 +2,17 @@
 
 https://github.com/Originate/create-originate-app/projects/1
 
+## ~/.npmrc
+
+[Create a personal access token](https://github.com/settings/tokens) and then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
+
+```
+@Originate:registry=https://npm.pkg.github.com
+
+_authToken=<PASTE AUTH TOKEN HERE>
+always-auth=true
+```
+
 ## development install
 
 We ask users to run create-originate-app by running `npx create-originate-app [folder]`, just as create-react-app does. However, this is a poor experience if you're actively hacking on COA, as you won't want to litter your filesystem with thousands of directories. What you should do, instead, is:
