@@ -12,7 +12,7 @@ const main = () => {
   const env = parseEnv();
   if (typeof env == 'string') {
     ReactDOM.render(
-      <Error header="unable to parse webpack env" message={env} footer="unsolicited advice: check your .env file" />,
+      <Error header="unable to parse webpack env" message={env} footer="unsolicited advice: check your packages/frontend/.env file" />,
       div,
     );
   } else {
