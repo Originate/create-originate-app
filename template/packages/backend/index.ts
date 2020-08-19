@@ -27,7 +27,7 @@ function main() {
     console.error('');
     console.error(env);
     console.error('');
-    console.error('unsolicited advice: check your .env file');
+    console.error('unsolicited advice: check to make sure you have a packages/backend/.env file');
   } else {
     app.listen(env.PORT, () => {
       console.log(`backend: started at http://localhost:${env.PORT}`);
