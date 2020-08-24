@@ -10,7 +10,7 @@ module.exports = (api) => {
       '@babel/proposal-class-properties',
       '@babel/plugin-syntax-class-properties',
       '@babel/proposal-object-rest-spread',
-      !api.env('production') && 'react-refresh/babel',
-    ],
+      api.env('production') ? null : 'react-refresh/babel',
+    ].filter(Boolean),
   };
 };

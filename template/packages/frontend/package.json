@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "BABEL_ENV=production webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
     "typecheck": "echo react && tsc -p .",
     "typecheck:watch": "yarn typecheck --watch",

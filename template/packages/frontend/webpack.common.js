@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 const resolve = (subdir) => path.resolve(__dirname, subdir);
 
-module.exports = (envFile) => ({
+const configurationOfEnv = (env) => ({
   entry: {
     main: resolve('index.tsx'),
   },
@@ -40,12 +40,12 @@ module.exports = (envFile) => ({
   },
   output: {
     path: resolve('../backend/public/webpack/'),
-    publicPath: '/webpack/',
+    publicPath: '/public/',
     filename: '[name].[hash].js',
   },
   plugins: [
     new webpack.DefinePlugin({
-      MAGIC_WEBPACK_ENVIRONMENT: JSON.stringify(dotenv.config(envFile).parsed)
+      MAGIC_WEBPACK_ENVIRONMENT: JSON.stringify(env)
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -61,3 +61,10 @@ module.exports = (envFile) => ({
     modules: [resolve(''), 'node_modules'],
   },
 });
+
+module.exports = (envFile) => {
+  // Watch out: dotenv.config() secretly mutates process.env.
+  const keys = Object.keys(dotenv.config(envFile).parsed)
+  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => keys.includes(key)))
+  return configurationOfEnv(env)
+}

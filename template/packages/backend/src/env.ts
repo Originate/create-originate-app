@@ -2,7 +2,8 @@ import * as D from 'io-ts/lib/Decoder';
 import * as Either from 'fp-ts/lib/Either';
 
 const decoder = D.type({
-  PORT: D.string
+  ENVIRONMENT: D.string,
+  PORT: D.string,
 });
 
 export type Env = D.TypeOf<typeof decoder>;
