@@ -21,4 +21,5 @@ if (( $# < 1 )); then
     echo "error: ./vendor/heroku [name of heroku app]" 1>&2
 fi
 
+export ENVIRONMENT=production
 main "$1"

@@ -25,8 +25,8 @@ module.exports = merge(common('.env'), {
   },
   plugins: [new ReactRefreshPlugin()],
   output: {
-    path: path.resolve(__dirname, '../backend/public/webpack/'),
-    publicPath: '/',
-    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, '../backend/public/'),
+    publicPath: '/public/',
+    filename: '[name].[hash].webpack.js',
   },
 });
