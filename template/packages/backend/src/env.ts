@@ -1,9 +1,10 @@
 import * as D from 'io-ts/lib/Decoder';
 import * as Either from 'fp-ts/lib/Either';
+import {withDefault} from '@/lib/io-ts';
 
 const decoder = D.type({
   ENVIRONMENT: D.string,
-  PORT: D.string,
+  PORT: withDefault('3000', D.string),
 });
 
 export type Env = D.TypeOf<typeof decoder>;

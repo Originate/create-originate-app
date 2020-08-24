@@ -9,12 +9,6 @@
     "baseUrl": ".",
     "types": ["jest", "node"]
   },
-  "references": [
-    { "path": "../lib" }
-  ],
-  "exclude": [
-    "node_modules",
-    "ignored",
-    "*.config.js"
-  ]
+  "references": [{"path": "../lib"}],
+  "exclude": ["node_modules", "ignored", "*.config.js"]
 }

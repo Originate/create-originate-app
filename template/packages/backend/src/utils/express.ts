@@ -1,7 +1,7 @@
 import {Express} from 'express';
 import cors from 'cors';
 import path from 'path';
-import express from 'express';
+import express, {Request, Response} from 'express';
 import compression from 'compression';
 
 import {Env} from '@/backend/src/env';
@@ -71,7 +71,13 @@ const applySecurityHeadersAndConfig = (env: Env, express: Express): void => {
   express.disable('x-powered-by');
 };
 
-export const makeExpress = (env: Env): Express => {
+const sendStaticFile = (file: string, mime: string) => (_: Request, res: Response) => {
+  res.set('Cache-Control', 'public, max-age=60');
+  res.set('Content-Type', mime);
+  res.sendFile(path.join(__dirname, '../../public/', file));
+};
+
+export const makeExpress = (env: Env, installRoutes: (app: Express) => void): Express => {
   const app = express();
   // Compress responses
   app.use(compression());
@@ -85,12 +91,14 @@ export const makeExpress = (env: Env): Express => {
   // Parse JSON bodies (as sent by API clients)
   app.use(express.json());
 
+  // API routes
+  installRoutes(app);
+
   // Serve static assets
-  app.use('/public', express.static(path.join(__dirname, '../../public/webpack')));
-  app.get('*', (_, res) => {
-    res.set('Cache-Control', 'public, max-age=60');
-    res.set('Content-Type', 'text/html; charset=UTF-8');
-    res.sendFile(path.join(__dirname, '../../public/webpack/index.html'));
-  })
+  app.use('/public', express.static(path.join(__dirname, '../../public')));
+  app.use('/apple-touch-icon.png', sendStaticFile('apple-touch-icon.png', 'image/png'));
+  app.use('/favicon.png', sendStaticFile('favicon.png', 'image/png'));
+  app.use('/robots.txt', sendStaticFile('robots.txt', 'text/plain'));
+  app.use('*', sendStaticFile('index.html', 'text/html; charset=UTF-8'));
   return app;
 };

@@ -22,4 +22,6 @@ node_modules/
 ignored/
 
 # webpack
-packages/backend/public/webpack/
+packages/backend/public/index.html
+*.webpack.js
+*.webpack.js.map

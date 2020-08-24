@@ -19,15 +19,15 @@ function main() {
     process.exit(1);
   }
 
-  const app = makeExpress(env);
-
-  router.ping.install(app, async (req) => {
-    const fakeDelayForDemo = () => delay(2);
-    await fakeDelayForDemo();
-    if (typeof req.query.mood === 'string') {
-      return good({mood: req.query.mood});
-    }
-    throw new Error('bad mood');
+  const app = makeExpress(env, (app) => {
+    router.ping.install(app, async (req) => {
+      const fakeDelayForDemo = () => delay(2);
+      await fakeDelayForDemo();
+      if (typeof req.query.mood === 'string') {
+        return good({mood: req.query.mood});
+      }
+      throw new Error('bad mood');
+    });
   });
 
   app.listen(env.PORT, () => {

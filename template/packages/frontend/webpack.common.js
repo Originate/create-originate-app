@@ -39,9 +39,9 @@ const configurationOfEnv = (env) => ({
     ],
   },
   output: {
-    path: resolve('../backend/public/webpack/'),
+    path: resolve('../backend/public/'),
     publicPath: '/public/',
-    filename: '[name].[hash].js',
+    filename: '[name].[hash].webpack.js',
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -53,7 +53,7 @@ const configurationOfEnv = (env) => ({
       alwaysWriteToDisk: true,
     }),
     new HtmlWebpackHarddiskPlugin({
-      outputPath: resolve('../backend/public/webpack/'),
+      outputPath: resolve('../backend/public/'),
     }),
   ],
   resolve: {

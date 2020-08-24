@@ -51,6 +51,8 @@ export const Hello: React.FC<{env: Env}> = ({env}: {env: Env}) => {
         throw e;
       });
   }, []);
-  console.log('Environment loaded:', env);
+  React.useEffect(() => {
+    console.log('Environment loaded:', env);
+  }, [env]);
   return <HelloView onClick={onClick} moods={moods} />;
 };
