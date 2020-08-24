@@ -1,4 +1,4 @@
-`npx github:Originate/create-originate-app [app name]` to get started.
+`npx github:Originate/create-originate-app [app name]` to get started. This project is designed to make it easy to set up a single-page React app. TypeScript types shared between the frontend and backend workspaces ensure the two codebases agree on the shape of data-access objects. There are some other niceties too, like React Fast Refresh.
 
 ## prerequisites
 
