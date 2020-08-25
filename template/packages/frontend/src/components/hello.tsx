@@ -40,7 +40,7 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
         <strong>Set up Google Analytics and Sentry</strong>
       </dt>
       <dd>
-        Set <code>GOOGLE_ANALYTICS_ID</code> and <code>SENTRY_LAZY_LOADER_URL</code> in your{' '}
+        Set <code>GA_MEASUREMENT_ID</code> and <code>SENTRY_LAZY_LOADER_URL</code> in your{' '}
         <code>packages/frontend/.env</code>. For more information, see{' '}
         <a href="https://github.com/Originate/create-originate-app/blob/master/ANALYTICS.md">ANALYTICS.md</a>.
       </dd>

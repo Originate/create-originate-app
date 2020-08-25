@@ -51,7 +51,7 @@ const configurationOfEnv = (env) => ({
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       alwaysWriteToDisk: true,
-      GA_MEASUREMENT_ID: env.GOOGLE_ANALYTICS_ID,
+      GA_MEASUREMENT_ID: env.GA_MEASUREMENT_ID,
       SENTRY_LAZY_LOADER_URL: env.SENTRY_LAZY_LOADER_URL,
     }),
     new HtmlWebpackHarddiskPlugin({

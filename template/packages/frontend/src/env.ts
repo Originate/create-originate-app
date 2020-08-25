@@ -6,7 +6,7 @@ declare global {
 }
 
 const decoder = D.type({
-  GOOGLE_ANALYTICS_ID: D.string,
+  GA_MEASUREMENT_ID: D.string,
   ENVIRONMENT: D.string,
   SENTRY_LAZY_LOADER_URL: D.string,
 });
