@@ -22,6 +22,21 @@
         padding: 0 5px;
       }
     </style>
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>');
+    </script>
+
+    <script src="<%= htmlWebpackPlugin.options.SENTRY_LAZY_LOADER_URL %>" crossorigin="anonymous"></script>
   </head>
   <body></body>
 </html>
