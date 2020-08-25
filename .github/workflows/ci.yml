@@ -11,28 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-        registry-url: https://npm.pkg.github.com/
-        scope: '@Originate'
-
+    - name: GitHub Packages magic
+      env:
+        TOKEN: ${{ secrets.MACHINE_GITHUB_PACKAGES_TOKEN }}
+      run: |
+        cat >~/.npmrc <<EOF
+        //npm.pkg.github.com/:_authToken=$TOKEN
+        @Originate:registry=https://npm.pkg.github.com
+        always-auth=true
+        EOF
     - name: Cache node_modules
       uses: actions/cache@v1
       with:
-        path: node_modules
-        key: ${{ runner.OS}}-build-${{ hashFiles('**/yarn.lock') }}
+        path: template/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
     - name: Cache TypeScript output
       uses: actions/cache@v1
       with:
-        path: template/ignored
+        path: |
+          template/packages/lib/ignored
+          template/packages/frontend/ignored
+          template/packages/backend/ignored
         key: ignored
-
-    - name: Debug
-      run: |
-        echo ${{ github.event_name }}
-        echo ${{ github.ref }}
 
     - run: yarn --frozen-lockfile
       working-directory: template

@@ -6,9 +6,9 @@ declare global {
 }
 
 const decoder = D.type({
-  GOOGLE_ANALYTICS_ID: D.string,
+  GA_MEASUREMENT_ID: D.string,
   ENVIRONMENT: D.string,
-  SENTRY_DSN: D.string,
+  SENTRY_LAZY_LOADER_URL: D.string,
 });
 
 export type Env = D.TypeOf<typeof decoder>;
