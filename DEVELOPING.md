@@ -39,3 +39,7 @@ The `./template` directory in this project is designed to be a working Yarn pack
 - `../dev`
 
 To run the development environment as usual. This sort of works as a happy side effect of our design, because we currently do not have any empty values to fill in. It might be that we preserve this quality of the app as we continue to expand the project, but it also might be that we replace this mechanism with something similar. In any case, these two development workflows are designed to minimize the write-test-debug loop, which can be long when you're working on a project like this.
+
+## continuous integration
+
+There are _two_ instances of `.github/workflows/ci.yml` in this repository: one in `templates/` and one in the root directory. The reason for that is we want to initialize new apps with a GitHub CI, but we _also_ want to run CI on our own project. The one we run on our own project is a little convoluted because we need access to the `@Originate` organization to grab the `@Originate/leash` project. To accomplish that, we set up a `machine-originate` user, whose password you can find on Slack in the `#create-originate-app` channel, whose personal access token we've added to the repository as `MACHINE_GITHUB_PACKAGES_TOKEN`. The user's email address is `machine@originate.com`, which points to a Google Group that you should have read/write access to already.
