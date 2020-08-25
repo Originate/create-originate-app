@@ -24,18 +24,18 @@ jobs:
       uses: actions/cache@v1
       with:
         path: node_modules
-        key: ${{ runner.OS}}-build-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
     - name: Cache TypeScript output
       uses: actions/cache@v1
       with:
-        path: template/ignored
+        path: |
+          template/packages/lib/ignored
+          template/packages/frontend/ignored
+          template/packages/backend/ignored
         key: ignored
-
-    - name: Debug
-      run: |
-        echo ${{ github.event_name }}
-        echo ${{ github.ref }}
 
     - run: yarn --frozen-lockfile
       working-directory: template
