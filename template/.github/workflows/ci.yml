@@ -16,7 +16,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: node_modules
-        key: ${{ runner.OS}}-build-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
     - name: Cache TypeScript output
       uses: actions/cache@v1
