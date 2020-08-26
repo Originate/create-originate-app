@@ -20,6 +20,7 @@ node_modules/
 
 # typescript
 ignored/
+*.tsbuildinfo
 
 # webpack
 packages/backend/public/index.html

@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "ignored",
     "jsx": "react",
     "module": "esnext",
     "target": "esnext",
