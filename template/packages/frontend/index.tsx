@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import {parseEnv} from './src/env';
-import {Hello} from './src/components/hello';
+import {Switchboard} from './src';
 import {Error} from './src/components/error';
 
 const main = () => {
@@ -20,7 +20,7 @@ const main = () => {
       div,
     );
   } else {
-    ReactDOM.render(<Hello env={env} />, div);
+    ReactDOM.render(<Switchboard env={env} />, div);
   }
 };
 
