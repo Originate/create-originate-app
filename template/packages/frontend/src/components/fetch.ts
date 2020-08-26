@@ -1,6 +1,6 @@
 import * as React from 'react';
-export {Fetch} from '@/frontend/src/reducer';
-import {Fetch} from '@/frontend/src/reducer';
+export type {Fetch} from '@/frontend/src/store';
+import {Fetch} from '@/frontend/src/store';
 
 export const good = <T>(fetch: Fetch<T> | undefined, render: (data: T) => React.ReactNode): React.ReactNode => {
   if (fetch?.state === 'good') return render(fetch.data);

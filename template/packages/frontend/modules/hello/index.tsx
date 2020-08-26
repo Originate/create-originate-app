@@ -3,7 +3,14 @@ import * as React from 'react';
 import {Fetch, good, bad, loading} from '@/frontend/src/components/fetch';
 import {useStore, useDispatch} from '@/frontend/src/components/context';
 
-const HelloView = ({onClick, mood}: {onClick: () => void; mood?: Fetch<Array<{mood: string}>>}) => (
+import {Counter} from '@/frontend/modules/counter';
+
+interface HelloView {
+  onClick: () => void;
+  mood?: Fetch<Array<{mood: string}>>;
+}
+
+const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
   <div>
     <h1>Hello, Again</h1>
     <p>Some things to try next:</p>
@@ -48,6 +55,14 @@ const HelloView = ({onClick, mood}: {onClick: () => void; mood?: Fetch<Array<{mo
         Set <code>GA_MEASUREMENT_ID</code> and <code>SENTRY_LAZY_LOADER_URL</code> in your{' '}
         <code>packages/frontend/.env</code>. For more information, see{' '}
         <a href="https://github.com/Originate/create-originate-app/blob/master/ANALYTICS.md">ANALYTICS.md</a>.
+      </dd>
+      <dt>
+        <strong>Check out our module system</strong>
+      </dt>
+      <dd>
+        A module is a React component coupled with its own state and reducer. Here is a counter implemented out of{' '}
+        <code>./modules/counter</code>:
+        <Counter />
       </dd>
     </dl>
   </div>

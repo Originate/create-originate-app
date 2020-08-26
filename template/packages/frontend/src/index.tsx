@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {useReducer, useState, FC} from 'react';
 
-import {initialStore, reducer, Store} from '@/frontend/src/reducer';
+import {initialStore, reducer, Store} from '@/frontend/src/store';
 import {Env} from '@/frontend/src/env';
 import {Dispatch} from '@/frontend/src/dispatch';
-import {Hello} from '@/frontend/src/components/hello';
 import {StoreContext, DispatchContext} from '@/frontend/src/components/context';
+
+import {Hello} from '@/frontend/modules/hello';
 
 const Contextually: FC<{dispatch: Dispatch; store: Store; children: React.ReactNode}> = ({
   dispatch,

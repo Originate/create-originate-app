@@ -33,5 +33,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/no-empty-function': 0,
+    '@typescript-eslint/ban-types': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
   },
 };

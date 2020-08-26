@@ -1,5 +1,5 @@
 import {router} from '@/lib';
-import {Action} from '@/frontend/src/reducer';
+import {Action} from '@/frontend/src/store';
 
 export class Dispatch {
   constructor(public dispatch: (action: Action) => void) {}
@@ -14,5 +14,10 @@ export class Dispatch {
         this.dispatch({key: 'hello/click', state: 'bad', error: e.toString()});
       }
     },
+  };
+
+  counter = {
+    onIncrement: () => this.dispatch({key: 'counter/increment'}),
+    onReset: () => this.dispatch({key: 'counter/reset'}),
   };
 }
