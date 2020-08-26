@@ -1,7 +1,9 @@
 import * as React from 'react';
-import {router} from '@/lib';
 
-const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: string}>}) => (
+import {Fetch, good, bad, loading} from '@/frontend/src/components/fetch';
+import {useStore, useDispatch} from '@/frontend/src/components/context';
+
+const HelloView = ({onClick, mood}: {onClick: () => void; mood?: Fetch<Array<{mood: string}>>}) => (
   <div>
     <h1>Hello, Again</h1>
     <p>Some things to try next:</p>
@@ -11,7 +13,11 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
       </dt>
       <dd>
         <button onClick={onClick}>Talk to the backend</button>
-        <pre>{moods ? (moods.length ? JSON.stringify(moods) : 'loading...') : '...'}</pre>
+        <pre>
+          {loading(mood, () => 'loading...')}
+          {bad(mood, (error) => `Unexpected error occurred: ${error}`)}
+          {good(mood, (data) => JSON.stringify(data))}
+        </pre>
       </dd>
       <dt>
         <strong>Typecheck</strong>
@@ -48,15 +54,7 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
 );
 
 export const Hello: React.FC<{}> = () => {
-  const [moods, setMoods] = React.useState<{mood: string}[] | undefined>(undefined);
-  const onClick = React.useCallback(() => {
-    setMoods([]);
-    router.ping
-      .client({mood: 'big'})
-      .then(setMoods)
-      .catch((e) => {
-        throw e;
-      });
-  }, []);
-  return <HelloView onClick={onClick} moods={moods} />;
+  const store = useStore().hello;
+  const dispatch = useDispatch();
+  return <HelloView onClick={dispatch.hello.onClick} mood={store.mood} />;
 };

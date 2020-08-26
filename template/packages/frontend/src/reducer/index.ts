@@ -1,4 +1,4 @@
-export {Store, Action} from './types';
+export {Store, Action, Fetch} from './types';
 export {initialStore} from './store';
 
 import {Store, Action} from './types';
