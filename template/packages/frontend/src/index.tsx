@@ -4,7 +4,7 @@ import {useReducer, useState, FC} from 'react';
 import {initialStore, reducer, Store} from '@/frontend/src/store';
 import {Env} from '@/frontend/src/env';
 import {Dispatch} from '@/frontend/src/dispatch';
-import {StoreContext, DispatchContext} from '@/frontend/src/components/context';
+import {StoreContext, DispatchContext} from '@/frontend/src/components/contexts';
 
 import {Hello} from '@/frontend/modules/hello';
 

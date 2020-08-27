@@ -1,2 +1,2 @@
-export {HelloStore, CounterStore, Store, Action, Fetch} from './types';
+export {HelloStore, CounterStore, Store, Action} from './types';
 export {reducer, initialStore} from './reducer';

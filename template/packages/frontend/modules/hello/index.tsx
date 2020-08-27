@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import {Fetch, good, bad, loading} from '@/frontend/src/components/fetch';
-import {useStore, useDispatch} from '@/frontend/src/components/context';
+import {Fetch, isGood, isBad, isLoading} from '@/frontend/lib';
+import {useStore, useDispatch} from '@/frontend/src/components/contexts';
 
 import {Counter} from '@/frontend/modules/counter';
 
@@ -21,9 +21,9 @@ const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
       <dd>
         <button onClick={onClick}>Talk to the backend</button>
         <pre>
-          {loading(mood, () => 'loading...')}
-          {bad(mood, (error) => `Unexpected error occurred: ${error}`)}
-          {good(mood, (data) => JSON.stringify(data))}
+          {isLoading(mood, () => 'loading...')}
+          {isBad(mood, (error) => `Unexpected error occurred: ${error}`)}
+          {isGood(mood, (data) => JSON.stringify(data))}
         </pre>
       </dd>
       <dt>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {useStore, useDispatch} from '@/frontend/src/components/context';
+import {useStore, useDispatch} from '@/frontend/src/components/contexts';
 
 interface CounterView {
   onIncrement: () => void;

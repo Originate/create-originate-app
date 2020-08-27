@@ -1,4 +1,4 @@
-export type Fetch<T> = {state: 'loading'} | {state: 'bad'; error: string} | {state: 'good'; data: T};
+import {Fetch} from '@/frontend/lib';
 
 export type HelloStore = {
   mood?: Fetch<Array<{mood: string}>>;
