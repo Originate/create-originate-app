@@ -39,7 +39,7 @@ function main {
     # frontend
     sync "$here"/template/packages/frontend/webpack.{common,dev,prod}.js
     sync "$here"/template/packages/frontend/.env.example
-    sync "$here"/template/packages/frontend/{src,public,modules}/
+    sync "$here"/template/packages/frontend/{src,public,modules,lib}/
     sync "$here"/template/packages/frontend/babel.config.js
     yarn
 }

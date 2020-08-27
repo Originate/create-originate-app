@@ -12,9 +12,6 @@ export type Store = {
 };
 
 // This extends TValue with a {key: 'something'}
-type K<TKey extends string, TValue> = {key: TKey} & TValue;
+type K<TKey extends string, TValue = {}> = {key: TKey} & TValue;
 
-export type Action =
-  | K<'hello/click', Fetch<Array<{mood: string}>>>
-  | K<'counter/reset', {}>
-  | K<'counter/increment', {}>;
+export type Action = K<'hello/click', Fetch<Array<{mood: string}>>> | K<'counter/reset'> | K<'counter/increment'>;

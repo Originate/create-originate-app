@@ -2,6 +2,8 @@
  * This file does the work of combineReducers from redux, but allows us to avoid the boilerplate by assuming that every module exports initialStore and reducer.
  */
 
+import {middlewares} from './middlewares';
+
 const safelyAccess = (module, exportName, filename) => {
   if (exportName in module) {
     return module[exportName];
@@ -31,10 +33,18 @@ export const initialStore = () => {
   return initial;
 };
 
-export const reducer = (prev, action) => {
+const foldedModuleReducers = (prev, action) => {
   const next = {...prev};
   for (const [key, module] of modules) {
     next[key] = module.reducer(next[key], action);
   }
   return next;
+};
+
+export const reducer = (prev, action) => {
+  let acc = foldedModuleReducers;
+  for (const middleware of middlewares) {
+    acc = middleware(acc);
+  }
+  return acc(prev, action);
 };
