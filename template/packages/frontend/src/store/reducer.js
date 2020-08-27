@@ -1,21 +1,25 @@
-const safelyAccess = (obj, exportName, moduleName) => {
-  if (key in obj) {
-    return obj[key];
+/*
+ * This file does the work of combineReducers from redux, but allows us to avoid the boilerplate by assuming that every module exports initialStore and reducer.
+ */
+
+const safelyAccess = (module, exportName, filename) => {
+  if (exportName in module) {
+    return module[exportName];
   } else {
     throw new Error(
-      `reducer/reducer: ${moduleName} is missing "${exportName}". our magic reducer combiner depends on an export of "${exportName}"`,
+      `reducer/reducer: ${filename} is missing "${exportName}". our magic reducer combiner depends on an export of "${exportName}"`,
     );
   }
 };
 
-const moduleName = (filename) => filename.split('/')[1];
+const moduleNameOf = (filename) => filename.split('/')[1];
 
 const ctx = require.context('@/frontend/modules', true, /reducer.ts/);
-const modules = ctx.keys().map((moduleName) => [
-  moduleName(k),
+const modules = ctx.keys().map((filename) => [
+  moduleNameOf(filename),
   {
-    reducer: safelyAccess(ctx(k), 'reducer', k),
-    initialStore: safelyAccess(ctx(k), 'initialStore', k),
+    reducer: safelyAccess(ctx(filename), 'reducer', filename),
+    initialStore: safelyAccess(ctx(filename), 'initialStore', filename),
   },
 ]);
 
