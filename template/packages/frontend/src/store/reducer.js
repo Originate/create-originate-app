@@ -1,4 +1,4 @@
-const safelyAccess = (obj, key, information) => {
+const safelyAccess = (obj, exportName, moduleName) => {
   if (key in obj) {
     return obj[key];
   } else {
