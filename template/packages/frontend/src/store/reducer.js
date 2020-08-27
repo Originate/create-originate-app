@@ -3,7 +3,7 @@ const safelyAccess = (obj, key, information) => {
     return obj[key];
   } else {
     throw new Error(
-      `reducer/reducer: ${information} is missing "${key}". our magic reducer combiner depends on an export of "${key}"`,
+      `reducer/reducer: ${moduleName} is missing "${exportName}". our magic reducer combiner depends on an export of "${exportName}"`,
     );
   }
 };
