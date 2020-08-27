@@ -99,6 +99,7 @@ export const makeExpress = (env: Env, installRoutes: (app: Express) => void): Ex
   app.use('/apple-touch-icon.png', sendStaticFile('apple-touch-icon.png', 'image/png'));
   app.use('/favicon.png', sendStaticFile('favicon.png', 'image/png'));
   app.use('/robots.txt', sendStaticFile('robots.txt', 'text/plain'));
+  app.use('/api/*', (_, res) => res.sendStatus(404));
   app.use('*', sendStaticFile('index.html', 'text/html; charset=UTF-8'));
   return app;
 };

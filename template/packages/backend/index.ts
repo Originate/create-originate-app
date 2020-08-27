@@ -1,10 +1,16 @@
 import {good} from '@Originate/leash';
 import dotenv from 'dotenv';
 
-import {router} from '@/lib';
+import {authRouter, router, UserSignup, User} from '@/lib';
+import * as Auth from '@/auth';
+import * as D from 'io-ts/lib/Decoder';
 
 import {delay, makeExpress} from '@/backend/src/utils';
 import {parseEnv} from '@/backend/src/env';
+
+const signupDecoder: D.Decoder<unknown, UserSignup> = D.type({
+  name: D.string,
+});
 
 function main() {
   dotenv.config();
@@ -19,7 +25,14 @@ function main() {
     process.exit(1);
   }
 
+  const authController = new Auth.AuthController<UserSignup, User>(signupDecoder);
+
   const app = makeExpress(env, (app) => {
+    authRouter.login.install(app, authController.loginPOST);
+    authRouter.signup.install(app, authController.signupPOST);
+    authRouter['password-reset'].install(app, authController.passwordResetPOST);
+    authRouter.password.install(app, authController.passwordPUT);
+
     router.ping.install(app, async (req) => {
       const fakeDelayForDemo = () => delay(2);
       await fakeDelayForDemo();

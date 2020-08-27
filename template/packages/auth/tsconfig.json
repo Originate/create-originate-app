@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "ignored",
+    "noEmit": false
+  },
+  "exclude": [
+    "node_modules",
+    "ignored",
+    "*.config.js"
+  ]
+}

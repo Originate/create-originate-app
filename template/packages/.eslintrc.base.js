@@ -22,7 +22,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     '@typescript-eslint/no-floating-promises': 2,
-    '@typescript-eslint/require-await': 2,
+    '@typescript-eslint/require-await': 0,
     '@typescript-eslint/unbound-method': 2,
     '@typescript-eslint/no-triple-slash-reference': 0,
     '@typescript-eslint/camelcase': 0,
