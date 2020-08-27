@@ -11,7 +11,7 @@ const safelyAccess = (obj, key, information) => {
 const moduleName = (filename) => filename.split('/')[1];
 
 const ctx = require.context('@/frontend/modules', true, /reducer.ts/);
-const modules = ctx.keys().map((k) => [
+const modules = ctx.keys().map((moduleName) => [
   moduleName(k),
   {
     reducer: safelyAccess(ctx(k), 'reducer', k),
