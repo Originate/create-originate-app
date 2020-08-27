@@ -1,4 +1,4 @@
-import {CounterStore, Action} from '@/frontend/src/store';
+import {CounterStore, Action, IDispatch} from '@/frontend/src/store';
 
 export const initialStore: CounterStore = 0;
 
@@ -12,3 +12,10 @@ export const reducer = (prev: CounterStore, action: Action): CounterStore => {
       return prev;
   }
 };
+
+export function dispatch(this: IDispatch) {
+  return {
+    onIncrement: () => this.dispatch({key: 'counter/increment'}),
+    onReset: () => this.dispatch({key: 'counter/reset'}),
+  };
+}
