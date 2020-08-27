@@ -1,9 +1,16 @@
 import {router} from '@/lib';
-import {HelloStore, Action, IDispatch} from '@/frontend/src/store';
+import {IDispatch} from '@/frontend/src/store';
+import {ActionOf, Fetch} from '@/frontend/lib';
+
+export type HelloStore = {
+  mood?: Fetch<Array<{mood: string}>>;
+};
+
+export type HelloAction = ActionOf<'hello/click', Fetch<Array<{mood: string}>>>;
 
 export const initialStore: HelloStore = {};
 
-export const reducer = (prev: HelloStore, action: Action): HelloStore => {
+export const reducer = (prev: HelloStore, action: HelloAction): HelloStore => {
   switch (action.key) {
     case 'hello/click':
       return {...prev, mood: action};

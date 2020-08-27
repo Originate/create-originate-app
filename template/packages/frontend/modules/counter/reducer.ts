@@ -1,8 +1,13 @@
-import {CounterStore, Action, IDispatch} from '@/frontend/src/store';
+import {IDispatch} from '@/frontend/src/store';
+import {ActionOf} from '@/frontend/lib';
+
+export type CounterStore = number;
+
+export type CounterAction = ActionOf<'counter/reset'> | ActionOf<'counter/increment'>;
 
 export const initialStore: CounterStore = 0;
 
-export const reducer = (prev: CounterStore, action: Action): CounterStore => {
+export const reducer = (prev: CounterStore, action: CounterAction): CounterStore => {
   switch (action.key) {
     case 'counter/increment':
       return prev + 1;

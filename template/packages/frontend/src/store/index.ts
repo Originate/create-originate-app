@@ -1,4 +1,4 @@
-export {HelloStore, CounterStore, Store, Action} from './types';
+export {Store, Action} from './types';
 export {reducer, initialStore} from './reducer';
 
 import {Action} from './types';

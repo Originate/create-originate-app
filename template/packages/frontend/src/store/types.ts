@@ -1,17 +1,9 @@
-import {Fetch} from '@/frontend/lib';
-
-export type HelloStore = {
-  mood?: Fetch<Array<{mood: string}>>;
-};
-
-export type CounterStore = number;
+import * as counterModule from '@/frontend/modules/counter/reducer';
+import * as helloModule from '@/frontend/modules/hello/reducer';
 
 export type Store = {
-  hello: HelloStore;
-  counter: CounterStore;
+  hello: helloModule.HelloStore;
+  counter: counterModule.CounterStore;
 };
 
-// This extends TValue with a {key: 'something'}
-type K<TKey extends string, TValue = {}> = {key: TKey} & TValue;
-
-export type Action = K<'hello/click', Fetch<Array<{mood: string}>>> | K<'counter/reset'> | K<'counter/increment'>;
+export type Action = counterModule.CounterAction | helloModule.HelloAction;
