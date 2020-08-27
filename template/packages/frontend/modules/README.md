@@ -26,6 +26,32 @@ Any additions to the store that would introduce a new key off of the global `Sto
     
 - `./auth/types.ts` to contain the enumeration of Action types as well as any intermediary types you may need
 
+The resulting store would look like:
+
+```tsx
+interface Store {
+  auth: AuthStore;
+  // ...
+}
+
+interface Avatar {
+  url: string;
+  size: [number, number];
+}
+
+interface Session {
+  userID: string;
+  token: string;
+  expiresAt: Date;
+  refreshToken: string;
+}
+
+interface AuthStore {
+  session?: Session;
+  avatar?: Avatar;
+}
+```
+
 ### should everything be a module?
 
 Probably you will want to end up with something like
