@@ -1,8 +1,16 @@
 import * as React from 'react';
-import {router} from '@/lib';
-import {Env} from '../env';
 
-const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: string}>}) => (
+import {Fetch, isGood, isBad, isLoading} from '@/frontend/lib';
+import {useStore, useDispatch} from '@/frontend/src/components/contexts';
+
+import {Counter} from '@/frontend/modules/counter';
+
+interface HelloView {
+  onClick: () => void;
+  mood?: Fetch<Array<{mood: string}>>;
+}
+
+const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
   <div>
     <h1>Hello, Again</h1>
     <p>Some things to try next:</p>
@@ -12,7 +20,11 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
       </dt>
       <dd>
         <button onClick={onClick}>Talk to the backend</button>
-        <pre>{moods ? (moods.length ? JSON.stringify(moods) : 'loading...') : '...'}</pre>
+        <pre>
+          {isLoading(mood, () => 'loading...')}
+          {isBad(mood, (error) => `Unexpected error occurred: ${error}`)}
+          {isGood(mood, (data) => JSON.stringify(data))}
+        </pre>
       </dd>
       <dt>
         <strong>Typecheck</strong>
@@ -44,23 +56,20 @@ const HelloView = ({onClick, moods}: {onClick: () => void; moods?: Array<{mood: 
         <code>packages/frontend/.env</code>. For more information, see{' '}
         <a href="https://github.com/Originate/create-originate-app/blob/master/ANALYTICS.md">ANALYTICS.md</a>.
       </dd>
+      <dt>
+        <strong>Check out our module system</strong>
+      </dt>
+      <dd>
+        A module is a React component coupled with its own state and reducer. Here is a counter implemented out of{' '}
+        <code>./modules/counter</code>:
+        <Counter />
+      </dd>
     </dl>
   </div>
 );
 
-export const Hello: React.FC<{env: Env}> = ({env}: {env: Env}) => {
-  const [moods, setMoods] = React.useState<{mood: string}[] | undefined>(undefined);
-  const onClick = React.useCallback(() => {
-    setMoods([]);
-    router.ping
-      .client({mood: 'big'})
-      .then(setMoods)
-      .catch((e) => {
-        throw e;
-      });
-  }, []);
-  React.useEffect(() => {
-    console.log('Environment loaded:', env);
-  }, [env]);
-  return <HelloView onClick={onClick} moods={moods} />;
+export const Hello: React.FC<{}> = () => {
+  const store = useStore().hello;
+  const dispatch = useDispatch();
+  return <HelloView onClick={dispatch.hello.onClick} mood={store.mood} />;
 };

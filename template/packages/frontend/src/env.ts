@@ -1,9 +1,7 @@
 import * as D from 'io-ts/lib/Decoder';
 import * as Either from 'fp-ts/lib/Either';
 
-declare global {
-  const MAGIC_WEBPACK_ENVIRONMENT: string;
-}
+declare const MAGIC_WEBPACK_ENVIRONMENT: string;
 
 const decoder = D.type({
   GA_MEASUREMENT_ID: D.string,

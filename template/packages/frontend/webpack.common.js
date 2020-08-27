@@ -45,7 +45,7 @@ const configurationOfEnv = (env) => ({
   },
   plugins: [
     new webpack.DefinePlugin({
-      MAGIC_WEBPACK_ENVIRONMENT: JSON.stringify(env)
+      MAGIC_WEBPACK_ENVIRONMENT: JSON.stringify(env),
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -66,7 +66,7 @@ const configurationOfEnv = (env) => ({
 
 module.exports = (envFile) => {
   // Watch out: dotenv.config() secretly mutates process.env.
-  const keys = Object.keys(dotenv.config(envFile).parsed)
-  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => keys.includes(key)))
-  return configurationOfEnv(env)
-}
+  const keys = Object.keys(dotenv.config(envFile).parsed);
+  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => keys.includes(key)));
+  return configurationOfEnv(env);
+};

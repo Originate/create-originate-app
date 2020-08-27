@@ -4,6 +4,7 @@
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
+    "noEmit": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
