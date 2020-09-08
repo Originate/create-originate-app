@@ -17,8 +17,6 @@ export function makeRouter<TSignup, TLogin>() {
     signup: Router.post<types.SignupResponse, types.SignupRequest<TSignup>>('/api/auth/signup'),
     login: Router.post<types.LoginResponse<TLogin>, types.LoginRequest>('/api/auth/login'),
     password: Router.put<types.PasswordResponse, types.PasswordRequest>('/api/auth/password'),
-    ['password-reset']: Router.post<types.PasswordResetResponse, types.PasswordResetRequest>(
-      '/api/auth/password-reset',
-    ),
+    passwordReset: Router.post<types.PasswordResetResponse, types.PasswordResetRequest>('/api/auth/password-reset'),
   };
 }

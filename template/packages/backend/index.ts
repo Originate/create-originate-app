@@ -30,7 +30,7 @@ function main() {
   const app = makeExpress(env, (app) => {
     authRouter.login.install(app, authController.loginPOST);
     authRouter.signup.install(app, authController.signupPOST);
-    authRouter['password-reset'].install(app, authController.passwordResetPOST);
+    authRouter.passwordReset.install(app, authController.passwordResetPOST);
     authRouter.password.install(app, authController.passwordPUT);
 
     router.ping.install(app, async (req) => {
