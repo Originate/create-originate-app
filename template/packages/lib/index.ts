@@ -1,5 +1,1 @@
-export {router} from './src/routes';
-
-export enum Hello {
-  world = 'world',
-}
+export {authRouter, router, UserSignup, User} from './src/routes';

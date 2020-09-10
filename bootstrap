@@ -17,21 +17,24 @@ function main {
     # common
     sync "$here"/template/{package.json,.gitignore,.npmrc}
     sync "$here"/template/packages/tsconfig.base.json
-    sync "$here"/template/packages/{lib,frontend,backend}/package.json
-    sync "$here"/template/packages/{lib,frontend,backend}/tsconfig.json
-    sync "$here"/template/packages/{lib,backend}/index.ts
+    sync "$here"/template/packages/{auth,lib,frontend,backend}/package.json
+    sync "$here"/template/packages/{auth,lib,frontend,backend}/tsconfig.json
+    sync "$here"/template/packages/{auth,lib,backend}/index.ts
     sync "$here"/template/packages/frontend/index.tsx
     sync "$here"/template/.github/
     # jest
     sync "$here"/template/packages/jest.base.config.js
-    sync "$here"/template/packages/{lib,frontend,backend}/jest.config.js
-    sync "$here"/template/packages/{lib,frontend,backend}/index.test.ts
+    sync "$here"/template/packages/{auth,lib,frontend,backend}/jest.config.js
+    sync "$here"/template/packages/{auth,lib,frontend,backend}/index.test.ts
     # linting
     sync "$here"/template/{.prettierrc,.prettierignore}
     sync "$here"/template/packages/.eslintrc.base.js
-    sync "$here"/template/packages/{lib,frontend,backend}/.eslintrc.js
+    sync "$here"/template/packages/{auth,lib,frontend,backend}/.eslintrc.js
     # lib
     sync "$here"/template/packages/lib/src/
+    # auth
+    sync "$here"/template/packages/auth/lib/
+    sync "$here"/template/packages/auth/README.md
     # backend
     sync "$here"/template/Procfile
     sync "$here"/template/packages/backend/nodemon.json

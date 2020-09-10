@@ -1,0 +1,15 @@
+{
+  "name": "@/auth",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "true",
+    "typecheck": "echo auth && tsc -p .",
+    "typecheck:watch": "yarn typecheck --watch",
+    "lint": "eslint --cache --ext .ts .",
+    "test": "jest --maxWorkers=1"
+  },
+  "private": true,
+  "dependencies": {
+    "@Originate/leash": "^1.0.6"
+  }
+}
