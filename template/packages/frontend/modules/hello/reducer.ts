@@ -6,7 +6,7 @@ export type HelloStore = {
   mood?: Fetch<Array<{mood: string}>>;
 };
 
-export type HelloAction = ActionOf<'hello/click', Fetch<Array<{mood: string}>>>;
+export type HelloAction = ActionOf<'hello/click', Fetch<{mood: string}>>;
 
 export const initialStore: HelloStore = {};
 
@@ -24,8 +24,8 @@ export function dispatch(this: IDispatch) {
     onClick: async () => {
       try {
         this.dispatch({key: 'hello/click', state: 'loading'});
-        const moods = await router.ping.client({mood: 'big'});
-        this.dispatch({key: 'hello/click', state: 'good', data: moods});
+        const mood = await router.ping.client({mood: 'big'});
+        this.dispatch({key: 'hello/click', state: 'good', data: mood});
       } catch (e) {
         this.dispatch({key: 'hello/click', state: 'bad', error: e.toString()});
       }

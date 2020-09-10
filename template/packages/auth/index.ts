@@ -14,9 +14,9 @@ import * as types from './lib/types';
 
 export function makeRouter<TSignup, TLogin>() {
   return {
-    signup: Router.post<types.SignupResponse, types.SignupRequest<TSignup>>('/api/auth/signup'),
-    login: Router.post<types.LoginResponse<TLogin>, types.LoginRequest>('/api/auth/login'),
-    password: Router.put<types.PasswordResponse, types.PasswordRequest>('/api/auth/password'),
-    passwordReset: Router.post<types.PasswordResetResponse, types.PasswordResetRequest>('/api/auth/password-reset'),
+    signup: Router.post<types.SignupRequest<TSignup>, types.SignupResponse>('/api/auth/signup'),
+    login: Router.post<types.LoginRequest, types.LoginResponse<TLogin>>('/api/auth/login'),
+    password: Router.put<types.PasswordRequest, types.PasswordResponse>('/api/auth/password'),
+    passwordReset: Router.post<types.PasswordResetRequest, types.PasswordResetResponse>('/api/auth/password-reset'),
   };
 }
