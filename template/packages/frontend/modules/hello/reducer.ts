@@ -3,7 +3,7 @@ import {IDispatch} from '@/frontend/src/store';
 import {ActionOf, Fetch} from '@/frontend/lib';
 
 export type HelloStore = {
-  mood?: Fetch<Array<{mood: string}>>;
+  mood?: Fetch<{mood: string}>;
 };
 
 export type HelloAction = ActionOf<'hello/click', Fetch<{mood: string}>>;
