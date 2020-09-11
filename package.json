@@ -4,15 +4,13 @@
   "description": "`npx create-originate-app my-app` to get started",
   "main": "index.js",
   "scripts": {
-    "create-originate-app": "echo activating...",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Originate/create-originate-app.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Originate",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Originate/create-originate-app/issues"
   },
