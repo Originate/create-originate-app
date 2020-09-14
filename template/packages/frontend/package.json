@@ -32,7 +32,7 @@
     "fp-ts": "^2.8.1",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.3.0",
-    "io-ts": "^2.2.9",
+    "io-ts": "^2.2.10",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
