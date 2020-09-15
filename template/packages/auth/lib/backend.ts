@@ -16,7 +16,7 @@ function withValidation<EndpointArg, RequestKind extends Request, RouteResult>(
   decoder: D.Decoder<EndpointArg, EndpointArg>,
   endpoint: ValidatedControllerMethod<EndpointArg, RequestKind, RouteResult>,
 ) {
-  return (req: RequestKind, res: Response) => {
+  return async (req: RequestKind, res: Response) => {
     const result = decoder.decode(req.body);
     if (isLeft(result)) return bad(400, D.draw(result.left));
     else return endpoint(result.right, req, res);

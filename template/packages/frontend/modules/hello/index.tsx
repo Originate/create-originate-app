@@ -7,7 +7,7 @@ import {Counter} from '@/frontend/modules/counter';
 
 interface HelloView {
   onClick: () => void;
-  mood?: Fetch<Array<{mood: string}>>;
+  mood?: Fetch<{mood: string}>;
 }
 
 const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
