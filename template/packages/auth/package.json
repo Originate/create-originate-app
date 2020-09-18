@@ -10,6 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    "@Originate/leash": "^2.0.1"
+    "@Originate/leash": "^2.1.3"
   }
 }
