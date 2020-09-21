@@ -1,4 +1,4 @@
-import {good} from '@Originate/leash';
+import {good, installMany} from '@Originate/leash';
 import dotenv from 'dotenv';
 
 import {authRouter, router, UserSignup, User} from '@/lib';
@@ -28,10 +28,7 @@ function main() {
   const authController = new Auth.AuthController<UserSignup, User>(signupDecoder);
 
   const app = makeExpress(env, (app) => {
-    authRouter.login.install(app, authController.loginPOST);
-    authRouter.signup.install(app, authController.signupPOST);
-    authRouter.passwordReset.install(app, authController.passwordResetPOST);
-    authRouter.password.install(app, authController.passwordPUT);
+    installMany(app, authRouter, authController.routes);
 
     router.ping.install(app, async (req) => {
       const fakeDelayForDemo = () => delay(2);

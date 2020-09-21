@@ -57,4 +57,13 @@ export class AuthController<TSignup, TUser> {
       return bad(400, 'unauthorized');
     },
   );
+
+  ////////////////////////////////////////
+  // Ergonomics: use this with `installMany` from `@Originate/leash`
+  routes = {
+    login: this.loginPOST,
+    signup: this.signupPOST,
+    password: this.passwordPUT,
+    passwordReset: this.passwordResetPOST,
+  };
 }
