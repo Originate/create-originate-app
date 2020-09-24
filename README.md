@@ -1,4 +1,4 @@
-`npx github:Originate/create-originate-app [app name]` to get started. This project is designed to make it easy to set up a single-page React app. TypeScript types shared between the frontend and backend workspaces ensure the two codebases agree on the shape of data-access objects. There are some other niceties too, like React Fast Refresh.
+This project is designed to make it easy to set up a single-page React app!
 
 ----
 
@@ -32,11 +32,17 @@ Powered by `node-postgres` and `node-postgres-migrate`
 
 Stateless session token-based authentication is provided via `/api/auth/{login,signup,password,password-reset}` routes. You can remove the default authentication strategy and plug in your own, if you'd like.
 
+### ... and more
+
+- React Fast Refresh
+- Push to Heroku to deploy immediately
+- Modern web development best practices
+
 ----
 
 ## getting started
 
-First, make sure you have these things:
+`npx github:Originate/create-originate-app [app name]` to get started. But, first, make sure you have these things:
 
 - Fairly modern macOS or Linux
 - Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
