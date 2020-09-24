@@ -5,6 +5,7 @@ import {withDefault} from '@/lib/src/io-ts';
 const decoder = D.type({
   ENVIRONMENT: D.string,
   PORT: withDefault('3000', D.string),
+  DATABASE_URL: D.string,
 });
 
 export type Env = D.TypeOf<typeof decoder>;

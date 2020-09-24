@@ -38,7 +38,7 @@ function main {
     # backend
     sync "$here"/template/Procfile
     sync "$here"/template/packages/backend/nodemon.json
-    sync "$here"/template/packages/backend/src/
+    sync "$here"/template/packages/backend/{src,lib,migrations}/
     # frontend
     sync "$here"/template/packages/frontend/webpack.{common,dev,prod}.js
     sync "$here"/template/packages/frontend/.env.example
