@@ -27,7 +27,9 @@
     "fp-ts": "^2.8.1",
     "io-ts": "^2.2.10",
     "log4js": "^6.3.0",
+    "scrypt-kdf": "^2.0.1",
     "ts-node": "^8.10.2",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.9.0",
+    "tweetnacl": "^1.0.3"
   }
 }
