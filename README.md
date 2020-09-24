@@ -28,7 +28,7 @@ The router library enforces type safety between the frontend and the backend. Th
 
 Powered by `node-postgres` and `node-postgres-migrate`
 
-## authentication
+### authentication
 
 Stateless session token-based authentication is provided via `/api/auth/{login,signup,password,password-reset}` routes. You can remove the default authentication strategy and plug in your own, if you'd like.
 
