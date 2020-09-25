@@ -9,6 +9,7 @@
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
+    "migrate": "yarn workspace @/backend migrate",
     "run:heroku": "yarn workspace @/backend run:heroku"
   },
   "workspaces": [

@@ -8,6 +8,7 @@ import * as Router from '@Originate/leash';
 
 export * from './lib/backend';
 export * from './lib/decoders';
+export * from './lib/types';
 import * as types from './lib/types';
 
 //////////////////////////////////////// The rest

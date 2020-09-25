@@ -1,23 +1,27 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
 import {Fetch, isGood, isBad, isLoading} from '@/frontend/lib';
 import {useStore, useDispatch} from '@/frontend/src/components/contexts';
 
 import {Counter} from '@/frontend/modules/counter';
+import {AuthDemo} from '@/frontend/modules/authDemo';
 
 interface HelloView {
   onClick: () => void;
   mood?: Fetch<{mood: string}>;
 }
 
+const Term = styled.dt`
+  font-weight: bold;
+`;
+
 const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
   <div>
     <h1>Hello, Again</h1>
     <p>Some things to try next:</p>
     <dl>
-      <dt>
-        <strong>Talk to the backend</strong>
-      </dt>
+      <Term>Talk to the backend</Term>
       <dd>
         <button onClick={onClick}>Talk to the backend</button>
         <pre>
@@ -26,43 +30,35 @@ const HelloView: React.FC<HelloView> = ({onClick, mood}) => (
           {isGood(mood, (data) => JSON.stringify(data))}
         </pre>
       </dd>
-      <dt>
-        <strong>Typecheck</strong>
-      </dt>
+      <Term>Typecheck</Term>
       <dd>
-        Run <code>yarn typecheck:watch</code> or <code>yarn tw</code> (<em>ooh, aah</em>){' '}
+        Run <code>yarn typecheck:watch</code> or <code>yarn tw</code> (<em>ooh, aah</em>)
       </dd>
-      <dt>
-        <strong>Hot module reloading</strong>
-      </dt>
+      <Term>Hot module reloading</Term>
       <dd>
-        Modify <code>src/components/hello.tsx</code> and watch the changes happen live here{' '}
+        Modify <code>src/components/hello.tsx</code> and watch the changes happen live here
       </dd>
-      <dt>
-        <strong>Continuous integration</strong>
-      </dt>
+      <Term>Continuous integration</Term>
       <dd>Push to a GitHub repo to run the Action </dd>
-      <dt>
-        <strong>Heroku</strong>{' '}
-      </dt>
+      <Term>Heroku </Term>
       <dd>
-        Deploy to Heroku with <code>./vendor/heroku [name of heroku app]</code>{' '}
+        Deploy to Heroku with <code>./vendor/heroku [name of heroku app]</code>
       </dd>
-      <dt>
-        <strong>Set up Google Analytics and Sentry</strong>
-      </dt>
+      <Term>Set up Google Analytics and Sentry</Term>
       <dd>
         Set <code>GA_MEASUREMENT_ID</code> and <code>SENTRY_LAZY_LOADER_URL</code> in your{' '}
         <code>packages/frontend/.env</code>. For more information, see{' '}
         <a href="https://github.com/Originate/create-originate-app/blob/master/ANALYTICS.md">ANALYTICS.md</a>.
       </dd>
-      <dt>
-        <strong>Check out our module system</strong>
-      </dt>
+      <Term>Check out the module system</Term>
       <dd>
         A module is a React component coupled with its own state and reducer. Here is a counter implemented out of{' '}
         <code>./modules/counter</code>:
         <Counter />
+      </dd>
+      <Term>Check out the authentication system</Term>
+      <dd>
+        <AuthDemo />
       </dd>
     </dl>
   </div>

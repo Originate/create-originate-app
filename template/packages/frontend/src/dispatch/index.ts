@@ -2,6 +2,7 @@ import {Action} from '@/frontend/src/store';
 
 import * as counterModule from '@/frontend/modules/counter/reducer';
 import * as helloModule from '@/frontend/modules/hello/reducer';
+import * as authDemoModule from '@/frontend/modules/authDemo/reducer';
 
 /// The Dispatch class dispatches actions so you don't have to!
 //
@@ -22,4 +23,5 @@ export class Dispatch {
   // would be the ideal way this works.
   hello = helloModule.dispatch.call(this);
   counter = counterModule.dispatch.call(this);
+  authDemo = authDemoModule.dispatch.call(this);
 }
