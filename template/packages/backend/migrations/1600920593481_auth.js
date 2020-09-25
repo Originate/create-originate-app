@@ -8,17 +8,17 @@ exports.shorthands = {
 
 exports.up = (pgm) => {
   pgm.createTable('auth', {
-    id: {type: 'text', notNull: true},
-    passwordDigest: {type: 'bytea', notNull: true},
+    id: {type: 'text', notNull: true, primaryKey: true},
+    password_digest: {type: 'bytea', notNull: true},
     createdAt: 'createdAt',
   });
-  pgm.createTable('keyValue', {
-    key: {type: 'text', notNull: true},
+  pgm.createTable('key_value', {
+    key: {type: 'text', notNull: true, primaryKey: true},
     value: {type: 'jsonb', notNull: true},
   });
 };
 
 exports.down = (pgm) => {
   pgm.dropTable('auth');
-  pgm.dropTable('keyValue');
+  pgm.dropTable('key_value');
 };

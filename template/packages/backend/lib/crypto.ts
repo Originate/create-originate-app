@@ -32,7 +32,7 @@ function bytesOfHex(hex: string) {
 export class CryptoService {
   private keyPair: KeyPair;
 
-  constructor(private expirationInDays: number) {
+  constructor() {
     this.keyPair = nacl.sign.keyPair();
   }
 
@@ -45,22 +45,21 @@ export class CryptoService {
     }
   }
 
-  mintSessionToken(id: string): string {
+  mintSessionToken(id: string, expiration: {days: number}): string {
     if (typeof id !== 'string') throw new Error('id not string');
     if (!id.length) throw new Error('id empty');
-    const message: Message = {id, exp: +Time.addDays(Time.now(), this.expirationInDays)};
+    const message: Message = {id, exp: +Time.addDays(Time.now(), expiration.days)};
     return hexOfBytes(nacl.sign(bytesOfUTF8(JSON.stringify(message)), this.keyPair.secretKey));
   }
 
-  async passwordKeyDerive(password: string): Promise<string> {
+  async passwordKeyDerive(password: string): Promise<Buffer> {
     // {logN: 15} comes from https://blog.filippo.io/the-scrypt-parameters/
-    const key = await Scrypt.kdf(password, {logN: 15, r: 8, p: 1});
-    return key.toString('hex');
+    return await Scrypt.kdf(password, {logN: 15, r: 8, p: 1});
   }
 
-  async verifyPassword(pair: {plaintext: string; digest: string}): Promise<boolean> {
+  async verifyPassword(pair: {plaintext: string; digest: Buffer}): Promise<boolean> {
     try {
-      return Scrypt.verify(Buffer.from(pair.digest, 'hex'), pair.plaintext);
+      return Scrypt.verify(pair.digest, pair.plaintext);
     } catch (e) {
       return false;
     }

@@ -2,6 +2,7 @@ import * as Router from '@Originate/leash';
 import * as Auth from '@/auth';
 
 export interface UserSignup {
+  email: string;
   name: string;
 }
 

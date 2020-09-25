@@ -1,7 +1,7 @@
 import {CryptoService} from './crypto';
 import * as RawTime from '@/backend/lib/time';
 
-const crypto = new CryptoService(3);
+const crypto = new CryptoService();
 const Time = RawTime as jest.Mocked<typeof RawTime>;
 
 jest.mock('@/backend/lib/time', () => ({now: jest.fn(), addDays: jest.fn()}));
@@ -12,7 +12,7 @@ describe('session tokens', () => {
   it('round-trips', async () => {
     Time.now.mockImplementation(() => new Date());
     Time.addDays.mockImplementation(() => new Date(+new Date() + 999));
-    const token = crypto.mintSessionToken('user@example.com');
+    const token = crypto.mintSessionToken('user@example.com', {days: 1});
     const verification = crypto.verifySessionToken(token);
     expect(verification).toBe(true);
   });
@@ -20,7 +20,7 @@ describe('session tokens', () => {
   it('expires', async () => {
     Time.now.mockImplementation(() => new Date());
     Time.addDays.mockImplementation(() => new Date());
-    const token = crypto.mintSessionToken('user@example.com');
+    const token = crypto.mintSessionToken('user@example.com', {days: 1});
     const verification = crypto.verifySessionToken(token);
     expect(verification).toBe(false);
   });
