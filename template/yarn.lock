@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@Originate/leash@^2.1.3":
-  version "2.1.3"
-  resolved "https://npm.pkg.github.com/download/@Originate/leash/2.1.3/3dd29f943798c4359f4537bcca7a0cea0eb68533d4d396e68b7797e2bcc2a9a0#43fc467db0d2c7cf51caf3a03c7023f4a21ec09d"
-  integrity sha512-yVJFINb0RIfYVDhkazMsenIf1KxmxbxetmHF8uiSnBMriQePEVpxyfUGQS3xZIr/46swPsiKl3R5wdADA0JTHQ==
+"@Originate/leash@^2.1.4":
+  version "2.1.4"
+  resolved "https://npm.pkg.github.com/download/@Originate/leash/2.1.4/0edc9b5418f1e4f1eb39625465c8010edce3fff0bd711d592e9ad8ff8c190061#4d7e1edbe9a6af96d4a577a1ecf342d4342c1b00"
+  integrity sha512-KRsRMffMmW2teymM1UevtavIZhsv7EfB1bxxCSPvz6DU8OojuG0YHGwEWK9pnFAvW1cCEJnDwzt9QmhsM+QTgQ==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"

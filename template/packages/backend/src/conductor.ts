@@ -1,15 +1,12 @@
 import {UserSignup, User} from '@/lib';
 import * as Auth from '@/auth';
-import * as D from 'io-ts/lib/Decoder';
 
 import {makeExpress} from '@/backend/src/utils';
 import {parseEnv} from '@/backend/src/env';
 import {App} from '@/backend/src/app';
 import {DB} from '@/backend/src/db';
-
-const signupDecoder: D.Decoder<unknown, UserSignup> = D.type({
-  name: D.string,
-});
+import {AuthStrategy} from '@/backend/src/authStrategy';
+import {CryptoService} from '@/backend/lib/crypto';
 
 function makeEnv() {
   const env = parseEnv();
@@ -27,8 +24,10 @@ function makeEnv() {
 
 export class Conductor {
   env = makeEnv();
-  authController = new Auth.AuthController<UserSignup, User>(signupDecoder);
   db = new DB(this.env);
+  cryptoService = new CryptoService();
+  authStrategy = new AuthStrategy(this.env, this.db);
+  authController = new Auth.AuthController<UserSignup, User>(this.authStrategy, this.cryptoService);
 
   async listen() {
     await this._testDB();
