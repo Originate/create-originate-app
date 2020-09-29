@@ -42,16 +42,8 @@ Stateless session token-based authentication is provided via `/api/auth/{login,s
 
 ## getting started
 
-`npx github:Originate/create-originate-app [app name]` to get started. But, first, make sure you have these things:
 
-- Fairly modern macOS or Linux
-- Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
-- Set up your ~/.npmrc (see below)
-- Yarn
-- Git
-- zsh
-
-## ~/.npmrc
+### 1. ~/.npmrc
 
 [Create a personal access token](https://github.com/settings/tokens) and make sure to add these scopes:
 
@@ -71,7 +63,21 @@ _authToken=<PASTE AUTH TOKEN HERE>
 always-auth=true
 ```
 
-## design document
+### 2. Make sure you have these things:
 
-See [issue 1](https://github.com/Originate/create-originate-app/issues/1).
+- Fairly modern macOS or Linux
+- Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
+- Set up your ~/.npmrc (see below)
+- Yarn
+- Git
+- zsh
+
+
+### 3. `npx github:Originate/create-originate-app [app name]`
+
+There!
+
+## 4. Read our design document
+
+For historical color, see [issue 1](https://github.com/Originate/create-originate-app/issues/1).
 
