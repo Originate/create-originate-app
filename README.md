@@ -66,7 +66,7 @@ always-auth=true
 ### 2. Make sure you have these things:
 
 - Fairly modern macOS or Linux
-- Node v12 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
+- Node v14 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
 - Set up your ~/.npmrc (see below)
 - Yarn
 - Git
