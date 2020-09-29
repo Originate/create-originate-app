@@ -15,6 +15,7 @@ function sync {
 function main {
     [[ -f package.json ]] && echo "error: package.json already exists!" && exit 1
     # common
+    sync "$here"/template/packages/{frontend,backend}/.env.example
     sync "$here"/template/{package.json,.gitignore,.npmrc}
     sync "$here"/template/packages/tsconfig.base.json
     sync "$here"/template/packages/{auth,lib,frontend,backend}/package.json
@@ -41,7 +42,6 @@ function main {
     sync "$here"/template/packages/backend/{src,lib,migrations}/
     # frontend
     sync "$here"/template/packages/frontend/webpack.{common,dev,prod}.js
-    sync "$here"/template/packages/frontend/.env.example
     sync "$here"/template/packages/frontend/{src,public,modules,lib}/
     sync "$here"/template/packages/frontend/babel.config.js
     yarn
