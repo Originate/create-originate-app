@@ -2,7 +2,7 @@
   "name": "@/backend",
   "version": "1.0.0",
   "scripts": {
-    "_node": "ts-node --transpile-only -r tsconfig-paths/register",
+    "_node": "ts-node --transpile-only",
     "_prettier": "prettier \"./**/*.{js,jsx,ts,tsx,css,json}\"",
     "_jest": "jest --maxWorkers=1",
     "fix": "yarn _prettier --write > /dev/null",
