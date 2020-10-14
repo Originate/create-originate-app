@@ -12,9 +12,15 @@
     "migrate": "yarn workspace @/backend migrate",
     "run:heroku": "yarn workspace @/backend run:heroku"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/typeorm/**",
+      "**/typeorm"
+    ]
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^4.2.0",

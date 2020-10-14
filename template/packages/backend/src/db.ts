@@ -1,23 +1,8 @@
-import {Pool, PoolClient} from 'pg';
-import {Env} from '@/backend/src/env';
+import "reflect-metadata"
+import { Connection, createConnection } from "typeorm"
 
-export class DB {
-  pool: Pool;
-
-  constructor(env: Env) {
-    this.pool = new Pool({connectionString: env.DATABASE_URL});
-    this.pool.on('error', (err) => {
-      throw err;
-    });
-  }
-
-  async withClient<T>(handler: (c: PoolClient) => Promise<T>): Promise<T> {
-    const client = await this.pool.connect();
-    try {
-      const result = await handler(client);
-      return result;
-    } finally {
-      client.release();
-    }
-  }
+export async function initializeDatabase(): Promise<Connection> {
+  // Set up database connection pool based on configuration in `ormconfig.js`
+  const connection = await createConnection();
+  return connection;
 }

@@ -5,9 +5,9 @@
     "module": "commonjs",
     "target": "es2019",
     "allowJs": true,
-    "baseUrl": ".",
-    "types": ["jest", "node"]
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
-  "references": [{"path": "../lib"}],
+  "references": [{ "path": "../lib" }],
   "exclude": ["node_modules", "ignored", "*.config.js"]
 }
