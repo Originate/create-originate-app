@@ -10,7 +10,8 @@
     "db:stop": "docker stop package_name-postgres",
     "db:destroy": "yarn db:stop >/dev/null && docker rm package_name-postgres",
     "db:shell": "docker exec -it package_name-postgres psql -U postgres",
-    "typeorm": "yarn _node node_modules/.bin/typeorm",
+    "db:migration:generate": "yarn _node scripts/migrationGenerate.ts",
+    "typeorm": "yarn _node node_modules/typeorm/cli.js",
     "dev": "nodemon --watch ..",
     "lint": "eslint --cache --ext .ts,.js src lib migrations index.ts",
     "migrate": "node-pg-migrate",
@@ -40,5 +41,8 @@
     "tweetnacl": "^1.0.3",
     "type-graphql": "^1.0.0",
     "typeorm": "^0.2.28"
+  },
+  "devDependencies": {
+    "docker-await-postgres": "^1.0.0"
   }
 }

@@ -19,11 +19,12 @@ export = [
     type: "postgres",
     url: dbUrl,
 
-    // In dev mode only automatically updates database schema on app start to
-    // match entity classes in `src/entity/**/*.ts`. After updating entities and
-    // starting the app you can generate a migration automatically by running
+    // In dev mode only, automatically updates database schema on app start to
+    // match entity classes in `src/entity/**/*.ts`. After updating entities
+    // (whether or not the database schema has been synced) you can generate
+    // a migration automatically by running
     // 
-    //     $ yarn typeorm migration:generate -n NameOfMigrationModule
+    //     $ yarn db:migration:generate -n NameOfMigrationModule
     //
     synchronize: isDev,
 
