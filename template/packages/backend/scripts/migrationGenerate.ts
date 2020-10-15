@@ -21,6 +21,12 @@ const config = {
 
 let stopDatabase: () => Promise<void> | undefined
 
+class ProcessError extends Error {
+  constructor(public exitStatus: number) {
+    super(`process exited with status: ${exitStatus}`)
+  }
+}
+
 // Waits for a child process to exit, and resolves with its exit status.
 function onExit(
   childProcess: ChildProcessByStdio<null, null, null>,
@@ -42,9 +48,7 @@ async function typeorm(
   })
   const status = await onExit(childProcess)
   if (status !== 0) {
-    throw new Error(
-      `TypeORM command ${subcommand} failed. Exit status: ${status}`,
-    )
+    throw new ProcessError(status)
   }
 }
 
@@ -67,12 +71,17 @@ async function main() {
     const { port, stop } = await startPostgresContainer(config)
     stopDatabase = stop
     const dbUrl = `postgres://${config.user}:${config.password}@localhost:${port}/${config.database}`
+
+    console.log("\n# Running existing migrations in temporary database")
     await runMigrations(dbUrl)
+
+    console.log("\n# Generating new migration")
     await generateMigration(dbUrl, processArgs)
-  } catch (err) {
-    console.error(err)
-  } finally {
+
     await cleanUp()
+  } catch (err) {
+    await cleanUp()
+    process.exit(err instanceof ProcessError ? err.exitStatus : 1)
   }
 }
 
