@@ -1,10 +1,44 @@
 import { Max, Min } from "class-validator"
+import DataLoader from "dataloader"
+import { filter, find } from "lodash"
 import { ArgsType, Field, ID, Int } from "type-graphql"
 import { getManager, Like } from "typeorm"
+import { Ingredient } from "../entity/Ingredient"
 import { Recipe } from "../entity/Recipe"
 import { User } from "../entity/User"
 
 export class RecipeService {
+  // A data loader batches multiple lookups that may occur during one GraphQL
+  // request. The batch function accepts an array of lookup keys, and must
+  // resolve with an array of results or errors in the same order.
+  static ownerLoader: DataLoader.BatchLoadFn<
+    number,
+    User
+  > = async recipeIds => {
+    const users = await getManager()
+      .createQueryBuilder(User, "user")
+      .innerJoin("user.recipes", "recipe")
+      .where("recipe.id IN (:...recipeIds)", { recipeIds })
+      .getMany()
+    return recipeIds.map(
+      id =>
+        find(users, { id }) ??
+        new Error(`Could not find owner for recipe ${id}`),
+    )
+  }
+
+  static ingredientsLoader: DataLoader.BatchLoadFn<
+    number,
+    Ingredient[]
+  > = async recipeIds => {
+    const ingredients = await getManager()
+      .createQueryBuilder(Ingredient, "ingredient")
+      .innerJoin("ingredient.recipes", "recipe")
+      .where("recipe.id IN (:...recipeIds)", { recipeIds })
+      .getMany()
+    return recipeIds.map(id => filter(ingredients, { id }))
+  }
+
   async findById(id: string): Promise<Recipe | undefined> {
     return getManager().findOne(Recipe, id)
   }
@@ -26,16 +60,6 @@ export class RecipeService {
       where: { userId },
       order: { title: "ASC", createdAt: "DESC" },
     })
-  }
-
-  async getOwners(recipeIds: string[]): Promise<User[]> {
-    const users = await getManager()
-      .createQueryBuilder(User, "user")
-      .innerJoin("user.recipes", "recipe")
-      .where("recipe.id IN (:...recipeIds)", { recipeIds })
-      .orderBy({ email: "ASC", createdAt: "ASC" })
-      .getMany()
-    return users
   }
 }
 
