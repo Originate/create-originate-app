@@ -1,4 +1,3 @@
-import "reflect-metadata"
 import { Connection, createConnection } from "typeorm"
 
 export async function initializeDatabase(): Promise<Connection> {

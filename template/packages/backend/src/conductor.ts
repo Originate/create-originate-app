@@ -1,12 +1,11 @@
 import * as Auth from "@/auth"
-import { CryptoService } from "@/backend/lib/crypto"
-import { App } from "@/backend/src/app"
-import { AuthStrategy } from "@/backend/src/authStrategy"
-import { initializeDatabase } from "@/backend/src/db"
-import { parseEnv } from "@/backend/src/env"
-import { makeExpress } from "@/backend/src/utils"
 import { User, UserSignup } from "@/lib"
-import { Connection } from "typeorm"
+import { Connection, getConnection } from "typeorm"
+import { CryptoService } from "../lib/crypto"
+import { App } from "./app"
+import { AuthStrategy } from "./authStrategy"
+import { parseEnv } from "./env"
+import { makeExpress } from "./utils"
 
 function makeEnv() {
   const env = parseEnv()
@@ -30,7 +29,7 @@ export class Conductor {
   authController: Auth.AuthController<UserSignup, User>
 
   static async initialize(): Promise<Conductor> {
-    return new Conductor(await initializeDatabase())
+    return new Conductor(getConnection())
   }
 
   constructor(db: Connection) {
