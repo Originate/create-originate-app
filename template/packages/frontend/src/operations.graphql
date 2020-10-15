@@ -1,0 +1,11 @@
+query getRecipes {
+  recipes {
+    title
+    ingredients {
+      name
+    }
+    user {
+      email
+    }
+  }
+}

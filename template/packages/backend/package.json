@@ -12,6 +12,7 @@
     "db:shell": "docker exec -it package_name-postgres psql -U postgres",
     "db:migration:generate": "yarn _node scripts/migrationGenerate.ts",
     "typeorm": "yarn _node node_modules/typeorm/cli.js",
+    "graphql:schema": "yarn _node scripts/emitGraphQLSchema.ts",
     "dev": "nodemon --watch ..",
     "lint": "eslint --cache --ext .ts,.js src lib migrations index.ts",
     "migrate": "node-pg-migrate",

@@ -26,3 +26,6 @@ ignored/
 packages/backend/public/index.html
 *.webpack.js
 *.webpack.js.map
+
+# graphql
+packages/backend/schema.graphql

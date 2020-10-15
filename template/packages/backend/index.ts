@@ -3,6 +3,7 @@ import "reflect-metadata" // required for TypeORM and TypeGraphQL annotations
 import { initializeDatabase } from "./src/db"
 import { parseEnv } from "./src/env"
 import { initializeServer } from "./src/server"
+import { initializeSchema } from "./src/graphqlSchema"
 
 function makeEnv() {
   const env = parseEnv()
@@ -27,7 +28,8 @@ async function main() {
   dotenv.config()
   const env = makeEnv()
   await initializeDatabase()
-  await initializeServer(env)
+  const schema = await initializeSchema()
+  await initializeServer(env, schema)
 }
 
 main().catch(e => {
