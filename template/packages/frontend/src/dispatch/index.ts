@@ -1,8 +1,7 @@
-import {Action} from '@/frontend/src/store';
-
-import * as counterModule from '@/frontend/modules/counter/reducer';
-import * as helloModule from '@/frontend/modules/hello/reducer';
-import * as authDemoModule from '@/frontend/modules/authDemo/reducer';
+import * as authDemoModule from "../modules/authDemo/reducer"
+import * as counterModule from "../modules/counter/reducer"
+import * as helloModule from "../modules/hello/reducer"
+import { Action } from "../store"
 
 /// The Dispatch class dispatches actions so you don't have to!
 //
@@ -21,7 +20,7 @@ export class Dispatch {
   // Individual modules have to be imported and then added here. There is no
   // current way to generate TypeScript code like this automatically, but that
   // would be the ideal way this works.
-  hello = helloModule.dispatch.call(this);
-  counter = counterModule.dispatch.call(this);
-  authDemo = authDemoModule.dispatch.call(this);
+  hello = helloModule.dispatch.call(this)
+  counter = counterModule.dispatch.call(this)
+  authDemo = authDemoModule.dispatch.call(this)
 }

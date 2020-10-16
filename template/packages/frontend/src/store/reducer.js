@@ -16,7 +16,7 @@ const safelyAccess = (module, exportName, filename) => {
 
 const moduleNameOf = (filename) => filename.split('/')[1];
 
-const ctx = require.context('@/frontend/modules', true, /reducer.ts/);
+const ctx = require.context('@/frontend/src/modules', true, /reducer.ts/);
 const modules = ctx.keys().map((filename) => [
   moduleNameOf(filename),
   {

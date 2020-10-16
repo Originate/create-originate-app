@@ -1,18 +1,18 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react",
-    "module": "esnext",
     "target": "esnext",
-    "types": ["react", "jest"],
-    "lib": ["es2019", "dom"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "isolatedModules": true,
+    "jsx": "react",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
   },
+  "include": ["src"],
   "references": [
-    { "path": "../lib" }
-  ],
-  "exclude": [
-    "node_modules",
-    "ignored",
-    "*.config.js"
+    {
+      "path": "../lib"
+    }
   ]
 }

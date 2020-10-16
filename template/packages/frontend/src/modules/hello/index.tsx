@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import {Fetch, isGood, isBad, isLoading} from '@/frontend/lib';
+import {Fetch, isGood, isBad, isLoading} from '@/frontend/src/lib';
 import {useStore, useDispatch} from '@/frontend/src/components/contexts';
 
-import {Counter} from '@/frontend/modules/counter';
-import {AuthDemo} from '@/frontend/modules/authDemo';
+import {Counter} from '@/frontend/src/modules/counter';
+import {AuthDemo} from '@/frontend/src/modules/authDemo';
 
 interface HelloView {
   onClick: () => void;

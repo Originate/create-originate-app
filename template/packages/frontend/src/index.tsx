@@ -1,33 +1,24 @@
-import * as React from 'react';
-import {useReducer, useState, FC} from 'react';
+import * as React from "react"
+import ReactDOM from "react-dom"
+import { Error } from "./components/error"
+import { parseEnv } from "./env"
+import { Switchboard } from "./Switchboard"
 
-import {initialStore, reducer, Store} from '@/frontend/src/store';
-import {Env} from '@/frontend/src/env';
-import {Dispatch} from '@/frontend/src/dispatch';
-import {StoreContext, DispatchContext} from '@/frontend/src/components/contexts';
+const main = () => {
+  const root = document.getElementById("root")
+  const env = parseEnv()
+  if (typeof env == "string") {
+    ReactDOM.render(
+      <Error
+        header="unable to parse webpack env"
+        message={env}
+        footer="unsolicited advice: check your packages/frontend/.env file"
+      />,
+      root,
+    )
+  } else {
+    ReactDOM.render(<Switchboard env={env} />, root)
+  }
+}
 
-import {Hello} from '@/frontend/modules/hello';
-
-const Contextually: FC<{dispatch: Dispatch; store: Store; children: React.ReactNode}> = ({
-  dispatch,
-  store,
-  children,
-}) => (
-  <StoreContext.Provider value={store}>
-    <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
-  </StoreContext.Provider>
-);
-
-export const Switchboard: FC<{env: Env}> = ({env}) => {
-  React.useEffect(() => {
-    console.log('Environment loaded:', env);
-  }, [env]);
-
-  const [store, reactDispatch] = useReducer(reducer, initialStore());
-  const [dispatch] = useState(new Dispatch(reactDispatch));
-  return (
-    <Contextually dispatch={dispatch} store={store}>
-      <Hello />
-    </Contextually>
-  );
-};
+main()

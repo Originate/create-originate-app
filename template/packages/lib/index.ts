@@ -1,1 +1,2 @@
-export {authRouter, router, UserSignup, User} from './src/routes';
+export { authRouter, router } from "./src/routes"
+export type { User, UserSignup } from "./src/routes"

@@ -1,6 +1,6 @@
 {
   "ext": "ts,html,json",
-  "exec": "ENVIRONMENT=development NODE_ENV=development ts-node --transpile-only -r tsconfig-paths/register index.ts",
+  "exec": "ENVIRONMENT=development NODE_ENV=development ts-node --transpile-only index.ts",
   "watch": ["server"],
   "ignore": ["react/*", "server/public/*", "*/ignored/*"]
 }
