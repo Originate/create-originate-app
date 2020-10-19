@@ -29,7 +29,7 @@
     "copy-webpack-plugin": "^6.0.4",
     "css-loader": "^4.3.0",
     "dotenv": "^8.2.0",
-    "fp-ts": "^2.8.1",
+    "fp-ts": "^2.8.4",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.5.0",
     "io-ts": "^2.2.11",
