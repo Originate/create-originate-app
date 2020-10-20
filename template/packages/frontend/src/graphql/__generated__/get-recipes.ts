@@ -4,6 +4,7 @@ export type getRecipes = {
     recipes: ({
         id: string;
         title: string;
+        description: string | null;
         ingredients: ({
             id: string;
             name: string;

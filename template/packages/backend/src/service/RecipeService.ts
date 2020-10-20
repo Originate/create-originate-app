@@ -6,6 +6,7 @@ import { getManager, Like } from "typeorm"
 import { Ingredient } from "../entity/Ingredient"
 import { Recipe } from "../entity/Recipe"
 import { User } from "../entity/User"
+import { NewRecipeInput } from "../input/NewRecipeInput"
 
 export class RecipeService {
   // A data loader batches multiple lookups that may occur during one GraphQL
@@ -60,6 +61,15 @@ export class RecipeService {
       where: { userId },
       order: { title: "ASC", createdAt: "DESC" },
     })
+  }
+
+  async create(recipe: NewRecipeInput): Promise<Recipe> {
+    const manager = getManager()
+    const ingredients = await manager.findByIds(
+      Ingredient,
+      recipe.ingredientIDs,
+    )
+    return getManager().create(Recipe, { ...recipe, ingredients })
   }
 }
 

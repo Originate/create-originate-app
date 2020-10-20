@@ -9,7 +9,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "codegen": "yarn workspace @/backend run graphql:schema && ts-graphql-plugin typegen",
-    "codegen:watch": "watch 'yarn codegen' src/graphql/",
+    "codegen:watch": "watch '--ignoreDirectoryPattern=/__generated__/' 'yarn codegen' src/graphql/",
     "typecheck": "echo react && tsc -p .",
     "typecheck:watch": "yarn typecheck --watch",
     "lint": "eslint --cache --ext .ts,.tsx ."

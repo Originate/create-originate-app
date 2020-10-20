@@ -1,4 +1,3 @@
-import { MaxLength } from "class-validator"
 import { Field, ID, ObjectType } from "type-graphql"
 import {
   Column,
@@ -8,7 +7,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from "typeorm"
 import { Ingredient } from "./Ingredient"
 import { User } from "./User"
@@ -21,12 +20,10 @@ export class Recipe {
   id!: number
 
   @Field()
-  @MaxLength(30)
   @Column()
   title!: string
 
   @Field({ nullable: true })
-  @MaxLength(255)
   @Column({ nullable: true, type: "text" })
   description?: string
 

@@ -4,14 +4,16 @@ import {
   Args,
   FieldResolver,
   ID,
+  Mutation,
   Query,
   Resolver,
-  Root,
+  Root
 } from "type-graphql"
 import { Loader } from "type-graphql-dataloader"
 import { Ingredient } from "../entity/Ingredient"
 import { Recipe } from "../entity/Recipe"
 import { User } from "../entity/User"
+import { NewRecipeInput } from "../input/NewRecipeInput"
 import { GetRecipesArgs, RecipeService } from "../service/RecipeService"
 
 @Resolver(_of => Recipe)
@@ -34,6 +36,11 @@ export class RecipeResolver {
   })
   async recipes(@Args() args: GetRecipesArgs) {
     return this.recipeService.find(args)
+  }
+
+  @Mutation(_returns => Recipe)
+  async addRecipe(@Arg("recipe") recipe: NewRecipeInput): Promise<Recipe> {
+    return this.recipeService.create(recipe)
   }
 
   // GraphQL can retrieve values from simple entity properties that have
