@@ -6,8 +6,13 @@
     "module": "esnext",
     "isolatedModules": true,
     "jsx": "react",
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true
+    "plugins": [
+      {
+        "name": "ts-graphql-plugin",
+        "schema": "../backend/schema.graphql",
+        "tag": "gql"
+      }
+    ]
   },
   "include": ["src"],
   "references": [

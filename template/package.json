@@ -17,6 +17,8 @@
       "packages/*"
     ],
     "nohoist": [
+      "**/ts-graphql-plugin/**",
+      "**/ts-graphql-plugin",
       "**/typeorm/**",
       "**/typeorm"
     ]
