@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client"
-import { TypedDocumentNode } from "@graphql-typed-document-node/core"
+import { gql, TypedDocumentNode } from "@apollo/client"
 import * as gen from "./__generated__/get-recipes"
 
 export const getRecipes = gql`
