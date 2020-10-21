@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common"
 import { GraphQLModule } from "@nestjs/graphql"
+import { join } from "path"
 import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
 import { isDev } from "./env"
-import { join } from "path"
+import { RecipesModule } from "./recipes/recipes.module"
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { join } from "path"
       debug: isDev(),
       playground: isDev(),
     }),
+    RecipesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
