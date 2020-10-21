@@ -23,6 +23,9 @@
       "**/typeorm"
     ]
   },
+  "resolutions": {
+    "pg": "8.4.1"
+  },
   "devDependencies": {
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-jest": "^24.1.0",
