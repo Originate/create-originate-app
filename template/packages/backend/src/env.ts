@@ -1,4 +1,3 @@
-import { withDefault } from "@/lib/src/io-ts"
 import { config } from "dotenv"
 import * as Either from "fp-ts/lib/Either"
 import * as D from "io-ts/lib/Decoder"
@@ -10,6 +9,18 @@ const decoder = D.type({
   PORT: withDefault("3000", D.string),
   DATABASE_URL: D.string,
 })
+
+function withDefault<T, U>(
+  defaultValue: U,
+  decoder: D.Decoder<T, U>,
+): D.Decoder<T, U> {
+  return {
+    decode: u => {
+      const result = decoder.decode(u)
+      return Either.isLeft(result) ? D.success(defaultValue) : result
+    },
+  }
+}
 
 export type Env = D.TypeOf<typeof decoder>
 
