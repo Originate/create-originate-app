@@ -45,7 +45,15 @@ export class ConfigService {
    * database.
    */
   get isDevDatabase(): boolean {
+    return this.isDev && this.isLocalDatabase
+  }
+
+  get isTest(): boolean {
+    return this.env.NODE_ENV === "test"
+  }
+
+  get isLocalDatabase(): boolean {
     const db = parse(this.env.DATABASE_URL)
-    return this.isDev && db.hostname === "localhost"
+    return db.hostname === "localhost"
   }
 }

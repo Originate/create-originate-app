@@ -8,7 +8,7 @@ export class Env {
   })
   DATABASE_URL!: string
 
-  @IsIn(["development", "production", "testing"])
+  @IsIn(["development", "production", "test"])
   NODE_ENV!: string
 
   @IsPort()
