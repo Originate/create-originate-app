@@ -1,24 +1,38 @@
 import { Module } from "@nestjs/common"
 import { GraphQLModule } from "@nestjs/graphql"
+import { TypeOrmModule } from "@nestjs/typeorm"
 import { join } from "path"
 import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
-import { env, isDev } from "./env"
+import { ConfigService } from "./config.service"
 import { RecipesModule } from "./recipes/recipes.module"
-import { TypeOrmModule } from "@nestjs/typeorm"
+
+const config = new ConfigService()
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), "schema.graphql"),
       sortSchema: true,
-      debug: isDev(),
-      playground: isDev(),
+      debug: config.isDev,
+      playground: config.isDev,
     }),
     RecipesModule,
     TypeOrmModule.forRoot({
       type: "postgres",
-      url: env.DATABASE_URL,
+      url: config.env.DATABASE_URL,
+
+      // When `autoLoadEntities` is on TypeORM entity classes (classes with the
+      // `@Entity` annotation) are automatically wired into the main app *if*
+      // a Nest module imports `TypeOrmModule.forFeature([...])` and lists the
+      // entity class. In other words, for every entity class there should be
+      // a Nest module that looks something like this:
+      //
+      //     @Module({
+      //       imports: [TypeOrmModule.forFeature([EntityClassA, EntityClassB, /* ... */])]
+      //     })
+      //     export class SomeModule {}
+      //
       autoLoadEntities: true,
 
       // In dev mode only, automatically updates database schema on app start to
@@ -28,10 +42,10 @@ import { TypeOrmModule } from "@nestjs/typeorm"
       //
       //     $ yarn db:migration:generate -n NameOfMigrationModule
       //
-      synchronize: isDev(),
+      synchronize: config.isDevDatabase,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: ConfigService, useValue: config }],
 })
 export class AppModule {}

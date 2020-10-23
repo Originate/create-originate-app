@@ -1,40 +1,17 @@
-import { config } from "dotenv"
-import * as Either from "fp-ts/lib/Either"
-import * as D from "io-ts/lib/Decoder"
+import { IsIn, IsOptional, IsPort, IsUrl } from "class-validator"
 
-config()
+export class Env {
+  @IsUrl({
+    require_protocol: true,
+    require_valid_protocol: false,
+    require_tld: false,
+  })
+  DATABASE_URL!: string
 
-const decoder = D.type({
-  ENVIRONMENT: D.string,
-  PORT: withDefault("3000", D.string),
-  DATABASE_URL: D.string,
-})
+  @IsIn(["development", "production", "testing"])
+  NODE_ENV!: string
 
-function withDefault<T, U>(
-  defaultValue: U,
-  decoder: D.Decoder<T, U>,
-): D.Decoder<T, U> {
-  return {
-    decode: u => {
-      const result = decoder.decode(u)
-      return Either.isLeft(result) ? D.success(defaultValue) : result
-    },
-  }
-}
-
-export type Env = D.TypeOf<typeof decoder>
-
-export const parseEnv = (): Env => {
-  const either = decoder.decode(process.env)
-  if (Either.isLeft(either)) {
-    throw new Error(D.draw(either.left))
-  } else {
-    return either.right
-  }
-}
-
-export const env = parseEnv()
-
-export function isDev(): boolean {
-  return env.ENVIRONMENT === "development"
+  @IsPort()
+  @IsOptional()
+  PORT: string = "3000"
 }

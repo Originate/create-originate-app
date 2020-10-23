@@ -1,35 +1,44 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, Scope } from "@nestjs/common"
+import { InjectEntityManager, InjectRepository } from "@nestjs/typeorm"
 import DataLoader from "dataloader"
 import { filter } from "lodash"
-import { getManager, getRepository, Like } from "typeorm"
+import { EntityManager, Like, Repository } from "typeorm"
 import { GetRecipesArgs } from "./dto/get-recipes.args"
 import { NewRecipeInput } from "./dto/new-recipe.input"
 import { Ingredient } from "./models/ingredient.entity"
 import { Recipe } from "./models/recipe.entity"
 
-@Injectable()
+// This service includes data loaders - it's important to create a new instance
+// of each data loader for each API request. Therefore we need to set the
+// injectable scope for this service to `Scope.REQUEST`.
+@Injectable({ scope: Scope.REQUEST })
 export class RecipeService {
+  constructor(
+    @InjectEntityManager() private manager: EntityManager,
+    @InjectRepository(Recipe) private recipeRepository: Repository<Recipe>,
+  ) {}
+
   // A data loader batches multiple lookups that may occur during one GraphQL
   // request. The batch function accepts an array of lookup keys, and must
   // resolve with an array of results or errors in the same order.
-  static ingredientsLoader: DataLoader.BatchLoadFn<
-    number,
-    Ingredient[]
-  > = async recipeIds => {
-    const ingredients = await getManager()
-      .createQueryBuilder(Ingredient, "ingredient")
-      .innerJoin("ingredient.recipes", "recipe")
-      .where("recipe.id IN (:...recipeIds)", { recipeIds })
-      .getMany()
-    return recipeIds.map(id => filter(ingredients, { id }))
-  }
+  ingredientsLoader = new DataLoader<number, Ingredient[]>(
+    async recipeIds => {
+      const ingredients = await this.manager
+        .createQueryBuilder(Ingredient, "ingredient")
+        .innerJoin("ingredient.recipes", "recipe")
+        .where("recipe.id IN (:...recipeIds)", { recipeIds })
+        .getMany()
+      return recipeIds.map(id => filter(ingredients, { id }))
+    },
+    { maxBatchSize: 1000 },
+  )
 
   async findById(id: string): Promise<Recipe | undefined> {
-    return getManager().findOne(Recipe, id)
+    return this.manager.findOne(Recipe, id)
   }
 
   async find({ title, userId, skip, take }: GetRecipesArgs): Promise<Recipe[]> {
-    return getManager().find(Recipe, {
+    return this.manager.find(Recipe, {
       where: {
         ...(userId ? { userId } : null),
         ...(title ? { title: Like(title) } : null),
@@ -41,17 +50,17 @@ export class RecipeService {
   }
 
   async findByUserId(userId: string): Promise<Recipe[]> {
-    return getManager().find(Recipe, {
+    return this.manager.find(Recipe, {
       where: { userId },
       order: { title: "ASC", createdAt: "DESC" },
     })
   }
 
   async create(recipe: NewRecipeInput): Promise<Recipe> {
-    const manager = getManager()
+    const manager = this.manager
     const ingredients = recipe.ingredientIDs
       ? await manager.findByIds(Ingredient, recipe.ingredientIDs)
       : []
-    return getRepository(Recipe).save({ ...recipe, ingredients })
+    return this.recipeRepository.save({ ...recipe, ingredients })
   }
 }

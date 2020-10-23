@@ -1,5 +1,5 @@
+import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { MaxLength } from "class-validator"
-import { Field, ID, ObjectType } from "type-graphql"
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Recipe } from "./recipe.entity"
 
@@ -33,4 +33,3 @@ export class Ingredient {
   )
   recipes?: Recipe[]
 }
-

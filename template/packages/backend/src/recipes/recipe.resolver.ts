@@ -1,8 +1,17 @@
-import { Args, ID, Mutation, Query, Resolver } from "@nestjs/graphql"
+import {
+  Args,
+  ID,
+  Mutation,
+  Query,
+  Resolver,
+  ResolveField,
+  Root,
+} from "@nestjs/graphql"
 import { GetRecipesArgs } from "./dto/get-recipes.args"
 import { NewRecipeInput } from "./dto/new-recipe.input"
 import { Recipe } from "./models/recipe.entity"
 import { RecipeService } from "./recipe.service"
+import { Ingredient } from "./models/ingredient.entity"
 
 @Resolver(() => Recipe)
 export class RecipeResolver {
@@ -36,31 +45,11 @@ export class RecipeResolver {
   // use a `@ResolveField` resolver method. Here the `user` and
   // `ingredients` fields require follow-up database queries.
   //
-  // We want to batch those queries to avoid the N+1 query problem, so we also
-  // use the `@Loader` annotation to inject `DataLoader` instances that
-  // automatically batch lookups.
+  // We want to batch those queries to avoid the N+1 query problem, so we use
+  // a data loader.
 
-  // @ResolveField(_returns => User, { description: "author of the recipe" })
-  // @Loader(RecipeService.ownerLoader, { maxBatchSize: 1000 })
-  // async user(@Root() recipe: Recipe) {
-  //   return (dataloader: FromLoadFn<typeof RecipeService.ownerLoader>) =>
-  //     dataloader.load(recipe.id)
-  // }
-
-  // The `@Loader` annotation is the explicit / general-purpose way to use
-  // `DataLoader`. In cases where the only thing the loader does is to retrieve
-  // related database entities we could alternatively use the `@TypeormLoader`
-  // annotation on the entity property instead of using a `@ResolveField`
-  // method.
-
-  // @ResolveField(_returns => [Ingredient])
-  // @Loader(RecipeService.ingredientsLoader, { maxBatchSize: 1000 })
-  // async ingredients(@Root() recipe: Recipe) {
-  //   return (dataloader: FromLoadFn<typeof RecipeService.ingredientsLoader>) =>
-  //     dataloader.load(recipe.id)
-  // }
+  @ResolveField(_returns => [Ingredient])
+  async ingredients(@Root() recipe: Recipe): Promise<Ingredient[]> {
+    return this.recipeService.ingredientsLoader.load(recipe.id)
+  }
 }
-
-// type FromLoadFn<Fn> = Fn extends DataLoader.BatchLoadFn<infer K, infer V>
-//   ? DataLoader<K, V>
-//   : never
