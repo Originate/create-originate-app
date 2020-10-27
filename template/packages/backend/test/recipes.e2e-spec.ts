@@ -54,15 +54,19 @@ describe("Recipes example (e2e)", () => {
     return request(app.getHttpServer())
       .get("/graphql")
       .query({
-        query: `
-        query {
-          recipes {
-            id
+        query: gql`
+          query {
+            recipes {
+              id
+            }
           }
-        }
-      `,
+        `,
       })
       .expect(200)
       .expect({ data: { recipes: [] } })
   })
 })
+
+function gql(query: TemplateStringsArray): string {
+  return query.join("\n")
+}

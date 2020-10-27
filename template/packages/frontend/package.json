@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "ts-graphql-plugin": "^2.0.1",
+    "ts-graphql-plugin": "^2.0.2",
     "watch": "^1.0.2"
   }
 }
