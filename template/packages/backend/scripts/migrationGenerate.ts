@@ -7,6 +7,8 @@
 // This script spins up a fresh database in a temporary docker container, runs
 // migrations, and generates a migration off of the resulting schema.
 
+// TODO: move to @originate/scripts
+
 import { startPostgresContainer } from "docker-await-postgres"
 import { spawn, ChildProcessByStdio } from "child_process"
 
