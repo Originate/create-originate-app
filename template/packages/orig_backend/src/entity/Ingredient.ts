@@ -23,7 +23,7 @@ export class Ingredient {
   @Column()
   name!: string
 
-  @Field()
+  @Field(_type => IngredientCategory)
   @Column({ type: "enum", enum: IngredientCategory })
   category!: IngredientCategory
 

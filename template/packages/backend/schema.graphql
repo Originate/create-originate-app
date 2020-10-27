@@ -8,13 +8,27 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Ingredient {
-  category: String!
+  category: IngredientCategory!
   id: ID!
   name: String!
 }
 
+enum IngredientCategory {
+  DAIRY
+  FRUIT
+  MEAT
+  NUT
+  VEGETABLE
+}
+
 type Mutation {
+  addIngredient(ingredient: NewIngredientInput!): Ingredient!
   addRecipe(recipe: NewRecipeInput!): Recipe!
+}
+
+input NewIngredientInput {
+  category: IngredientCategory!
+  name: String!
 }
 
 input NewRecipeInput {

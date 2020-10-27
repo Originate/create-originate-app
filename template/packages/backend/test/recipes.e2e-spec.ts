@@ -79,6 +79,28 @@ describe("Recipes example (e2e)", () => {
       },
     })
   })
+
+  it("creates an ingredient", async () => {
+    expect(
+      await graphqlRequest(app, {
+        query: gql`
+          mutation addIngredient($ingredient: NewIngredientInput!) {
+            addIngredient(ingredient: $ingredient) {
+              id
+            }
+          }
+        `,
+        variables: {
+          ingredient: {
+            category: "FRUIT",
+            name: "my name",
+          },
+        },
+      }),
+    ).toEqual({
+      data: { addIngredient: { id: expect.any(String) } },
+    })
+  })
 })
 
 // TODO: move to @originate/scripts

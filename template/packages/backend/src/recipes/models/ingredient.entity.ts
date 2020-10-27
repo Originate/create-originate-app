@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql"
+import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql"
 import { MaxLength } from "class-validator"
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Recipe } from "./recipe.entity"
@@ -10,6 +10,8 @@ export enum IngredientCategory {
   NUT = "nut",
   VEGETABLE = "vegetable",
 }
+
+registerEnumType(IngredientCategory, { name: "IngredientCategory" })
 
 @ObjectType()
 @Entity()
@@ -23,7 +25,7 @@ export class Ingredient {
   @Column()
   name!: string
 
-  @Field()
+  @Field(_type => IngredientCategory)
   @Column({ type: "enum", enum: IngredientCategory })
   category!: IngredientCategory
 
