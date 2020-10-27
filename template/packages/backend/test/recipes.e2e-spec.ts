@@ -51,9 +51,8 @@ describe("Recipes example (e2e)", () => {
   })
 
   it("creates a recipe", async () => {
-    const response = await request(app.getHttpServer())
-      .post("/graphql")
-      .send({
+    expect(
+      await graphqlRequest(app, {
         query: gql`
           mutation addRecipe($recipe: NewRecipeInput!) {
             addRecipe(recipe: $recipe) {
@@ -68,18 +67,15 @@ describe("Recipes example (e2e)", () => {
             title: "my title",
           },
         },
-      })
-      .expect(200)
-
-    expect(JSON.parse(response.text)).toEqual({
+      }),
+    ).toEqual({
       data: { addRecipe: { id: expect.any(String) } },
     })
   })
 
   it("gets a list of recipes", async () => {
-    const response = await request(app.getHttpServer())
-      .get("/graphql")
-      .query({
+    expect(
+      await graphqlRequest(app, {
         query: gql`
           query {
             recipes {
@@ -89,11 +85,8 @@ describe("Recipes example (e2e)", () => {
             }
           }
         `,
-      })
-      .expect(res => res.ok || console.error(res.body))
-      .expect(200)
-
-    expect(JSON.parse(response.text)).toEqual({
+      }),
+    ).toEqual({
       data: {
         recipes: [
           {
@@ -106,6 +99,18 @@ describe("Recipes example (e2e)", () => {
     })
   })
 })
+
+async function graphqlRequest(
+  app: INestApplication,
+  payload: { query: string; variables?: object },
+) {
+  const response = await request(app.getHttpServer())
+    .post("/graphql")
+    .send(payload)
+    .expect(res => res.ok || console.error(res.body))
+    .expect(200)
+  return JSON.parse(response.text)
+}
 
 function gql(query: TemplateStringsArray): string {
   return query.join("\n")
