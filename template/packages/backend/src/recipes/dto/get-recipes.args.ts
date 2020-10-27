@@ -3,9 +3,9 @@ import { Max, Min } from "class-validator"
 
 @ArgsType()
 export class GetRecipesArgs {
-  @Field(_type => Int, { defaultValue: 0 })
+  @Field(_type => Int)
   @Min(0)
-  skip!: number
+  skip = 0
 
   @Field(_type => Int)
   @Min(1)
