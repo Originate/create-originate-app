@@ -12,6 +12,9 @@
     "migrate": "yarn workspace @/backend migrate",
     "run:heroku": "yarn workspace @/backend run:heroku"
   },
+  "resolutions": {
+    "pg": "8.4.1"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
