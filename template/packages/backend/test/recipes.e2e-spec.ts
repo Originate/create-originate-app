@@ -50,20 +50,60 @@ describe("Recipes example (e2e)", () => {
     }
   })
 
-  it("gets a list of recipes", () => {
-    return request(app.getHttpServer())
+  it("creates a recipe", async () => {
+    const response = await request(app.getHttpServer())
+      .post("/graphql")
+      .send({
+        query: gql`
+          mutation addRecipe($recipe: NewRecipeInput!) {
+            addRecipe(recipe: $recipe) {
+              id
+            }
+          }
+        `,
+        variables: {
+          recipe: {
+            description: "my description",
+            ingredientIDs: [],
+            title: "my title",
+          },
+        },
+      })
+      .expect(200)
+
+    expect(JSON.parse(response.text)).toEqual({
+      data: { addRecipe: { id: expect.any(String) } },
+    })
+  })
+
+  it("gets a list of recipes", async () => {
+    const response = await request(app.getHttpServer())
       .get("/graphql")
       .query({
         query: gql`
           query {
             recipes {
               id
+              title
+              description
             }
           }
         `,
       })
+      .expect(res => res.ok || console.error(res.body))
       .expect(200)
-      .expect({ data: { recipes: [] } })
+
+    expect(JSON.parse(response.text)).toEqual({
+      data: {
+        recipes: [
+          {
+            id: expect.any(String),
+            title: "my title",
+            description: "my description",
+          },
+        ],
+      },
+    })
   })
 })
 
