@@ -106,7 +106,7 @@ describe("Recipes example (e2e)", () => {
 // TODO: move to @originate/scripts
 async function graphqlRequest(
   app: INestApplication,
-  payload: { query: string; variables?: object },
+  payload: { query: string; variables?: Record<string, unknown> },
 ) {
   const response = await request(app.getHttpServer())
     .post("/graphql")
