@@ -12,10 +12,6 @@ export const getRecipesQuery = gql`
         id
         name
       }
-      user {
-        id
-        email
-      }
     }
   }
 ` as TypedDocumentNode<
@@ -24,7 +20,7 @@ export const getRecipesQuery = gql`
 >
 
 export const addRecipeMutation = gql`
-  mutation addRecipe($recipe: NewRecipeInput) {
+  mutation addRecipe($recipe: NewRecipeInput!) {
     addRecipe(recipe: $recipe) {
       id
       title

@@ -19,7 +19,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "plugins": [
+      {
+        "name": "ts-graphql-plugin",
+        "schema": "../backend/schema.graphql",
+        "tag": "gql"
+      }
+    ]
   },
   "include": [
     "src"
