@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#000000" />
 
     <title>Next Big Thing</title>
     <meta name="description" content="Next Big Thing is the next big thing." />
@@ -22,21 +22,9 @@
         padding: 0 5px;
       }
     </style>
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', '<%= htmlWebpackPlugin.options.GA_MEASUREMENT_ID %>');
-    </script>
-
-    <script src="<%= htmlWebpackPlugin.options.SENTRY_LAZY_LOADER_URL %>" crossorigin="anonymous"></script>
   </head>
-  <body></body>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>

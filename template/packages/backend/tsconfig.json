@@ -1,13 +1,23 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["esnext"],
     "module": "commonjs",
-    "target": "es2019",
-    "allowJs": true,
-    "baseUrl": ".",
-    "types": ["jest", "node"]
-  },
-  "references": [{"path": "../lib"}],
-  "exclude": ["node_modules", "ignored", "*.config.js"]
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "ts-graphql-plugin",
+        "schema": "schema.graphql",
+        "tag": "gql"
+      }
+    ]
+  }
 }

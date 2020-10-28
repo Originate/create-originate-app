@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Ingredient {
+  category: IngredientCategory!
+  id: ID!
+  name: String!
+}
+
+enum IngredientCategory {
+  DAIRY
+  FRUIT
+  MEAT
+  NUT
+  VEGETABLE
+}
+
+type Mutation {
+  addIngredient(ingredient: NewIngredientInput!): Ingredient!
+  addRecipe(recipe: NewRecipeInput!): Recipe!
+}
+
+input NewIngredientInput {
+  category: IngredientCategory!
+  name: String!
+}
+
+input NewRecipeInput {
+  description: String
+  ingredientIDs: [ID!]
+  title: String!
+}
+
+type Query {
+  """Get a recipe by its ID"""
+  recipe(id: ID!): Recipe!
+
+  """Get recipes written by you, or that are publicly shared"""
+  recipes(skip: Int = 0, take: Int = 25, title: String, userId: ID): [Recipe!]!
+}
+
+type Recipe {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  ingredients: [Ingredient!]!
+  title: String!
+  updatedAt: DateTime!
+}

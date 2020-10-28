@@ -12,24 +12,26 @@
     "migrate": "yarn workspace @/backend migrate",
     "run:heroku": "yarn workspace @/backend run:heroku"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "resolutions": {
+    "pg": "8.4.1"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/ts-graphql-plugin/**",
+      "**/ts-graphql-plugin",
+      "**/typeorm/**",
+      "**/typeorm"
+    ]
+  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^4.2.0",
-    "eslint": "^7.12.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-eslint-plugin": "^2.3.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-jest": "^24.1.0",
-    "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "jest": "^26.4.2",
-    "patch-package": "^6.2.2",
+    "jest": "24.9.0",
     "prettier": "^2.1.2",
     "typescript": "^4.0.2"
   },

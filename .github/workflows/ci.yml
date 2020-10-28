@@ -32,9 +32,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: |
-          template/packages/lib/ignored
-          template/packages/frontend/ignored
-          template/packages/backend/ignored
+          template/packages/backend/dist
         key: ignored
 
     - run: yarn --frozen-lockfile

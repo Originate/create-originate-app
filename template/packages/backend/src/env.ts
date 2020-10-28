@@ -1,20 +1,17 @@
-import * as D from 'io-ts/lib/Decoder';
-import * as Either from 'fp-ts/lib/Either';
-import {withDefault} from '@/lib/src/io-ts';
+import { IsIn, IsOptional, IsPort, IsUrl } from "class-validator"
 
-const decoder = D.type({
-  ENVIRONMENT: D.string,
-  PORT: withDefault('3000', D.string),
-  DATABASE_URL: D.string,
-});
+export class Env {
+  @IsUrl({
+    require_protocol: true,
+    require_valid_protocol: false,
+    require_tld: false,
+  })
+  DATABASE_URL!: string
 
-export type Env = D.TypeOf<typeof decoder>;
+  @IsIn(["development", "production", "test"])
+  NODE_ENV!: string
 
-export const parseEnv = (): Env | string => {
-  const either = decoder.decode(process.env);
-  if (Either.isLeft(either)) {
-    return D.draw(either.left);
-  } else {
-    return either.right;
-  }
-};
+  @IsPort()
+  @IsOptional()
+  PORT = "3000"
+}

@@ -1,33 +1,36 @@
-import * as React from 'react';
-import {useReducer, useState, FC} from 'react';
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import * as React from "react"
+import ReactDOM from "react-dom"
+import { App } from "./components/App"
+import { Error } from "./components/error"
+import { parseEnv } from "./env"
 
-import {initialStore, reducer, Store} from '@/frontend/src/store';
-import {Env} from '@/frontend/src/env';
-import {Dispatch} from '@/frontend/src/dispatch';
-import {StoreContext, DispatchContext} from '@/frontend/src/components/contexts';
+const main = () => {
+  const root = document.getElementById("root")
+  const env = parseEnv()
+  if ("message" in env) {
+    // if `env` is an Error
+    ReactDOM.render(
+      <Error
+        header="Missing environment variable(s)"
+        message={env.message}
+        footer="unsolicited advice: check your packages/frontend/.env file"
+      />,
+      root,
+    )
+    return
+  }
 
-import {Hello} from '@/frontend/modules/hello';
+  const client = new ApolloClient({
+    uri: env.REACT_APP_GRAPHQL_URL,
+    cache: new InMemoryCache(),
+  })
+  ReactDOM.render(
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>,
+    root,
+  )
+}
 
-const Contextually: FC<{dispatch: Dispatch; store: Store; children: React.ReactNode}> = ({
-  dispatch,
-  store,
-  children,
-}) => (
-  <StoreContext.Provider value={store}>
-    <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
-  </StoreContext.Provider>
-);
-
-export const Switchboard: FC<{env: Env}> = ({env}) => {
-  React.useEffect(() => {
-    console.log('Environment loaded:', env);
-  }, [env]);
-
-  const [store, reactDispatch] = useReducer(reducer, initialStore());
-  const [dispatch] = useState(new Dispatch(reactDispatch));
-  return (
-    <Contextually dispatch={dispatch} store={store}>
-      <Hello />
-    </Contextually>
-  );
-};
+main()
