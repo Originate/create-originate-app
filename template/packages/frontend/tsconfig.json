@@ -1,31 +1,27 @@
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "module": "esnext",
-    "isolatedModules": true,
-    "jsx": "react",
-    "plugins": [
-      {
-        "name": "ts-graphql-plugin",
-        "schema": "../backend/schema.graphql",
-        "tag": "gql"
-      }
-    ],
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react"
   },
   "include": [
     "src"
-  ],
-  "references": [
-    {
-      "path": "../lib"
-    }
   ]
 }

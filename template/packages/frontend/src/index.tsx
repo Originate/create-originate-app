@@ -8,11 +8,12 @@ import { parseEnv } from "./env"
 const main = () => {
   const root = document.getElementById("root")
   const env = parseEnv()
-  if (typeof env == "string") {
+  if ("message" in env) {
+    // if `env` is an Error
     ReactDOM.render(
       <Error
-        header="unable to parse webpack env"
-        message={env}
+        header="Missing environment variable(s)"
+        message={env.message}
         footer="unsolicited advice: check your packages/frontend/.env file"
       />,
       root,
