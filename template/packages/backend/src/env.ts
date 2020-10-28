@@ -13,5 +13,5 @@ export class Env {
 
   @IsPort()
   @IsOptional()
-  PORT: string = "3000"
+  PORT = "3000"
 }
