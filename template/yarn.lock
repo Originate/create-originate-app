@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@Originate/leash@^2.1.4":
-  version "2.1.4"
-  resolved "https://npm.pkg.github.com/download/@Originate/leash/2.1.4/0edc9b5418f1e4f1eb39625465c8010edce3fff0bd711d592e9ad8ff8c190061#4d7e1edbe9a6af96d4a577a1ecf342d4342c1b00"
-  integrity sha512-KRsRMffMmW2teymM1UevtavIZhsv7EfB1bxxCSPvz6DU8OojuG0YHGwEWK9pnFAvW1cCEJnDwzt9QmhsM+QTgQ==
-
 "@angular-devkit/core@10.0.7":
   version "10.0.7"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-10.0.7.tgz#f88c1fe316e83049703c658ec82b2d1f811b1e36"
