@@ -1,3 +1,3 @@
-export {}
+import { App } from "./components/App"
 
-it("works", () => expect(1).toEqual(1))
+it("App is defined", () => expect(App).toBeDefined())

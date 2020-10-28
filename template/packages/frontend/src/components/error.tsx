@@ -1,6 +1,10 @@
-import * as React from 'react';
+import * as React from "react"
 
-export const Error: React.FC<{header: string; message: string; footer: string}> = ({header, message, footer}) => {
+export const Error: React.FC<{
+  header: string
+  message: string
+  footer: string
+}> = ({ header, message, footer }) => {
   return (
     <pre>
       <strong>{header}</strong>
@@ -11,5 +15,5 @@ export const Error: React.FC<{header: string; message: string; footer: string}> 
       <br />
       {footer}
     </pre>
-  );
-};
+  )
+}
