@@ -3,14 +3,12 @@
 export type addRecipe = {
     addRecipe: {
         id: string;
-        title: string;
     };
 };
 export type addRecipeVariables = {
-    recipe: ({
+    recipe: {
+        description?: string | null;
+        ingredientIDs?: string[] | null;
         title: string;
-        description: string | null;
-        isPublic: boolean;
-        ingredientIDs: string[];
-    }) | null;
+    };
 };
