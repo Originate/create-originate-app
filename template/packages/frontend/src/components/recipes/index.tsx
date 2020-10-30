@@ -1,7 +1,17 @@
-import { useMutation, useQuery, TypedDocumentNode } from "@apollo/client"
+import { gql, useMutation, useQuery } from "@apollo/client"
 import * as React from "react"
-import { addRecipeMutation, getRecipesQuery } from "../../graphql/recipes"
 import { useForm, useFormField } from "../../hooks/useForm"
+
+const addRecipeMutation = gql`
+  mutation addRecipe($recipe: NewRecipeInput!) {
+    addRecipe(recipe: $recipe) {
+      id
+    }
+  }
+` as import("@graphql-typed-document-node/core").TypedDocumentNode<
+  import("./__generated__/add-recipe").addRecipe,
+  import("./__generated__/add-recipe").addRecipeVariables
+>
 
 const NewRecipeForm = () => {
   const [addRecipe] = useMutation(addRecipeMutation)
@@ -14,7 +24,6 @@ const NewRecipeForm = () => {
           recipe: {
             title: titleField.value,
             description: descriptionField.value,
-            isPublic: true,
             ingredientIDs: [],
           },
         },
@@ -31,11 +40,7 @@ const NewRecipeForm = () => {
   )
 }
 
-type ResultOf<T> = T extends TypedDocumentNode<infer R, unknown> ? R : never
-
-const Recipe = (
-  recipe: ResultOf<typeof getRecipesQuery>["recipes"][number],
-) => {
+const Recipe = (recipe: { title: string; description: string | null }) => {
   return (
     <div style={{ border: "2px solid black", marginTop: "2em" }}>
       <h3>{recipe.title}</h3>
@@ -43,6 +48,23 @@ const Recipe = (
     </div>
   )
 }
+
+const getRecipesQuery = gql`
+  query getRecipes {
+    recipes {
+      id
+      title
+      description
+      ingredients {
+        id
+        name
+      }
+    }
+  }
+` as import("@graphql-typed-document-node/core").TypedDocumentNode<
+  import("./__generated__/get-recipes").getRecipes,
+  import("./__generated__/get-recipes").getRecipesVariables
+>
 
 const RecipesList = () => {
   const { loading, error, data } = useQuery(getRecipesQuery)

@@ -3,7 +3,6 @@
 export type addRecipe = {
     addRecipe: {
         id: string;
-        title: string;
     };
 };
 export type addRecipeVariables = {
