@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -k 'yarn start' 'yarn codegen:watch'",
+    "start:dev": "concurrently -k 'yarn start' 'yarn codegen:watch'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
