@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.4",
+    "@hallettj/eslint-plugin-ts-graphql": "^0.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.8",
@@ -36,7 +37,6 @@
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.3",
     "dotenv": "^8.2.0",
-    "eslint-plugin-ts-graphql": "file:/home/jesse/projects/javascript/ts-graphql-eslint-plugin",
     "graphql": "^15.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

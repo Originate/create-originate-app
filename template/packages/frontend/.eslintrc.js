@@ -6,7 +6,7 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ["graphql", "ts-graphql"],
+  plugins: ["graphql", "@hallettj/ts-graphql"],
   rules: {
     "graphql/capitalized-type-name": "warn",
     "graphql/named-operations": "error",
@@ -16,6 +16,6 @@ module.exports = {
       { env: "apollo", requiredFields: ["id"] },
     ],
     "graphql/template-strings": ["error", { env: "apollo" }],
-    "ts-graphql/gql-type-assertion": "error",
+    "@hallettj/ts-graphql/gql-type-assertion": "error",
   },
 }
