@@ -1,6 +1,12 @@
-import { gql, TypedDocumentNode } from "@apollo/client"
-import * as addRecipeGen from "./__generated__/add-recipe"
-import * as getRecipesGen from "./__generated__/get-recipes"
+import { gql } from "@apollo/client"
+
+// const recipeFields = gql`
+//   fragment RecipeFields on Recipe {
+//     id
+//     title
+//     description
+//   }
+// `
 
 export const getRecipesQuery = gql`
   query getRecipes {
@@ -14,9 +20,9 @@ export const getRecipesQuery = gql`
       }
     }
   }
-` as TypedDocumentNode<
-  getRecipesGen.getRecipes,
-  getRecipesGen.getRecipesVariables
+` as import("@graphql-typed-document-node/core").TypedDocumentNode<
+  import("./__generated__/get-recipes").getRecipes,
+  import("./__generated__/get-recipes").getRecipesVariables
 >
 
 export const addRecipeMutation = gql`
@@ -26,4 +32,7 @@ export const addRecipeMutation = gql`
       title
     }
   }
-` as TypedDocumentNode<addRecipeGen.addRecipe, addRecipeGen.addRecipeVariables>
+` as import("@graphql-typed-document-node/core").TypedDocumentNode<
+  import("./__generated__/add-recipe").addRecipe,
+  import("./__generated__/add-recipe").addRecipeVariables
+>

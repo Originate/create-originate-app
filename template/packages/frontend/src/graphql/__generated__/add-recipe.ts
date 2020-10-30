@@ -7,10 +7,9 @@ export type addRecipe = {
     };
 };
 export type addRecipeVariables = {
-    recipe: ({
+    recipe: {
+        description?: string | null;
+        ingredientIDs?: string[] | null;
         title: string;
-        description: string | null;
-        isPublic: boolean;
-        ingredientIDs: string[];
-    }) | null;
+    };
 };

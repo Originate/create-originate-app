@@ -9,10 +9,6 @@ export type getRecipes = {
             id: string;
             name: string;
         })[];
-        user: {
-            id: string;
-            email: string;
-        };
     })[];
 };
 export type getRecipesVariables = {};
