@@ -31,7 +31,7 @@
     "@hallettj/eslint-plugin-ts-graphql": "^0.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.8",
+    "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^24.0.0",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
