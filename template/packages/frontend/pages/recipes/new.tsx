@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client"
+import { useRouter } from "next/router"
 import { useForm, useFormField } from "../../lib/useForm"
 
 const addRecipeMutation = gql`
@@ -13,7 +14,15 @@ const addRecipeMutation = gql`
 >
 
 export default function NewRecipeForm() {
-  const [addRecipe] = useMutation(addRecipeMutation)
+  const [addRecipe] = useMutation(addRecipeMutation, {
+    update(cache, response) {
+      if (response.data) {
+        cache.evict({ id: "ROOT_QUERY", fieldName: "recipes" })
+        console.log("cache", cache.extract())
+      }
+    },
+  })
+  const router = useRouter()
   const titleField = useFormField("")
   const descriptionField = useFormField("")
   const formProps = useForm({
@@ -27,6 +36,7 @@ export default function NewRecipeForm() {
           },
         },
       })
+      router.push("/recipes")
     },
     fields: [titleField, descriptionField],
   })
