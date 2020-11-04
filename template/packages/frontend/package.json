@@ -6,22 +6,12 @@
     "dev": "yarn start:dev",
     "build": "next build",
     "start": "next start",
-    "start:dev": "concurrently -k 'next dev' 'npm-watch'",
+    "start:dev": "concurrently -k 'next dev' 'yarn codegen:watch'",
     "codegen": "ts-graphql-plugin typegen",
-    "codegen:watch": "watch '--ignoreDirectoryPattern=/__generated__/' 'yarn codegen' .",
+    "codegen:watch": "nodemon --ext ts,tsx --exec yarn codegen --ignore '/__generated__/'",
     "typecheck": "echo next && tsc -p .",
     "typecheck:watch": "yarn typecheck --watch",
-    "lint": "eslint --cache --ext .ts,.tsx --ignore-pattern __generated__ .",
-    "watch": "npm-watch"
-  },
-  "watch": {
-    "codegen": {
-      "extensions": [
-        "ts",
-        "tsx"
-      ],
-      "ignore": "**/__generated__/**"
-    }
+    "lint": "eslint --cache --ext .ts,.tsx --ignore-pattern __generated__ ."
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
@@ -38,8 +28,6 @@
     "@types/react-dom": "^16.9.9",
     "concurrently": "^5.3.0",
     "eslint-plugin-graphql": "^4.0.0",
-    "npm-watch": "^0.7.0",
-    "ts-graphql-plugin": "^2.0.2",
-    "watch": "^1.0.2"
+    "ts-graphql-plugin": "^2.0.2"
   }
 }
