@@ -18,7 +18,6 @@ export default function NewRecipeForm() {
     update(cache, response) {
       if (response.data) {
         cache.evict({ id: "ROOT_QUERY", fieldName: "recipes" })
-        console.log("cache", cache.extract())
       }
     },
   })

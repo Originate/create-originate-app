@@ -1,16 +1,20 @@
 import Head from "next/head"
+import Link from "next/link"
 
 export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Create a new Originate App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to{" "}
+          <a href="https://github.com/Originate/create-react-app">
+            Create Originate App!
+          </a>
         </h1>
 
         <p className="description">
@@ -36,15 +40,12 @@ export default function Home() {
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <Link href="/recipes">
+            <a className="card">
+              <h3>Try the Recipes Demo &rarr;</h3>
+              <p>See a working example of Create Originate App. It's cool.</p>
+            </a>
+          </Link>
         </div>
       </main>
 
