@@ -8,9 +8,13 @@ module.exports = {
   },
   plugins: ["graphql", "@hallettj/ts-graphql"],
   rules: {
+    // These rules conflict with nextjs conventions
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    //
     "graphql/capitalized-type-name": "warn",
     "graphql/named-operations": "error",
-	"graphql/no-deprecated-fields": ["warn", { env: "apollo" }],
+    "graphql/no-deprecated-fields": ["warn", { env: "apollo" }],
     "graphql/required-fields": [
       "error",
       { env: "apollo", requiredFields: ["id"] },

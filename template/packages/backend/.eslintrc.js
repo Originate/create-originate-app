@@ -19,7 +19,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "@typescript-eslint/explicit-module-boundary-types": "off",
 
     // TypeScript itself warns us about unused variables (except for arguments
     // prefixed with an underscore). We want to have unused arguments for
