@@ -5,4 +5,5 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:jest/recommended",
   ],
+  rules: { "@typescript-eslint/no-unused-vars": "off" },
 }
