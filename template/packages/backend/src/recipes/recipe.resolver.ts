@@ -12,6 +12,7 @@ import { NewRecipeInput } from "./dto/new-recipe.input"
 import { Recipe } from "./models/recipe.entity"
 import { RecipeService } from "./recipe.service"
 import { Ingredient } from "./models/ingredient.entity"
+import { DeleteResult } from "typeorm"
 
 @Resolver(() => Recipe)
 export class RecipeResolver {
@@ -38,6 +39,11 @@ export class RecipeResolver {
   @Mutation(_returns => Recipe)
   async addRecipe(@Args("recipe") recipe: NewRecipeInput): Promise<Recipe> {
     return this.recipeService.create(recipe)
+  }
+
+  @Mutation(_returns => Recipe)
+  async deleteRecipe(@Args("id") id: string): Promise<DeleteResult> {
+    return this.recipeService.delete(id)
   }
 
   // GraphQL can retrieve values from simple entity properties that have

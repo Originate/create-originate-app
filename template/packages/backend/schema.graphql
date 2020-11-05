@@ -24,6 +24,7 @@ enum IngredientCategory {
 type Mutation {
   addIngredient(ingredient: NewIngredientInput!): Ingredient!
   addRecipe(recipe: NewRecipeInput!): Recipe!
+  deleteRecipe(id: String!): Recipe!
 }
 
 input NewIngredientInput {

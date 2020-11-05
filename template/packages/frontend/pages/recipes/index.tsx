@@ -23,6 +23,7 @@ function Recipe(recipe: { title: string; description: string | null }) {
     <div style={{ border: "2px solid black", marginTop: "2em" }}>
       <h3>{recipe.title}</h3>
       <p>{recipe.description}</p>
+      <button>delete</button>
     </div>
   )
 }
