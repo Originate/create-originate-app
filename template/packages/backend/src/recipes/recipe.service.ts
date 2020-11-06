@@ -2,7 +2,7 @@ import { Injectable, Scope } from "@nestjs/common"
 import { InjectEntityManager, InjectRepository } from "@nestjs/typeorm"
 import DataLoader from "dataloader"
 import { filter } from "lodash"
-import { DeleteResult, EntityManager, Like, Repository } from "typeorm"
+import { EntityManager, Like, Repository } from "typeorm"
 import { GetRecipesArgs } from "./dto/get-recipes.args"
 import { NewRecipeInput } from "./dto/new-recipe.input"
 import { Ingredient } from "./models/ingredient.entity"
@@ -64,10 +64,11 @@ export class RecipeService {
     return this.recipeRepository.save({ ...recipe, ingredients })
   }
 
-  async delete(id: string): Promise<DeleteResult> {
-    // const recipe = await this.manager.findOne(Recipe, {
-    // where: { id },
-    // })
-    return await this.recipeRepository.delete(id)
+  async delete(id: string): Promise<boolean> {
+    let deleteResult = await this.recipeRepository.delete(id)
+    if (deleteResult.affected === 1) {
+      return true
+    }
+    throw new Error(`Id not found ${id}`)
   }
 }

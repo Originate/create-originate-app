@@ -12,7 +12,6 @@ import { NewRecipeInput } from "./dto/new-recipe.input"
 import { Recipe } from "./models/recipe.entity"
 import { RecipeService } from "./recipe.service"
 import { Ingredient } from "./models/ingredient.entity"
-import { DeleteResult } from "typeorm"
 
 @Resolver(() => Recipe)
 export class RecipeResolver {
@@ -41,8 +40,10 @@ export class RecipeResolver {
     return this.recipeService.create(recipe)
   }
 
-  @Mutation(_returns => Recipe)
-  async deleteRecipe(@Args("id") id: string): Promise<DeleteResult> {
+  @Mutation(_returns => Boolean)
+  async deleteRecipe(
+    @Args("id", { type: () => ID }) id: string,
+  ): Promise<boolean> {
     return this.recipeService.delete(id)
   }
 
