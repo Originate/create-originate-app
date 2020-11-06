@@ -64,11 +64,12 @@ export class RecipeService {
     return this.recipeRepository.save({ ...recipe, ingredients })
   }
 
+  /*
+   * Deletes a recipe, returns `true` on success or `false` if the recipe row
+   * was not found.
+   */
   async delete(id: string): Promise<boolean> {
     let deleteResult = await this.recipeRepository.delete(id)
-    if (deleteResult.affected === 1) {
-      return true
-    }
-    throw new Error(`Id not found ${id}`)
+    return deleteResult.affected === 1
   }
 }

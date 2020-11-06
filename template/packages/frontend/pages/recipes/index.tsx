@@ -44,7 +44,7 @@ function Recipe(recipe: {
     <div style={{ border: "2px solid black", marginTop: "2em" }}>
       <h3>{recipe.title}</h3>
       <p>{recipe.description}</p>
-      <button onClick={deleteRecipe}>delete</button>
+      <button onClick={() => deleteRecipe()}>delete</button>
     </div>
   )
 }
