@@ -2,6 +2,8 @@
 
 https://github.com/Originate/create-originate-app/projects/1
 
+TODO: The instructions is this document are out-of-date
+
 ## ~/.npmrc
 
 [Create a personal access token](https://github.com/settings/tokens) and then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
