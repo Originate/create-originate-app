@@ -28,7 +28,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "resolutions": {
-    "pg": "8.4.1"
+    "pg": "8.4.2"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -44,7 +44,7 @@
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.4",
     "lodash": "^4.17.20",
-    "pg": "^8.4.1",
+    "pg": "^8.4.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
