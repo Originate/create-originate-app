@@ -80,6 +80,45 @@ describe("Recipes example (e2e)", () => {
     })
   })
 
+  it("deletes a recipe", async () => {
+    expect(
+      await graphqlRequest(app, {
+        query: gql`
+          mutation {
+            deleteRecipe(id: 1)
+          }
+        `,
+      }),
+    ).toEqual({
+      data: { deleteRecipe: true },
+    })
+  })
+
+  it("reports failure when deleting a recipe that does not exist", async () => {
+    const id = "99"
+    expect(
+      await graphqlRequest(app, {
+        query: gql`
+          mutation deleteRecipe($id: ID!) {
+            deleteRecipe(id: $id)
+          }
+        `,
+        variables: { id },
+      }),
+    ).toEqual({
+      data: null,
+      errors: [
+        expect.objectContaining({
+          extensions: expect.objectContaining({
+            code: "BAD_USER_INPUT",
+            id,
+          }),
+          message: `Could not find recipe with ID ${id}`,
+        }),
+      ],
+    })
+  })
+
   it("creates an ingredient", async () => {
     expect(
       await graphqlRequest(app, {

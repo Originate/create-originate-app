@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client"
+import { gql, useQuery, useMutation } from "@apollo/client"
 import Link from "next/link"
 
 const getRecipesQuery = gql`
@@ -18,11 +18,33 @@ const getRecipesQuery = gql`
   import("./__generated__/get-recipes").getRecipesVariables
 >
 
-function Recipe(recipe: { title: string; description: string | null }) {
+const deleteRecipesMutation = gql`
+  mutation deleteRecipe($recipeId: ID!) {
+    deleteRecipe(id: $recipeId)
+  }
+` as import("@graphql-typed-document-node/core").TypedDocumentNode<
+  import("./__generated__/delete-recipe").deleteRecipe,
+  import("./__generated__/delete-recipe").deleteRecipeVariables
+>
+
+function Recipe(recipe: {
+  id: string
+  title: string
+  description: string | null
+}) {
+  const [deleteRecipe] = useMutation(deleteRecipesMutation, {
+    variables: { recipeId: recipe.id },
+    update(cache, response) {
+      if (response.data) {
+        cache.evict({ id: "ROOT_QUERY", fieldName: "recipes" })
+      }
+    },
+  })
   return (
     <div style={{ border: "2px solid black", marginTop: "2em" }}>
       <h3>{recipe.title}</h3>
       <p>{recipe.description}</p>
+      <button onClick={() => deleteRecipe()}>delete</button>
     </div>
   )
 }
