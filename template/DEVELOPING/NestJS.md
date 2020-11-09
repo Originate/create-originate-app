@@ -42,3 +42,8 @@ annotation. Nest encourages developers split features into separate modules to
 clearly delineate areas of responsibility. The modular system also makes it easy
 to import functionality from other packages, and makes it easy to delete the
 recipes feature when you are done looking at it.
+
+Nest publishes packages that integrate a number of libraries into its module
+system. For example we use `@nestjs/typeorm` to automatically wire TypeORM
+entity classes into the app, and to allow TypeORM repositories to be injected
+into app code.
