@@ -21,8 +21,12 @@ Start the app with `yarn dev:backend` and `yarn dev:frontend`
 > one terminal you can use this command (with a single &):
 > `yarn dev:backend & yarn dev:frontend`
 
+For some more details on how NestJS and Next.js work, and how they fit together
+see [the developing docs][developing].
+
 [nestjs]: https://nestjs.com/
 [next.js]: https://nextjs.org/
+[developing]: ./template/DEVELOPING/index.md
 
 ### Database out-of-the-box
 
@@ -147,6 +151,15 @@ Start the backend and frontend in separate terminals with these commands:
 
 You can access the interactive GraphQL playground on the backend server at
 http://localhost:4000/graphql, and the frontend at http://localhost:3000/
+
+---
+
+## Documentation
+
+For more detailed documentation on working with the COA framework see
+[`template/DEVELOPING/index.md`][developing]
+
+---
 
 ## Read our design document
 
