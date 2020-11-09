@@ -1,83 +1,166 @@
+# create-originate-app
+
 This project is designed to make it easy to set up a single-page React app!
 
-----
+---
 
-## features
+## Features
 
-### `yarn typecheck:watch` (or `yarn tw`)
+### Full-stack framework
 
-Runs TypeScript on the much-beloved Watch Mode™ so you can keep an eye on type mishaps across the whole project while you write new code or refactor. You can run `yarn typecheck` to just typecheck once.
+An API backend powered by [NestJS][] provides a fully-featured GraphQL and REST
+framework, and a database interface to PostgreSQL. The frontend is powered by
+[Next.js][] which provides server-side rendering, static page generation,
+routing, and a number of other useful features.
 
-### `yarn dev`
+Start the app with `yarn dev:backend` and `yarn dev:frontend`
 
-This spins up the HTTP service on endpoint `http://localhost:3000` and webpack-dev-server on endpoint `http://localhost:8080`. (We've taught Webpack to proxy server requests back to `:3000`.) If you open `:8080` in a browser, you should see the changes you make to your React components appear on the page in realtime. You may know this feature variously as Hot Module Reloading or Fast Refresh. No matter what you call it, it's cool.
+> ℹ️ Why don't we have one script that runs both servers? The backend dev script
+> clears the terminal when files change, and mixing output from both scripts
+> makes it hard to tell what is going on. But if you want to run both servers in
+> one terminal you can use this command (with a single &):
+> `yarn dev:backend & yarn dev:frontend`
 
-### `yarn lint`
+For some more details on how NestJS and Next.js work, and how they fit together
+see [the developing docs][developing].
 
-Checks ESLint (which also runs Prettier) against the codebase. Run `yarn fix` to automatically fix problems that can be automatically fixed. Let us know if your text editor is able to run Prettier upon file saves; it should be able to pick up Prettier from its location in the project's `node_modules/`.
+[nestjs]: https://nestjs.com/
+[next.js]: https://nextjs.org/
+[developing]: ./template/DEVELOPING/index.md
 
-### ci
+### Database out-of-the-box
 
-Push to a GitHub repo to run the CI, which typechecks and lints the repo on each push to each branch.
+When you run `yarn dev:backend` a postgres database automatically starts up in
+a docker container. Running backend end-to-end tests with
+`yarn workspace @/backend test:e2e --watch`
+creates a fresh, temporary database for each run of
+each test file. The dev database is persistent, but can be recreated from
+scratch at any time by running `yarn workspace @/backend db:destroy`. Test
+database containers are deleted once tests complete.
 
-### routing
+> ⚠️ TODO: We plan to enhance the dev database scripts so that you can run dev
+> databases for multiple projects simultaneously without port or container name
+> conflicts.
 
-The router library enforces type safety between the frontend and the backend. The frontend may only make requests and expect responses with the types specified by the tree of routes; similarly, the backend may only ingest requests and vend responses that conform to the same types. This is sort of like a run-time version of Haskell's excellent [servant](https://www.servant.dev/) library.
+### Rapid development cycle
 
-### persistence to postgres, with database migrations
+The app database schema is inferred from code. In development mode when you make
+a change to your database code, the schema of the dev database updates instantly
+to match. When you're ready to commit changes generate a migration to run in
+production with `yarn workspace @/backend db:migration:generate -n MyMigration`.
 
-Powered by `node-postgres` and `node-postgres-migrate`
+> ℹ️ After generation, migrations can be modified by hand to add custom indexes,
+> to massage data, etc.
 
-### authentication
+The app GraphQL schema is also inferred from code, and also updates instantly
+when you make code changes.
 
-Stateless session token-based authentication is provided via `/api/auth/{login,signup,password,password-reset}` routes. You can remove the default authentication strategy and plug in your own, if you'd like.
+The frontend implements [fast refresh][]. When you make changes to code, changed
+React components are updated in the browser without reloading the entire page,
+and without losing local state.
 
-### ... and more
+[fast refresh]: https://nextjs.org/docs/basic-features/fast-refresh
 
-- React Fast Refresh
-- Push to Heroku to deploy immediately
-- Modern web development best practices
+### End-to-end type safety
 
-----
+React code fetches data from the API via GraphQL queries embedded in TypeScript
+code. A TypeScript compiler plugin provides IDE completions, error checking, and
+type display as you write queries. Automatically-generated TypeScript interfaces
+allow TypeScript to infer the exact type of result data for each query, and to
+infer types of variables required by each query. Changes to the API will produce
+type errors if they introduce incompatibility with the frontend implementation,
+and vice versa.
 
-## getting started
+> ℹ️ GraphQL queries do require a type assertion to make type inference work. It
+> looks like `as import(@graphql-typed-document-node/core).TypedDocumentNode<...`
+> Don't bother writing those yourself - run `yarn lint --fix` to have the
+> appropriate type assertion put in automatically.
 
+### Server-side rendering, and static generation
 
-### 1. ~/.npmrc
+Server-side rendering is easy with [Next.js][]. Public landing pages, and other
+pages that do not update frequently can be pre-rendered (static generation), or
+can be rendered on-demand server-side. That provides fast page load times for
+cases where minimizing bounce rates is important without requiring a separate
+system for static pages. Most of the time you can write React code as usual
+without thinking about server-side rendering. But when you need it, the tools
+are there.
 
-[Create a personal access token](https://github.com/settings/tokens) and make sure to add these scopes:
+> ℹ️ Server-side rendering pairs very nicely with a CDN!
 
-```
-write:packages
-read:packages
-delete:packages
-``` 
+### CI
 
-Then add this to your `~/.npmrc`. This allows Yarn and NPM to find [@Originate/leash](https://github.com/Originate/leash).
+TODO: We plan to ship a complete CI configuration using Github Actions. This
+will run tests, as well as sanity checks such as checking that generated GraphQL
+files are up-to-date, and that migrations are in sync with app code.
 
+### Ready to deploy
 
-```
-@Originate:registry=https://npm.pkg.github.com
+TODO: We hope to provide deployment scripts that will work out-of-the-box with
+minimal manual setup.
 
-_authToken=<PASTE AUTH TOKEN HERE>
-always-auth=true
-```
+### Expandable with features for your use case
 
-### 2. Make sure you have these things:
+The [NestJS][] module system in particular makes it possible to extract pieces
+of app behavior into reusable components. We want to set up modules for features
+like authentication with different providers, CMS integration, cloud file
+storage with different providers, etc. And because NestJS is a well-known
+framework you may be able to find the feature you want available on NPM, ready
+to drop into your app.
 
-- Fairly modern macOS or Linux
-- Node v14 ([see "Node Target Mapping"](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping) for other Node versions, [see "tj/n"](https://github.com/tj/n) for Node management)
-- Set up your ~/.npmrc (see below)
+---
+
+## Getting started
+
+### Prerequisites
+
+Make sure you have:
+
+- Node
 - Yarn
-- Git
-- zsh
+- Docker
 
+We recommended the latest Node LTS release, which at the time of this writing is
+v14.
 
-### 3. `npx github:Originate/create-originate-app [app name]`
+Docker must be set up so that you can run it without using `sudo`, and the
+Docker executable has to be called `docker`.
 
-There!
+### 1. Generate an app
 
-## 4. Read our design document
+TODO: We plan to set up a command to automatically generate a starter app using
+the template in the `template/` directory. In the meantime if you want to
+experiment with COA we recommend that you clone this repository, and make
+changes to it directly. The `template/` directory is the root of the app - run
+`yarn` commands from there.
+
+### 2. Set up your environment
+
+Copy `template/packages/backend/.env.example` to
+`template/packages/backend/.env`.
+
+TODO: We should be able to make this step skippable like it is in the frontend.
+
+### 3. Start the app
+
+Start the backend and frontend in separate terminals with these commands:
+
+    $ yarn dev:backend
+
+    $ yarn dev:frontend
+
+You can access the interactive GraphQL playground on the backend server at
+http://localhost:4000/graphql, and the frontend at http://localhost:3000/
+
+---
+
+## Documentation
+
+For more detailed documentation on working with the COA framework see
+[`template/DEVELOPING/index.md`][developing]
+
+---
+
+## Read our design document
 
 For historical color, see [issue 1](https://github.com/Originate/create-originate-app/issues/1).
-
