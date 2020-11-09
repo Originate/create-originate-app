@@ -1,16 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "_prettier": "prettier \"./**/*.{js,jsx,ts,tsx,css,json}\"",
-    "typecheck": "yarn tsc -b packages/**/tsconfig.json",
-    "typecheck:watch": "yarn typecheck --watch",
-    "tw": "yarn typecheck:watch",
-    "dev": "./vendor/dev",
+    "dev:backend": "yarn workspace @/backend start:dev",
+    "dev:frontend": "yarn workspace @/frontend start:dev",
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
-    "fix": "yarn workspaces run lint --fix",
-    "migrate": "yarn workspace @/backend migrate",
-    "run:heroku": "yarn workspace @/backend run:heroku"
+    "fix": "yarn workspaces run lint --fix"
   },
   "resolutions": {
     "pg": "8.4.1"
