@@ -7,9 +7,6 @@
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix"
   },
-  "resolutions": {
-    "pg": "8.4.1"
-  },
   "workspaces": {
     "packages": [
       "packages/*"

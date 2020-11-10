@@ -1,6 +1,6 @@
 import { INestApplication } from "@nestjs/common"
 import { Test, TestingModule } from "@nestjs/testing"
-import { startPostgresContainer } from "docker-await-postgres"
+import { Config, startPostgresContainer } from "@originate/docker-await-postgres"
 import request from "supertest"
 import { createConnection } from "typeorm"
 
@@ -164,11 +164,12 @@ function gql(query: TemplateStringsArray): string {
 async function getTestDatabase(): Promise<{
   stop: () => Promise<void>
 }> {
-  const config = {
+  const config: Config = {
     user: "postgres",
     password: "password",
     database: "postgres",
     image: "postgres:latest",
+    ensureShutdown: true,
   }
   const { port, stop } = await startPostgresContainer(config)
   process.env.DATABASE_URL = `postgres://${config.user}:${config.password}@localhost:${port}/${config.database}`

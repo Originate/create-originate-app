@@ -9,8 +9,8 @@
 
 // TODO: move to @originate/scripts
 
-import { startPostgresContainer } from "docker-await-postgres"
-import { spawn, ChildProcessByStdio } from "child_process"
+import { startPostgresContainer } from "@originate/docker-await-postgres"
+import { ChildProcessByStdio, spawn } from "child_process"
 
 const processArgs = process.argv.slice(2)
 
