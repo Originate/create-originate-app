@@ -2214,6 +2214,18 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
+"@originate/docker-await-postgres@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@originate/docker-await-postgres/-/docker-await-postgres-1.1.0.tgz#77a4a7e415ccff998ed3d87349630bc9fe903aae"
+  integrity sha512-j0sOrbRZJjH2BFyRfJFPq197s1fFufsupTvIQy7x7rNhn7MHYDX0YkEXQ+xDHb8TYHyliGH7t7FAvAsOtdJ0KA==
+  dependencies:
+    death "1.1.0"
+    dockerode "2.5.8"
+    execa "1.0.0"
+    get-port "4.1.0"
+    p-retry "3.0.1"
+    pg ">=7.8.1"
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -5352,6 +5364,11 @@ de-indent@^1.0.2:
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
 
+death@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/death/-/death-1.1.0.tgz#01aa9c401edd92750514470b8266390c66c67318"
+  integrity sha1-AaqcQB7dknUFFEcLgmY5DGbGcxg=
+
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -5563,17 +5580,6 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
-
-docker-await-postgres@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/docker-await-postgres/-/docker-await-postgres-1.0.0.tgz#fe990190789080f5ecaa84acdf3f18c74b48787d"
-  integrity sha512-lvQ6CP03gitT9RCpsLP/cEsccR/b+SqtCRv3aiBBgCAsOJUteVnVed3zdih7SAPvS7CrUwRzLrCW55UeLHN1Ag==
-  dependencies:
-    dockerode "2.5.8"
-    execa "1.0.0"
-    get-port "4.1.0"
-    p-retry "3.0.1"
-    pg "7.8.1"
 
 docker-modem@^1.0.8:
   version "1.0.9"
@@ -10523,7 +10529,7 @@ pg-int8@1.0.1:
   resolved "https://registry.yarnpkg.com/pg-int8/-/pg-int8-1.0.1.tgz#943bd463bf5b71b4170115f80f8efc9a0c0eb78c"
   integrity sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==
 
-pg-pool@^3.2.1:
+pg-pool@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/pg-pool/-/pg-pool-3.2.2.tgz#a560e433443ed4ad946b84d774b3f22452694dff"
   integrity sha512-ORJoFxAlmmros8igi608iVEbQNNZlp89diFVx6yV5v+ehmpMY9sK6QgpmgoXbmkNaBAx8cOOZh9g80kJv1ooyA==
@@ -10544,15 +10550,15 @@ pg-types@^2.1.0:
     postgres-date "~1.0.4"
     postgres-interval "^1.1.0"
 
-pg@7.8.1, pg@8.4.1, pg@^8.4.2:
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/pg/-/pg-8.4.1.tgz#06cfb6208ae787a869b2f0022da11b90d13d933e"
-  integrity sha512-NRsH0aGMXmX1z8Dd0iaPCxWUw4ffu+lIAmGm+sTCwuDDWkpEgRCAHZYDwqaNhC5hG5DRMOjSUFasMWhvcmLN1A==
+pg@>=7.8.1, pg@^8.4.2:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-8.4.2.tgz#2aa58166a23391e91d56a7ea57c6d99931c0642a"
+  integrity sha512-E9FlUrrc7w3+sbRmL1CSw99vifACzB2TjhMM9J5w9D1LIg+6un0jKkpHS1EQf2CWhKhec2bhrBLVMmUBDbjPRQ==
   dependencies:
     buffer-writer "2.0.0"
     packet-reader "1.0.0"
     pg-connection-string "^2.4.0"
-    pg-pool "^3.2.1"
+    pg-pool "^3.2.2"
     pg-protocol "^1.3.0"
     pg-types "^2.1.0"
     pgpass "1.x"

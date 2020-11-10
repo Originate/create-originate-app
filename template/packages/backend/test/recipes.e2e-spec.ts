@@ -1,6 +1,6 @@
 import { INestApplication } from "@nestjs/common"
 import { Test, TestingModule } from "@nestjs/testing"
-import { startPostgresContainer } from "docker-await-postgres"
+import { startPostgresContainer } from "@originate/docker-await-postgres"
 import request from "supertest"
 import { createConnection } from "typeorm"
 
