@@ -1,5 +1,6 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import Link from "next/link"
+import Title from "components/Title"
 
 const getRecipesQuery = gql`
   query getRecipes {
@@ -56,7 +57,7 @@ export default function RecipesList() {
   }
   return (
     <div>
-      <h1>Recipes</h1>
+      <Title>Recipes</Title>
       {loading ? "Loading..." : null}
       {data
         ? data.recipes.map(recipe => <Recipe {...recipe} key={recipe.id} />)
