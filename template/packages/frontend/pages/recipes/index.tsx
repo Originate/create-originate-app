@@ -57,7 +57,7 @@ export default function RecipesList() {
   }
   return (
     <div>
-      <Title text={"Recipes"} />
+      <Title>Recipes</Title>
       {loading ? "Loading..." : null}
       {data
         ? data.recipes.map(recipe => <Recipe {...recipe} key={recipe.id} />)

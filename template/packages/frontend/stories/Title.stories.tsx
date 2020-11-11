@@ -3,5 +3,5 @@ import { storiesOf } from "@storybook/react"
 import Title from "../components/Title"
 
 storiesOf("Title", module).add("with text", () => {
-  return <Title text={"My Title"} />
+  return <Title>Recipes</Title>
 })
