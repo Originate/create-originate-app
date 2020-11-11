@@ -10,5 +10,5 @@ module.exports = {
     },
   },
   addons: ["storybook-css-modules-preset"],
-  stories: ["../stories/*.stories.@(ts|tsx)"],
+  stories: ["../**/*.stories.@(ts|tsx)"],
 }
