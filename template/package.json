@@ -18,7 +18,9 @@
       "**/ts-graphql-plugin/**",
       "**/ts-graphql-plugin",
       "**/typeorm/**",
-      "**/typeorm"
+      "**/typeorm",
+      "**/typescript-plugin-*/**",
+      "**/typescript-plugin-*"
     ]
   },
   "devDependencies": {

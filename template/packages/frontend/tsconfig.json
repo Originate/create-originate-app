@@ -20,7 +20,8 @@
         "name": "ts-graphql-plugin",
         "schema": "../backend/schema.graphql",
         "tag": "gql"
-      }
+      },
+      { "name": "typescript-plugin-css-modules" }
     ],
     "baseUrl": "."
   },
