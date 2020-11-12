@@ -1,51 +1,49 @@
+import { ContextIdFactory } from "@nestjs/core"
 import { Test, TestingModule } from "@nestjs/testing"
-import { getEntityManagerToken, getRepositoryToken } from "@nestjs/typeorm"
 import { Recipe } from "./models/recipe.entity"
 import { RecipeResolver } from "./recipe.resolver"
 import { RecipeService } from "./recipe.service"
 
+// Mock the service class so that we don't have to provide its dependencies.
+jest.mock("./recipe.service")
+
 describe("RecipeResolver", () => {
   let resolver: RecipeResolver
-  const entityManager = {
-    find: jest.fn(),
-  }
-  const repository = {}
+  let service: RecipeService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        RecipeResolver,
-        RecipeService,
-        {
-          provide: getEntityManagerToken(),
-          useValue: entityManager,
-        },
-        {
-          provide: getRepositoryToken(Recipe),
-          useValue: repository,
-        },
-      ],
+      providers: [RecipeResolver, RecipeService],
     }).compile()
 
-    resolver = await module.resolve<RecipeResolver>(RecipeResolver)
+    // Set up a context ID for request-scoped providers so we can get at
+    // a resolver instance, and its matching service instance.
+    const contextId = ContextIdFactory.create()
+    jest.spyOn(ContextIdFactory, "getByRequest").mockReturnValue(contextId)
+
+    resolver = await module.resolve(RecipeResolver, contextId)
+    service = await module.resolve(RecipeService, contextId)
   })
 
   afterEach(() => {
     jest.resetAllMocks()
   })
 
-  it("should be defined", () => {
-    expect(resolver).toBeDefined()
-  })
+  it("provides a list of recipes", async () => {
+    const recipes: Recipe[] = [
+      {
+        id: 1,
+        title: "Yummy Cookies",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]
 
-  it("should provide a list of recipes", async () => {
-    entityManager.find.mockImplementation(async (classRef, params) => {
-      expect(classRef).toBe(Recipe)
-      expect(params).toMatchObject({ skip: 0, take: 25 })
-      return { data: { recipes: [] } }
+    jest.spyOn(service, "find").mockImplementation(async args => {
+      expect(args).toEqual({ skip: 0, take: 25 })
+      return recipes
     })
-    expect(await resolver.recipes({ skip: 0, take: 25 })).toEqual({
-      data: { recipes: [] },
-    })
+
+    expect(await resolver.recipes({ skip: 0, take: 25 })).toEqual(recipes)
   })
 })
