@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
+      - name: copy yarn.lock to top level so we can use stock yarn cache action
+        run: cp template/yarn.lock ./
       - uses: c-hive/gha-yarn-cache@v1
+
       - run: yarn --frozen-lockfile
         working-directory: template
       - run: yarn typecheck
