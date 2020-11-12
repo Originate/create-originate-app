@@ -6,6 +6,10 @@ import { RecipeService } from "./recipe.service"
 
 describe("RecipeResolver", () => {
   let resolver: RecipeResolver
+  const entityManager = {
+    find: jest.fn(),
+  }
+  const repository = {}
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -14,16 +18,20 @@ describe("RecipeResolver", () => {
         RecipeService,
         {
           provide: getEntityManagerToken(),
-          useValue: {},
+          useValue: entityManager,
         },
         {
           provide: getRepositoryToken(Recipe),
-          useValue: {},
+          useValue: repository,
         },
       ],
     }).compile()
 
-    resolver = module.get<RecipeResolver>(RecipeResolver)
+    resolver = await module.resolve<RecipeResolver>(RecipeResolver)
+  })
+
+  afterEach(() => {
+    jest.resetAllMocks()
   })
 
   it("should be defined", () => {
@@ -31,7 +39,12 @@ describe("RecipeResolver", () => {
   })
 
   it("should provide a list of recipes", async () => {
-    expect(resolver.recipes({ skip: 0, take: 25 })).toEqual({
+    entityManager.find.mockImplementation(async (classRef, params) => {
+      expect(classRef).toBe(Recipe)
+      expect(params).toMatchObject({ skip: 0, take: 25 })
+      return { data: { recipes: [] } }
+    })
+    expect(await resolver.recipes({ skip: 0, take: 25 })).toEqual({
       data: { recipes: [] },
     })
   })
