@@ -12,7 +12,8 @@
     "typecheck": "echo next && tsc -p .",
     "typecheck:watch": "yarn typecheck --watch",
     "lint": "eslint --cache --ext .ts,.tsx --ignore-pattern __generated__ .",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "test": "echo 'TODO: frontend tests'"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
