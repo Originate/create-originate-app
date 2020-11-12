@@ -26,7 +26,8 @@
     "test:cov": "jest --selectProjects unit --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --selectProjects e2e",
-    "test:unit": "jest --selectProjects unit"
+    "test:unit": "jest --selectProjects unit",
+    "typecheck": "echo backend && tsc --pretty"
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",

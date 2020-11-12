@@ -1,0 +1,36 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache TypeScript output
+        uses: actions/cache@v1
+        with:
+          path: |
+            template/packages/backend/dist
+          key: ignored
+
+      - run: yarn --frozen-lockfile
+        working-directory: template
+      - run: yarn typecheck
+        working-directory: template
+      - run: yarn test
+        working-directory: template
+      - run: yarn lint
+        working-directory: template

@@ -69,7 +69,7 @@ export class RecipeService {
    * was not found.
    */
   async delete(id: string): Promise<boolean> {
-    let deleteResult = await this.recipeRepository.delete(id)
+    const deleteResult = await this.recipeRepository.delete(id)
     return deleteResult.affected === 1
   }
 }

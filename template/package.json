@@ -4,6 +4,7 @@
     "dev:backend": "yarn workspace @/backend start:dev",
     "dev:frontend": "yarn workspace @/frontend start:dev",
     "test": "yarn workspaces run test",
+    "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix"
   },

@@ -9,7 +9,7 @@
     "start:dev": "concurrently -k 'next dev' 'yarn codegen:watch'",
     "codegen": "ts-graphql-plugin typegen",
     "codegen:watch": "nodemon --ext ts,tsx --exec yarn codegen --ignore '/__generated__/'",
-    "typecheck": "echo next && tsc -p .",
+    "typecheck": "echo frontend && tsc --pretty",
     "typecheck:watch": "yarn typecheck --watch",
     "lint": "eslint --cache --ext .ts,.tsx --ignore-pattern __generated__ .",
     "storybook": "start-storybook -p 6006 -c .storybook",
