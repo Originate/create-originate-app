@@ -10,7 +10,7 @@ import {
   Grid,
   Footer,
   Logo,
-} from "./IndexStyles"
+} from "../components/IndexStyles"
 
 export default function Home() {
   return (

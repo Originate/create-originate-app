@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
 import { useForm, useFormField } from "../../lib/useForm"
-import { RecipeContainer, Button } from "./RecipeStyles"
+import { RecipeContainer, Button } from "../../components/RecipeStyles"
 import styled from "styled-components"
 
 const addRecipeMutation = gql`

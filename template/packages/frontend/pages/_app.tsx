@@ -2,8 +2,8 @@ import { ApolloProvider, NormalizedCacheObject } from "@apollo/client"
 import React from "react"
 import { ThemeProvider } from "styled-components"
 import { useApollo } from "../lib/apolloClient"
-import { theme } from "./Theme"
-import { GlobalStyle } from "./GlobalStyles"
+import { theme } from "../components/Theme"
+import { GlobalStyle } from "../components/GlobalStyles"
 
 /**
  * The App component implicitly wraps every page component. This code runs

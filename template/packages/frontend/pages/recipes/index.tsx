@@ -1,7 +1,6 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import Link from "next/link"
-import Title from "components/Title"
-import { Button, RecipeContainer } from "./RecipeStyles"
+import { Button, RecipeContainer } from "../../components/RecipeStyles"
 import styled from "styled-components"
 
 const getRecipesQuery = gql`

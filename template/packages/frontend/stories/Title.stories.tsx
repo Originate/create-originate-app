@@ -1,8 +1,8 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { Title } from "../pages/IndexStyles"
-import { theme } from "../pages/Theme"
-import { GlobalStyle } from "../pages/GlobalStyles"
+import { Title } from "../components/IndexStyles"
+import { theme } from "../components/Theme"
+import { GlobalStyle } from "../components/GlobalStyles"
 import { ThemeProvider } from "styled-components"
 
 storiesOf("Title", module).add("with text", () => {
