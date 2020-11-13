@@ -5,6 +5,12 @@ import { useApollo } from "../lib/apolloClient"
 import { theme } from "./Theme"
 import { GlobalStyle } from "./GlobalStyles"
 
+/**
+ * The App component implicitly wraps every page component. This code runs
+ * client-side and server-side.
+ *
+ * See https://nextjs.org/docs/advanced-features/custom-app
+ */
 export default function App<
   Props extends { initialApolloState?: NormalizedCacheObject }
 >({
