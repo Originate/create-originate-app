@@ -3,5 +3,6 @@ export const theme = {
     link: "#0070f3",
     background: "#fafafa",
     accent: "#dbdada",
+    accent2: "palevioletred",
   },
 }
