@@ -2,8 +2,6 @@ import { Module } from "@nestjs/common"
 import { GraphQLModule } from "@nestjs/graphql"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { join } from "path"
-import { AppController } from "./app.controller"
-import { AppService } from "./app.service"
 import { ConfigService } from "./config.service"
 import { RecipesModule } from "./recipes/recipes.module"
 
@@ -45,7 +43,6 @@ const config = new ConfigService()
       synchronize: config.isDevDatabase,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService, { provide: ConfigService, useValue: config }],
+  providers: [{ provide: ConfigService, useValue: config }],
 })
 export class AppModule {}

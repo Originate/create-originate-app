@@ -1,0 +1,27 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: copy yarn.lock to top level so we can use stock yarn cache action
+        run: cp template/yarn.lock ./
+      - uses: c-hive/gha-yarn-cache@v1
+
+      - run: yarn --frozen-lockfile
+        working-directory: template
+      - run: yarn typecheck
+        working-directory: template
+      - name: pre-fetch postgres docker image
+        run: docker pull postgres:latest
+      - run: yarn test
+        working-directory: template
+      - run: yarn lint
+        working-directory: template
