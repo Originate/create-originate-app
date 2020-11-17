@@ -15,6 +15,9 @@ export const Button = styled.button<{ primary?: boolean }>`
     border-color: ${props => props.theme.colors.accent};
     outline: none;
   }
+  :hover {
+    cursor: pointer;
+  }
 `
 
 export const BackButton = styled(Button)`

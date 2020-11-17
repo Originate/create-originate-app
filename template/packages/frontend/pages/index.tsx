@@ -48,7 +48,7 @@ export default function Home() {
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </Card>
 
-          <Link href="/recipes">
+          <Link href="/recipes" passHref={true}>
             <Card>
               <h3>Try the Recipes Demo &rarr;</h3>
               <p>See a working example of Create Originate App. It's cool.</p>
