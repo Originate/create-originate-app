@@ -9,6 +9,6 @@ module.exports = {
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
     },
   },
-  addons: ["storybook-css-modules-preset"],
+  addons: [],
   stories: ["../**/*.stories.@(ts|tsx)"],
 }

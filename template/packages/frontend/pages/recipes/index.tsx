@@ -1,6 +1,11 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import Link from "next/link"
-import Title from "components/Title"
+import {
+  BackButton,
+  Button,
+  RecipeContainer,
+} from "../../components/RecipeStyles"
+import styled from "styled-components"
 
 const getRecipesQuery = gql`
   query getRecipes {
@@ -28,6 +33,16 @@ const deleteRecipesMutation = gql`
   import("./__generated__/delete-recipe").deleteRecipeVariables
 >
 
+const RecipeBox = styled.div`
+  margin: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  border: 2px solid ${props => props.theme.colors.accent2};
+  border-radius: 10px;
+  align-items: center;
+  flex-direction: column;
+`
+
 function Recipe(recipe: {
   id: string
   title: string
@@ -42,11 +57,13 @@ function Recipe(recipe: {
     },
   })
   return (
-    <div style={{ border: "2px solid black", marginTop: "2em" }}>
+    <RecipeBox>
       <h3>{recipe.title}</h3>
       <p>{recipe.description}</p>
-      <button onClick={() => deleteRecipe()}>delete</button>
-    </div>
+      <Button primary onClick={() => deleteRecipe()}>
+        delete
+      </Button>
+    </RecipeBox>
   )
 }
 
@@ -56,15 +73,18 @@ export default function RecipesList() {
     return <div>Error: {error.message}</div>
   }
   return (
-    <div>
-      <Title>Recipes</Title>
+    <RecipeContainer>
+      <Link href="/">
+        <BackButton>Back</BackButton>
+      </Link>
+      <h1>Recipes</h1>
+      <Link href="/recipes/new">
+        <Button>Add A Recipe</Button>
+      </Link>
       {loading ? "Loading..." : null}
       {data
         ? data.recipes.map(recipe => <Recipe {...recipe} key={recipe.id} />)
         : null}
-      <Link href="/recipes/new">
-        <a>Add a recipe</a>
-      </Link>
-    </div>
+    </RecipeContainer>
   )
 }

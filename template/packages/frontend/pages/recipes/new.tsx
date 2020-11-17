@@ -1,6 +1,13 @@
 import { gql, useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
 import { useForm, useFormField } from "../../lib/useForm"
+import {
+  RecipeContainer,
+  Button,
+  BackButton,
+} from "../../components/RecipeStyles"
+import styled from "styled-components"
+import Link from "next/link"
 
 const addRecipeMutation = gql`
   mutation addRecipe($recipe: NewRecipeInput!) {
@@ -12,6 +19,18 @@ const addRecipeMutation = gql`
   import("./__generated__/add-recipe").addRecipe,
   import("./__generated__/add-recipe").addRecipeVariables
 >
+
+const Form = styled.form`
+  width: 100%;
+  margin: 8px 0;
+`
+
+const Input = styled.input`
+  font-size: 1em;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+`
 
 export default function NewRecipeForm() {
   const [addRecipe] = useMutation(addRecipeMutation, {
@@ -40,11 +59,18 @@ export default function NewRecipeForm() {
     fields: [titleField, descriptionField],
   })
   return (
-    <form {...formProps}>
-      <h2>New Recipe</h2>
-      <input {...titleField} />
-      <input {...descriptionField} />
-      <input type="submit" value="Create Recipe" />
-    </form>
+    <RecipeContainer>
+      <Link href="/recipes">
+        <BackButton>Back</BackButton>
+      </Link>
+      <h1>New Recipe</h1>
+      <Form {...formProps}>
+        <Input {...titleField} />
+        <Input {...descriptionField} />
+        <Button primary type="submit">
+          Submit
+        </Button>
+      </Form>
+    </RecipeContainer>
   )
 }

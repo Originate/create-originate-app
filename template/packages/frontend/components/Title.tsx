@@ -1,16 +1,13 @@
-import * as React from "react"
-import styles from "./title.module.css"
+import styled from "styled-components"
 
-type Props = {
-  children: React.ReactNode
-}
+const Title = styled.h2`
+  color: blue;
+  font-weight: bold;
+  font-size: 30px;
 
-const Title = ({ children }: Props) => {
-  return (
-    <div>
-      <h2 className={styles.title}>{children}</h2>
-    </div>
-  )
-}
+  :hover {
+    color: red;
+  }
+`
 
 export default Title
