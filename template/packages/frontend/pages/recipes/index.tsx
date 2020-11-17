@@ -1,6 +1,10 @@
 import { gql, useQuery, useMutation } from "@apollo/client"
 import Link from "next/link"
-import { Button, RecipeContainer } from "../../components/RecipeStyles"
+import {
+  BackButton,
+  Button,
+  RecipeContainer,
+} from "../../components/RecipeStyles"
 import styled from "styled-components"
 
 const getRecipesQuery = gql`
@@ -70,6 +74,9 @@ export default function RecipesList() {
   }
   return (
     <RecipeContainer>
+      <Link href="/">
+        <BackButton>Back</BackButton>
+      </Link>
       <h1>Recipes</h1>
       <Link href="/recipes/new">
         <Button>Add A Recipe</Button>
