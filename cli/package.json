@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "create": "ts-node cli.ts",
+    "create": "ts-node cli.js",
     "dev": "nodemon",
     "test": "jest"
   },

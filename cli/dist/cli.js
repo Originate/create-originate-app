@@ -60,6 +60,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var commander_1 = require("commander");
 var path = __importStar(require("path"));
+// @ts-ignore
 var chalk_1 = __importDefault(require("chalk"));
 var helpers_1 = require("./helpers");
 var logo = function () {
@@ -73,34 +74,26 @@ main()
 });
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var program, port, appName, srcDir, targetDir;
+        var program, appName, srcDir, targetDir, port;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     logo();
                     program = new commander_1.Command();
-                    port = undefined;
                     program
                         .command("create", { isDefault: true })
                         .description("Make Something Original")
-                        .option("-p,--port <port>", "port")
-                        .action(function (ops) {
-                        if (ops.port) {
-                            port = ops.port;
-                        }
-                    });
+                        .option("-p,--port <port_number>", "backend port")
+                        .action(function () { });
                     program.parse(process.argv);
                     if (!program.args.length)
                         program.help();
                     appName = program.args[0];
-                    srcDir = path.join(__dirname, "../template");
+                    srcDir = path.join(__dirname, "./template");
                     targetDir = path.join(__dirname, appName);
-                    if (!!port) return [3 /*break*/, 2];
                     return [4 /*yield*/, helpers_1.findEmptyPort()];
                 case 1:
                     port = _a.sent();
-                    _a.label = 2;
-                case 2:
                     helpers_1.log(chalk_1["default"].cyan.bold("Creating " + appName));
                     helpers_1.log(chalk_1["default"].blue("Target Directory: " + targetDir));
                     helpers_1.copyTemplate(srcDir, targetDir);

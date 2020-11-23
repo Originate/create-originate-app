@@ -1,5 +1,0 @@
-dist
-*.json
-*.webpack.js
-ignored/
-.yarn/

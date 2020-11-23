@@ -76,9 +76,9 @@ var prettier = __importStar(require("prettier"));
 var fs = __importStar(require("fs"));
 var fse = __importStar(require("fs-extra"));
 var path = __importStar(require("path"));
-var chalk_1 = __importDefault(require("chalk"));
 //@ts-ignore
 var portastic = __importStar(require("portastic"));
+var chalk_1 = __importDefault(require("chalk"));
 exports.log = console.log;
 var Package;
 (function (Package) {
@@ -97,11 +97,7 @@ var UnreachableCaseError = /** @class */ (function (_super) {
 exports.UnreachableCaseError = UnreachableCaseError;
 function copyTemplate(srcDir, targetDir) {
     try {
-        fse.copySync(srcDir, targetDir, {
-            filter: function (path) {
-                return !(path.indexOf("node_modules") > -1);
-            }
-        });
+        fse.copySync(srcDir, targetDir);
         exports.log(chalk_1["default"].cyan("Template copied to:\n  " + chalk_1["default"].cyan.bold(targetDir)));
     }
     catch (_a) {

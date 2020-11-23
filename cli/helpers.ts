@@ -2,9 +2,9 @@ import * as prettier from "prettier";
 import * as fs from "fs";
 import * as fse from "fs-extra";
 import * as path from "path";
-import chalk from "chalk";
 //@ts-ignore
 import * as portastic from "portastic";
+import chalk from "chalk";
 
 export const log = console.log;
 export enum Package {
@@ -23,11 +23,7 @@ export class UnreachableCaseError extends Error {
 
 export function copyTemplate(srcDir: string, targetDir: string) {
   try {
-    fse.copySync(srcDir, targetDir, {
-      filter: function (path) {
-        return !(path.indexOf("node_modules") > -1);
-      },
-    });
+    fse.copySync(srcDir, targetDir);
     log(chalk.cyan(`Template copied to:\n  ${chalk.cyan.bold(targetDir)}`));
   } catch {
     throw new Error(
