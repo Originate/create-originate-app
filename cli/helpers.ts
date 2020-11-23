@@ -23,7 +23,11 @@ export class UnreachableCaseError extends Error {
 
 export function copyTemplate(srcDir: string, targetDir: string) {
   try {
-    fse.copySync(srcDir, targetDir);
+    fse.copySync(srcDir, targetDir, {
+      filter: function (path) {
+        return !(path.indexOf("node_modules") > -1);
+      },
+    });
     log(chalk.cyan(`Template copied to:\n  ${chalk.cyan.bold(targetDir)}`));
   } catch {
     throw new Error(

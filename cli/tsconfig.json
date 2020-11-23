@@ -15,5 +15,6 @@
     "preserveSymlinks": true,
     "resolveJsonModule": true,
     "outDir": "dist"
-  }
+  },
+  "exclude": ["tryme", "dist"]
 }

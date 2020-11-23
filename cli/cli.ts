@@ -39,7 +39,7 @@ async function main() {
   if (!program.args.length) program.help();
 
   const appName = program.args[0];
-  const srcDir = path.join(__dirname, "./template");
+  const srcDir = path.join(__dirname, "../template");
   const targetDir = path.join(__dirname, appName);
   const port = await findEmptyPort();
 
