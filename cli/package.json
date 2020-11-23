@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "create": "ts-node cli.js",
-    "watch": "nodemon",
+    "create": "ts-node cli.ts",
+    "dev": "nodemon",
     "test": "jest"
   },
   "dependencies": {
