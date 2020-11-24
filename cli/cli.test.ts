@@ -1,4 +1,4 @@
-import { FRONTEND_REGEXP, BACKEND_REGEXP } from "./helpers.js";
+import { FRONTEND_REGEXP, BACKEND_REGEXP } from "./helpers";
 jest.createMockFromModule("chalk");
 
 describe("cli", () => {

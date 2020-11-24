@@ -2,11 +2,9 @@ import * as prettier from "prettier";
 import * as fs from "fs";
 import * as fse from "fs-extra";
 import * as path from "path";
-//@ts-ignore
-import * as portastic from "portastic";
 import chalk from "chalk";
-
 export const log = console.log;
+
 export enum Package {
   Frontend = "frontend",
   Backend = "backend",
@@ -22,6 +20,7 @@ export class UnreachableCaseError extends Error {
 }
 
 export function copyTemplate(srcDir: string, targetDir: string) {
+  // Copy template ignoring node_modules
   try {
     fse.copySync(srcDir, targetDir, {
       filter: function (path) {
@@ -41,6 +40,7 @@ export function updateTemplate(
   targetDir: string,
   port: number
 ) {
+  editReadme(appName, targetDir);
   editPackageJson(appName, targetDir, Package.Frontend);
   editPackageJson(appName, targetDir, Package.Backend);
   editEnvFile(port, targetDir, Package.Frontend);
@@ -55,6 +55,18 @@ export function updateTemplate(
   );
 }
 
+export function editReadme(appName: string, targetDir: string) {
+  const filename = path.join(targetDir, `README.md`);
+
+  try {
+    const readmeContents = `#${appName}\n\nGenerated with create-originate-app`;
+    fs.writeFileSync(filename, readmeContents);
+    log(chalk.blue(`Prepared ${filename}`));
+  } catch (err) {
+    throw new Error(chalk.red(`Error preparing ${filename}\n${err}`));
+  }
+}
+
 export function editPackageJson(
   appName: string,
   targetDir: string,
@@ -63,15 +75,47 @@ export function editPackageJson(
   const filename = path.join(targetDir, `packages/${packageName}/package.json`);
 
   try {
-    let json = JSON.parse(fs.readFileSync(filename).toString());
-    json = Object.assign({}, json, {
-      name: `@${appName}/${packageName}`,
-    });
-    fs.writeFileSync(
-      filename,
-      prettier.format(JSON.stringify(json), { semi: false, parser: "json" })
-    );
-    log(chalk.blue(`Prepared ${filename}`));
+    switch (packageName) {
+      case Package.Frontend: {
+        // Update name package.json to use appName
+        let json = JSON.parse(fs.readFileSync(filename).toString());
+        json = Object.assign({}, json, {
+          name: `@${appName}/${packageName}`,
+        });
+        fs.writeFileSync(
+          filename,
+          prettier.format(JSON.stringify(json), { semi: false, parser: "json" })
+        );
+        log(chalk.blue(`Prepared ${filename}`));
+        return;
+      }
+      case Package.Backend: {
+        // Update name and db commands in package.json to use appName
+        let json = JSON.parse(fs.readFileSync(filename).toString());
+        json.name = `@${appName}/${packageName}`;
+        json.scripts[
+          "db:start"
+        ] = `docker start ${appName}-postgres 2>/dev/null || docker run -e POSTGRES_PASSWORD=password -p 5432:5432 -d --name ${appName}-postgres postgres:latest`;
+        json.scripts["db:stop"] = `docker stop ${appName}-postgres`;
+        json.scripts[
+          "db:destroy"
+        ] = `yarn db:stop >/dev/null && docker rm ${appName}-postgres`;
+        json.scripts[
+          "db:shell"
+        ] = `docker exec -it ${appName}-postgres psql -U postgres`;
+        fs.writeFileSync(
+          filename,
+          prettier.format(JSON.stringify(json), {
+            semi: false,
+            parser: "json",
+          })
+        );
+        log(chalk.blue(`Prepared ${filename}`));
+        return;
+      }
+      default:
+        throw new UnreachableCaseError(packageName);
+    }
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`));
   }
@@ -82,6 +126,7 @@ export function editEnvFile(
   targetDir: string,
   packageName: Package
 ) {
+  // Updates backend port in .env files
   switch (packageName) {
     case Package.Frontend: {
       const filename = `${targetDir}/packages/${packageName}/.env.development`;
@@ -117,16 +162,5 @@ export function searchReplaceFile(
     log(chalk.blue(`Prepared ${filename}`));
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`));
-  }
-}
-
-export async function findEmptyPort(): Promise<number> {
-  //TODO: Do we want to choose a port range for originate projects or leave it open? 10000-14999?
-  const randomPort = Math.floor(Math.random() * (65535 - 10000 + 1)) + 10000;
-  const inUse = await portastic.test(randomPort);
-  if (inUse) {
-    return findEmptyPort();
-  } else {
-    return randomPort;
   }
 }
