@@ -8,6 +8,7 @@ export const log = console.log;
 export enum Package {
   Frontend = "frontend",
   Backend = "backend",
+  TopLevel = "toplevel",
 }
 
 export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
@@ -20,7 +21,7 @@ export class UnreachableCaseError extends Error {
 }
 
 export function copyTemplate(srcDir: string, targetDir: string) {
-  // Copy template ignoring node_modules
+  // Copy template, ignoring node_modules
   try {
     fse.copySync(srcDir, targetDir, {
       filter: function (path) {
@@ -43,6 +44,7 @@ export function updateTemplate(
   editReadme(appName, targetDir);
   editPackageJson(appName, targetDir, Package.Frontend);
   editPackageJson(appName, targetDir, Package.Backend);
+  editPackageJson(appName, targetDir, Package.TopLevel);
   editEnvFile(port, targetDir, Package.Frontend);
   editEnvFile(port, targetDir, Package.Backend);
   log(
@@ -72,12 +74,12 @@ export function editPackageJson(
   targetDir: string,
   packageName: Package
 ) {
-  const filename = path.join(targetDir, `packages/${packageName}/package.json`);
-
+  let filename!: string;
   try {
     switch (packageName) {
       case Package.Frontend: {
         // Update name package.json to use appName
+        filename = path.join(targetDir, `packages/${packageName}/package.json`);
         let json = JSON.parse(fs.readFileSync(filename).toString());
         json = Object.assign({}, json, {
           name: `@${appName}/${packageName}`,
@@ -91,6 +93,7 @@ export function editPackageJson(
       }
       case Package.Backend: {
         // Update name and db commands in package.json to use appName
+        filename = path.join(targetDir, `packages/${packageName}/package.json`);
         let json = JSON.parse(fs.readFileSync(filename).toString());
         json.name = `@${appName}/${packageName}`;
         json.scripts[
@@ -109,6 +112,22 @@ export function editPackageJson(
             semi: false,
             parser: "json",
           })
+        );
+        log(chalk.blue(`Prepared ${filename}`));
+        return;
+      }
+      case Package.TopLevel: {
+        filename = path.join(targetDir, `package.json`);
+        let json = JSON.parse(fs.readFileSync(filename).toString());
+        json.scripts[
+          "dev:frontend"
+        ] = `yarn workspace @${appName}/frontend start:dev`;
+        json.scripts[
+          "dev:backend"
+        ] = `yarn workspace @${appName}/backend start:dev`;
+        fs.writeFileSync(
+          filename,
+          prettier.format(JSON.stringify(json), { semi: false, parser: "json" })
         );
         log(chalk.blue(`Prepared ${filename}`));
         return;
@@ -139,6 +158,9 @@ export function editEnvFile(
       let replace = `PORT=${port}`;
       searchReplaceFile(BACKEND_REGEXP, replace, filename);
       return;
+    }
+    case Package.TopLevel: {
+      throw new Error("No .env in top level package.json");
     }
     default:
       throw new UnreachableCaseError(packageName);
