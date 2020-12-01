@@ -6,7 +6,7 @@
     "dev": "yarn start:dev",
     "build": "next build",
     "start": "next start",
-    "start:dev": "concurrently -k 'next dev' 'yarn codegen:watch'",
+    "start:dev": "concurrently -k 'next dev -p 3002' 'yarn codegen:watch'",
     "codegen": "ts-graphql-plugin typegen",
     "codegen:watch": "nodemon --ext ts,tsx --exec yarn codegen --ignore '/__generated__/'",
     "typecheck": "echo frontend && tsc --pretty",

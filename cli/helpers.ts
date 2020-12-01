@@ -11,6 +11,11 @@ export enum Package {
   TopLevel = "toplevel",
 }
 
+export interface Ports {
+  frontend: number | null;
+  backend: number | null;
+}
+
 export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
 export const BACKEND_REGEXP = /\PORT=\d+/g;
 
@@ -39,19 +44,20 @@ export function copyTemplate(srcDir: string, targetDir: string) {
 export function updateTemplate(
   appName: string,
   targetDir: string,
-  port: number
+  ports: Ports
 ) {
   editReadme(appName, targetDir);
-  editPackageJson(appName, targetDir, Package.Frontend);
-  editPackageJson(appName, targetDir, Package.Backend);
-  editPackageJson(appName, targetDir, Package.TopLevel);
-  editEnvFile(port, targetDir, Package.Frontend);
-  editEnvFile(port, targetDir, Package.Backend);
+  editPackageJson(appName, targetDir, Package.Frontend, ports);
+  editPackageJson(appName, targetDir, Package.Backend, ports);
+  editPackageJson(appName, targetDir, Package.TopLevel, ports);
+  editEnvFile(targetDir, Package.Frontend, ports);
+  editEnvFile(targetDir, Package.Backend, ports);
   log(
     chalk.cyan(
       `Updated template with values: 
   package name: ${chalk.cyan.bold(appName)}
-  backend port: ${chalk.cyan.bold(port)}
+  frontend port: ${chalk.cyan.bold(ports.frontend)}
+  backend port: ${chalk.cyan.bold(ports.backend)}
 `
     )
   );
@@ -72,7 +78,8 @@ export function editReadme(appName: string, targetDir: string) {
 export function editPackageJson(
   appName: string,
   targetDir: string,
-  packageName: Package
+  packageName: Package,
+  ports: Ports
 ) {
   let filename!: string;
   try {
@@ -81,12 +88,16 @@ export function editPackageJson(
         // Update name package.json to use appName
         filename = path.join(targetDir, `packages/${packageName}/package.json`);
         let json = JSON.parse(fs.readFileSync(filename).toString());
-        json = Object.assign({}, json, {
-          name: `@${appName}/${packageName}`,
-        });
+        json.scripts["name"] = `@${appName}/${packageName}`;
+        json.scripts[
+          "start:dev"
+        ] = `concurrently -k 'next dev -p ${ports.frontend}' 'yarn codegen:watch'`;
         fs.writeFileSync(
           filename,
-          prettier.format(JSON.stringify(json), { semi: false, parser: "json" })
+          prettier.format(JSON.stringify(json), {
+            semi: false,
+            parser: "json",
+          })
         );
         log(chalk.blue(`Prepared ${filename}`));
         return;
@@ -141,21 +152,21 @@ export function editPackageJson(
 }
 
 export function editEnvFile(
-  port: number,
   targetDir: string,
-  packageName: Package
+  packageName: Package,
+  ports: Ports
 ) {
   // Updates backend port in .env files
   switch (packageName) {
     case Package.Frontend: {
       const filename = `${targetDir}/packages/${packageName}/.env.development`;
-      let replace = `NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:${port}\/graphql`;
+      let replace = `NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:${ports.backend}\/graphql`;
       searchReplaceFile(FRONTEND_REGEXP, replace, filename);
       return;
     }
     case Package.Backend: {
       const filename = `${targetDir}/packages/${packageName}/.env`;
-      let replace = `PORT=${port}`;
+      let replace = `PORT=${ports.backend}`;
       searchReplaceFile(BACKEND_REGEXP, replace, filename);
       return;
     }
