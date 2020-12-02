@@ -4,6 +4,7 @@ import * as fse from "fs-extra";
 import * as path from "path";
 import chalk from "chalk";
 export const log = console.log;
+import getPort from "get-port";
 
 export enum Package {
   Frontend = "frontend",
@@ -11,13 +12,26 @@ export enum Package {
   TopLevel = "toplevel",
 }
 
-export interface Ports {
-  frontend: number | null;
-  backend: number | null;
+export class Ports {
+  frontend: number | undefined = undefined;
+  backend: number | undefined = undefined;
+  db: number | undefined = undefined;
+  setup = async (): Promise<void> => {
+    if (this.backend === undefined) {
+      this.backend = await getPort();
+    }
+    if (this.frontend === undefined) {
+      this.frontend = await getPort();
+    }
+    if (this.db === undefined) {
+      this.db = await getPort();
+    }
+  };
 }
 
 export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
 export const BACKEND_REGEXP = /\PORT=\d+/g;
+export const DATABASE_URL_REGEXP = /\DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/;
 
 export class UnreachableCaseError extends Error {
   constructor(val: never) {
@@ -58,6 +72,7 @@ export function updateTemplate(
   package name: ${chalk.cyan.bold(appName)}
   frontend port: ${chalk.cyan.bold(ports.frontend)}
   backend port: ${chalk.cyan.bold(ports.backend)}
+  database port: ${chalk.cyan.bold(ports.db)}
 `
     )
   );
@@ -109,7 +124,7 @@ export function editPackageJson(
         json.name = `@${appName}/${packageName}`;
         json.scripts[
           "db:start"
-        ] = `docker start ${appName}-postgres 2>/dev/null || docker run -e POSTGRES_PASSWORD=password -p 5432:5432 -d --name ${appName}-postgres postgres:latest`;
+        ] = `docker start ${appName}-postgres 2>/dev/null || docker run -e POSTGRES_PASSWORD=password -p ${ports.db}:5432 -d --name ${appName}-postgres postgres:latest`;
         json.scripts["db:stop"] = `docker stop ${appName}-postgres`;
         json.scripts[
           "db:destroy"
@@ -166,8 +181,10 @@ export function editEnvFile(
     }
     case Package.Backend: {
       const filename = `${targetDir}/packages/${packageName}/.env`;
-      let replace = `PORT=${ports.backend}`;
-      searchReplaceFile(BACKEND_REGEXP, replace, filename);
+      let backend_port_replace = `PORT=${ports.backend}`;
+      searchReplaceFile(BACKEND_REGEXP, backend_port_replace, filename);
+      let database_url_replace = `DATABASE_URL=postgres://postgres:password@localhost:${ports.db}/postgres`;
+      searchReplaceFile(DATABASE_URL_REGEXP, database_url_replace, filename);
       return;
     }
     case Package.TopLevel: {
