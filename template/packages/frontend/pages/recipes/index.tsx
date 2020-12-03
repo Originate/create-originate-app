@@ -8,7 +8,7 @@ import {
 import styled from "styled-components"
 
 const getRecipesQuery = gql`
-  query getRecipes {
+  query GetRecipes {
     recipes {
       id
       title
@@ -19,19 +19,13 @@ const getRecipesQuery = gql`
       }
     }
   }
-` as import("@graphql-typed-document-node/core").TypedDocumentNode<
-  import("./__generated__/get-recipes").getRecipes,
-  import("./__generated__/get-recipes").getRecipesVariables
->
+` as import("./__generated__/get-recipes").GetRecipesDocument
 
 const deleteRecipesMutation = gql`
-  mutation deleteRecipe($recipeId: ID!) {
+  mutation DeleteRecipe($recipeId: ID!) {
     deleteRecipe(id: $recipeId)
   }
-` as import("@graphql-typed-document-node/core").TypedDocumentNode<
-  import("./__generated__/delete-recipe").deleteRecipe,
-  import("./__generated__/delete-recipe").deleteRecipeVariables
->
+` as import("./__generated__/delete-recipe").DeleteRecipeDocument
 
 const RecipeBox = styled.div`
   margin: 0.5rem;
