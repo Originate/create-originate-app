@@ -6,7 +6,7 @@ module.exports = {
   env: {
     node: true,
   },
-  plugins: ["graphql", "@hallettj/ts-graphql"],
+  plugins: ["graphql", "@originate/ts-graphql"],
   rules: {
     // These rules conflict with nextjs conventions
     "react/react-in-jsx-scope": "off",
@@ -20,6 +20,6 @@ module.exports = {
       { env: "apollo", requiredFields: ["id"] },
     ],
     "graphql/template-strings": ["error", { env: "apollo" }],
-    "@hallettj/ts-graphql/gql-type-assertion": "error",
+    "@originate/ts-graphql/gql-type-assertion": "error",
   },
 }

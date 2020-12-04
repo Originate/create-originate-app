@@ -10,15 +10,12 @@ import styled from "styled-components"
 import Link from "next/link"
 
 const addRecipeMutation = gql`
-  mutation addRecipe($recipe: NewRecipeInput!) {
+  mutation AddRecipe($recipe: NewRecipeInput!) {
     addRecipe(recipe: $recipe) {
       id
     }
   }
-` as import("@graphql-typed-document-node/core").TypedDocumentNode<
-  import("./__generated__/add-recipe").addRecipe,
-  import("./__generated__/add-recipe").addRecipeVariables
->
+` as import("./__generated__/add-recipe").AddRecipeDocument
 
 const Form = styled.form`
   width: 100%;
