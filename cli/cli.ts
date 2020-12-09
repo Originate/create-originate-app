@@ -60,7 +60,7 @@ async function main() {
   log(chalk.cyan.bold(`Creating ${appName}`));
   log(chalk.blue(`Target Directory: ${targetDir}`));
 
-  copyTemplate(srcDir, targetDir);
+  await copyTemplate(srcDir, targetDir);
   updateTemplate(appName, targetDir, ports);
 
   return chalk.cyan.bold("Finished");
