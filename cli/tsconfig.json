@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "target": "ES2019",
+    "module": "CommonJS",
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
@@ -8,13 +9,12 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "node",
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "resolveJsonModule": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "exclude": ["tryme", "dist"]
+  "exclude": ["tryme"]
 }

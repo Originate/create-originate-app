@@ -2,9 +2,11 @@ import * as prettier from "prettier";
 import * as fs from "fs";
 import * as path from "path";
 import chalk from "chalk";
-export const log = console.log;
 import getPort from "get-port";
 import degit from "degit";
+import stripIndent from "strip-indent";
+
+export const log = console.log;
 
 export enum Package {
   Frontend = "frontend",
@@ -13,20 +15,29 @@ export enum Package {
 }
 
 export class Ports {
-  frontend: number | undefined = undefined;
-  backend: number | undefined = undefined;
-  db: number | undefined = undefined;
-  setup = async (): Promise<void> => {
-    if (this.backend === undefined) {
-      this.backend = await getPort();
-    }
-    if (this.frontend === undefined) {
-      this.frontend = await getPort();
-    }
-    if (this.db === undefined) {
-      this.db = await getPort();
-    }
-  };
+  constructor(
+    public frontend: number,
+    public backend: number,
+    public db: number
+  ) {}
+
+  static async setup(params: {
+    frontend_port?: string;
+    backend_port?: string;
+    db_port?: string;
+  }): Promise<Ports> {
+    const normalizePort = async (p?: string) =>
+      p ? parseInt(p, 10) : getPort();
+    // Run async functions in parallel using `Promise.all` to save precious
+    // nanoseconds.
+    return new Ports(
+      ...(await Promise.all([
+        normalizePort(params.frontend_port),
+        normalizePort(params.backend_port),
+        normalizePort(params.db_port),
+      ]))
+    );
+  }
 }
 
 export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
@@ -39,25 +50,25 @@ export class UnreachableCaseError extends Error {
   }
 }
 
-export async function copyTemplate(
-  srcDir: string,
-  targetDir: string
-): Promise<void> {
-  //
+export async function copyTemplate(targetDir: string): Promise<void> {
+  const template_path = "github:originate/create-originate-app/template#dm/cli";
   try {
-    const emitter = degit(
-      "github:originate/create-originate-app/template#dm/cli",
-      {
-        force: true,
-        verbose: true,
-      }
-    );
+    const emitter = degit(template_path, {
+      force: true,
+      verbose: true,
+    });
 
     await emitter.clone(targetDir);
-    log(chalk.cyan(`Template copied to:\n  ${chalk.cyan.bold(targetDir)}`));
+    log(
+      chalk.cyan(
+        `Template copied \nfrom: ${chalk.cyan.bold(
+          template_path
+        )} \nto: ${chalk.cyan.bold(targetDir)}`
+      )
+    );
   } catch (err) {
     throw new Error(
-      chalk.red(`Error copying template from ${srcDir} to ${targetDir}`)
+      chalk.red(`Error copying template from ${template_path} to ${targetDir}`)
     );
   }
 }
@@ -76,12 +87,14 @@ export function updateTemplate(
 
   log(
     chalk.cyan(
-      `Updated template with values: 
+      stripIndent(
+        `Updated template with values: 
   package name: ${chalk.cyan.bold(appName)}
   frontend port: ${chalk.cyan.bold(ports.frontend)}
   backend port: ${chalk.cyan.bold(ports.backend)}
   database port: ${chalk.cyan.bold(ports.db)}
 `
+      )
     )
   );
 }
@@ -189,6 +202,7 @@ export function editFrontendEnvFile(targetDir: string, ports: Ports) {
   const filename = `${targetDir}/packages/${Package.Frontend}/.env.development`;
   let replace = `NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:${ports.backend}\/graphql`;
   searchReplaceFile(FRONTEND_REGEXP, replace, filename);
+  log(chalk.blue(`Prepared ${filename}`));
   return;
 }
 
@@ -198,6 +212,7 @@ export function editBackendEnvFile(targetDir: string, ports: Ports) {
   searchReplaceFile(BACKEND_REGEXP, backend_port_replace, filename);
   let database_url_replace = `DATABASE_URL=postgres://postgres:password@localhost:${ports.db}/postgres`;
   searchReplaceFile(DATABASE_URL_REGEXP, database_url_replace, filename);
+  log(chalk.blue(`Prepared ${filename}`));
   return;
 }
 
@@ -215,7 +230,6 @@ export function searchReplaceFile(
 
   try {
     fs.writeFileSync(filename, newEnv);
-    log(chalk.blue(`Prepared ${filename}`));
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`));
   }
