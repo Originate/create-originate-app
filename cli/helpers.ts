@@ -43,6 +43,7 @@ export class Ports {
 export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
 export const BACKEND_REGEXP = /\PORT=\d+/g;
 export const DATABASE_URL_REGEXP = /\DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/;
+export const README_REGEXP = /\@replaceme/;
 
 export class UnreachableCaseError extends Error {
   constructor(val: never) {
@@ -59,6 +60,7 @@ export async function copyTemplate(targetDir: string): Promise<void> {
     });
 
     await emitter.clone(targetDir);
+
     log(
       chalk.cyan(
         `Template copied \nfrom: ${chalk.cyan.bold(
@@ -103,8 +105,7 @@ export function editReadme(appName: string, targetDir: string) {
   const filename = path.join(targetDir, `README.md`);
 
   try {
-    const readmeContents = `#${appName}\n\nGenerated with create-originate-app`;
-    fs.writeFileSync(filename, readmeContents);
+    searchReplaceFile(README_REGEXP, appName, filename);
     log(chalk.blue(`Prepared ${filename}`));
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`));
@@ -123,7 +124,7 @@ export function editFrontendPackageJson(
   );
   try {
     let json = JSON.parse(fs.readFileSync(filename).toString());
-    json.scripts["name"] = `@${appName}/${Package.Frontend}`;
+    json.name = `@${appName}/${Package.Frontend}`;
     json.scripts[
       "start:dev"
     ] = `concurrently -k 'next dev -p ${ports.frontend}' 'yarn codegen:watch'`;

@@ -2,6 +2,7 @@ import {
   DATABASE_URL_REGEXP,
   FRONTEND_REGEXP,
   BACKEND_REGEXP,
+  README_REGEXP,
 } from "./helpers";
 jest.createMockFromModule("chalk");
 
@@ -19,5 +20,10 @@ describe("cli", () => {
   test("DATABASE_URL_REGEXP", () => {
     const string = "DATABASE_URL=postgres:postgres:password@loclhost/postgres";
     expect(DATABASE_URL_REGEXP.test(string)).toBe(false);
+  });
+
+  test("README_REGEXP", () => {
+    const string = "@replaceme";
+    expect(README_REGEXP.test(string)).toBe(true);
   });
 });
