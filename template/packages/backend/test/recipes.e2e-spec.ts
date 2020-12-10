@@ -38,7 +38,6 @@ describe("Recipes example (e2e)", () => {
           mutation addRecipe($recipe: NewRecipeInput!) {
             addRecipe(recipe: $recipe) {
               id
-              baked
             }
           }
         `,
@@ -51,7 +50,7 @@ describe("Recipes example (e2e)", () => {
         },
       }),
     ).toEqual({
-      data: { addRecipe: { id: expect.any(String), baked: true } },
+      data: { addRecipe: { id: expect.any(String) } },
     })
   })
 
