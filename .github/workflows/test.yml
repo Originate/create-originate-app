@@ -23,7 +23,6 @@ jobs:
         run: docker pull postgres:latest
       - name: cli tests
         run: yarn && yarn test
-      - name: template tests
       - run: yarn test
         working-directory: template
       - run: yarn lint
