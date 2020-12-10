@@ -40,7 +40,7 @@ const config = new ConfigService()
       //
       //     $ yarn db:migration:generate -n NameOfMigrationModule
       //
-      synchronize: config.isDevDatabase,
+      synchronize: config.isDevDatabase || config.isLocalTestDatabase,
     }),
   ],
   providers: [{ provide: ConfigService, useValue: config }],
