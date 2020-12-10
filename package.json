@@ -1,39 +1,27 @@
 {
+  "name": "create-originate-app",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/main.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=12"
   },
   "bin": "dist/create-originate-app.js",
   "scripts": {
-    "make": "ts-node src/create-originate-app.ts",
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint src",
-    "prepare": "tsdx build"
+    "dev": "ts-node src/create-originate-app.ts",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "yarn build && yarn test"
   },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "create-originate-app",
-  "author": "xasopheno",
-  "module": "dist/create-originate-app.esm.js",
+  "contributors": [
+    "Jesse Hallett <jesse.hallett@originate.com>",
+    "Danny Meyer <danny.meyer@originate.com>"
+  ],
   "jest": {
     "modulePathIgnorePatterns": [
       "tryme"
@@ -49,16 +37,16 @@
     "fs-extra": "^9.0.1",
     "get-port": "^5.1.1",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "strip-indent": "^3.0.0"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
     "@types/get-port": "^4.2.0",
     "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.8",
+    "@types/node": "^14.14.12",
     "@types/strip-indent": "^3.0.2",
     "eslint-plugin-prettier": "^3.2.0",
-    "husky": "^4.3.5",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "tsdx": "^0.14.1",

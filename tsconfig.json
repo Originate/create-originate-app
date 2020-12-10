@@ -2,9 +2,6 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "rootDir": "./src",
-    "target": "ES2019",
-    "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
     "skipLibCheck": true,
@@ -14,20 +11,17 @@
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "resolveJsonModule": true,
-    "outDir": "dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": ["esnext"],
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
+    "noFallthroughCasesInSwitch": true,
+    "target": "ES2019",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "outDir": "dist",
+    "lib": ["esnext"]
   },
   "include": ["src"],
   "exclude": ["tryme"]

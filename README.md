@@ -1,10 +1,11 @@
 # create-originate-app
 
-This project is designed to make it easy to set up a Nextjs/Nest/TypeORM app!
+Congrats! You just saved yourself hours of work by bootstrapping this project with create-originate-app. Let’s get you oriented with what’s here and how to use it.
 
 ---
 
 ## Features
+This project is designed to make it easy to set up a Nextjs/Nest/TypeORM app!
 
 ### Full-stack framework
 
