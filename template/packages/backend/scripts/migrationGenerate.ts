@@ -44,7 +44,7 @@ async function typeorm(
   subcommand: string,
   args: string[] = [],
 ): Promise<void> {
-  process.env.DATABASE_URL = dbUrl;
+  process.env.DATABASE_URL = dbUrl
   const childProcess = spawn("yarn", ["typeorm", subcommand].concat(args), {
     env: { DATABASE_URL: dbUrl, ...process.env },
     stdio: [process.stdin, process.stdout, process.stderr],

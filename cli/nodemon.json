@@ -1,6 +1,0 @@
-{
-  "watch": ["."],
-  "ext": "ts,json",
-  "ignore": ["./tryme/*"],
-  "exec": "ts-node cli.ts tryme"
-}

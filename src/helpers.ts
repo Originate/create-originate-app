@@ -1,17 +1,17 @@
-import * as prettier from "prettier";
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
-import getPort from "get-port";
-import degit from "degit";
-import stripIndent from "strip-indent";
+import * as prettier from 'prettier';
+import * as fs from 'fs';
+import * as path from 'path';
+import chalk from 'chalk';
+import getPort from 'get-port';
+import degit from 'degit';
+import stripIndent from 'strip-indent';
 
 export const log = console.log;
 
 export enum Package {
-  Frontend = "frontend",
-  Backend = "backend",
-  TopLevel = "toplevel",
+  Frontend = 'frontend',
+  Backend = 'backend',
+  TopLevel = 'toplevel',
 }
 
 export class Ports {
@@ -40,10 +40,10 @@ export class Ports {
   }
 }
 
-export const FRONTEND_REGEXP = /\NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
-export const BACKEND_REGEXP = /\PORT=\d+/g;
-export const DATABASE_URL_REGEXP = /\DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/;
-export const README_REGEXP = /\@replaceme/;
+export const FRONTEND_REGEXP = /NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:\d+\/graphql/;
+export const BACKEND_REGEXP = /PORT=\d+/g;
+export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/;
+export const README_REGEXP = /@replaceme/;
 
 export class UnreachableCaseError extends Error {
   constructor(val: never) {
@@ -52,7 +52,7 @@ export class UnreachableCaseError extends Error {
 }
 
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = "github:originate/create-originate-app/template#dm/cli";
+  const template_path = 'github:originate/create-originate-app/template#dm/cli';
   try {
     const emitter = degit(template_path, {
       force: true,
@@ -126,13 +126,13 @@ export function editFrontendPackageJson(
     let json = JSON.parse(fs.readFileSync(filename).toString());
     json.name = `@${appName}/${Package.Frontend}`;
     json.scripts[
-      "start:dev"
+      'start:dev'
     ] = `concurrently -k 'next dev -p ${ports.frontend}' 'yarn codegen:watch'`;
     fs.writeFileSync(
       filename,
       prettier.format(JSON.stringify(json), {
         semi: false,
-        parser: "json",
+        parser: 'json',
       })
     );
     log(chalk.blue(`Prepared ${filename}`));
@@ -155,20 +155,20 @@ export function editBackendPackageJson(
     let json = JSON.parse(fs.readFileSync(filename).toString());
     json.name = `@${appName}/${Package.Backend}`;
     json.scripts[
-      "db:start"
+      'db:start'
     ] = `docker start ${appName}-postgres 2>/dev/null || docker run -e POSTGRES_PASSWORD=password -p ${ports.db}:5432 -d --name ${appName}-postgres postgres:latest`;
-    json.scripts["db:stop"] = `docker stop ${appName}-postgres`;
+    json.scripts['db:stop'] = `docker stop ${appName}-postgres`;
     json.scripts[
-      "db:destroy"
+      'db:destroy'
     ] = `yarn db:stop >/dev/null && docker rm ${appName}-postgres`;
     json.scripts[
-      "db:shell"
+      'db:shell'
     ] = `docker exec -it ${appName}-postgres psql -U postgres`;
     fs.writeFileSync(
       filename,
       prettier.format(JSON.stringify(json), {
         semi: false,
-        parser: "json",
+        parser: 'json',
       })
     );
     log(chalk.blue(`Prepared ${filename}`));
@@ -183,14 +183,14 @@ export function editBackendTopLevelJson(appName: string, targetDir: string) {
   try {
     let json = JSON.parse(fs.readFileSync(filename).toString());
     json.scripts[
-      "dev:frontend"
+      'dev:frontend'
     ] = `yarn workspace @${appName}/frontend start:dev`;
     json.scripts[
-      "dev:backend"
+      'dev:backend'
     ] = `yarn workspace @${appName}/backend start:dev`;
     fs.writeFileSync(
       filename,
-      prettier.format(JSON.stringify(json), { semi: false, parser: "json" })
+      prettier.format(JSON.stringify(json), { semi: false, parser: 'json' })
     );
     log(chalk.blue(`Prepared ${filename}`));
     return;
@@ -201,7 +201,7 @@ export function editBackendTopLevelJson(appName: string, targetDir: string) {
 
 export function editFrontendEnvFile(targetDir: string, ports: Ports) {
   const filename = `${targetDir}/packages/${Package.Frontend}/.env.development`;
-  let replace = `NEXT_PUBLIC_GRAPHQL_URL=http:\/\/localhost:${ports.backend}\/graphql`;
+  let replace = `NEXT_PUBLIC_GRAPHQL_URL=http://localhost:${ports.backend}/graphql`;
   searchReplaceFile(FRONTEND_REGEXP, replace, filename);
   log(chalk.blue(`Prepared ${filename}`));
   return;
@@ -222,11 +222,11 @@ export function searchReplaceFile(
   replace: string,
   filename: string
 ) {
-  let newEnv = "";
-  fs.readFileSync(filename, "utf8")
-    .split("\n")
+  let newEnv = '';
+  fs.readFileSync(filename, 'utf8')
+    .split('\n')
     .forEach(function (line: string) {
-      newEnv += line.replace(regexp, replace) + "\n";
+      newEnv += line.replace(regexp, replace) + '\n';
     });
 
   try {

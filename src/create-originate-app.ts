@@ -1,7 +1,7 @@
-import { Command } from "commander";
-import * as path from "path";
-import chalk from "chalk";
-import { Ports, log, copyTemplate, updateTemplate } from "./helpers";
+import { Command } from 'commander';
+import * as path from 'path';
+import chalk from 'chalk';
+import { Ports, log, copyTemplate, updateTemplate } from './helpers';
 
 const logo = () => {
   console.error(
@@ -31,16 +31,16 @@ async function main() {
   const program = new Command();
 
   program
-    .command("create", { isDefault: true })
-    .description("Make Something Original")
-    .option("-bp,--backend_port <port_number>", "Backend Port")
-    .option("-fp,--frontend_port <port_number>", "Frontend Port")
-    .option("-dbp,--db_port <port_number>", "Frontend Port");
+    .command('create', { isDefault: true })
+    .description('Make Something Original')
+    .option('-bp,--backend_port <port_number>', 'Backend Port')
+    .option('-fp,--frontend_port <port_number>', 'Frontend Port')
+    .option('-dbp,--db_port <port_number>', 'Frontend Port');
   program.parse(process.argv);
   if (!program.args.length) program.help();
 
   const ports = await Ports.setup(program.opts());
-  const appName = program.args[0];
+  const appName = program.args[program.args.length - 1];
   const targetDir = path.resolve(appName);
 
   log(chalk.cyan.bold(`Creating ${appName}`));
@@ -49,5 +49,5 @@ async function main() {
   await copyTemplate(targetDir);
   updateTemplate(appName, targetDir, ports);
 
-  return chalk.cyan.bold("Finished");
+  return chalk.cyan.bold('Finished');
 }

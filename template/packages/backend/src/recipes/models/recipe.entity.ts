@@ -33,10 +33,7 @@ export class Recipe {
   @Column({ nullable: true, type: "text" })
   description?: string
 
-  @ManyToMany(
-    _type => Ingredient,
-    ingredient => ingredient.recipes,
-  )
+  @ManyToMany(_type => Ingredient, ingredient => ingredient.recipes)
   @JoinTable()
   ingredients?: Ingredient[]
 }

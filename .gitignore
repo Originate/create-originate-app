@@ -1,4 +1,5 @@
-node_modules/
-.log/
-.eslintcache
-
+*.log
+.DS_Store
+node_modules
+dist
+tryme/
