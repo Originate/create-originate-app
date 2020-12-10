@@ -4,9 +4,11 @@ The create-originate-app framework consists of two sub-packages which each run a
 a **backend** API server, and a **frontend** server that serves React code.
 
 ## Documentation
+
 [Developing Documentation](./DEVELOPING/index.md)
 
 ## Getting started
+
 ### Install Dependancies
 
 Install application dependencies by running: `yarn`
