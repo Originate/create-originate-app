@@ -47,7 +47,7 @@ type Query {
 }
 
 type Recipe {
-  baked: Boolean
+  baked: Boolean!
   createdAt: DateTime!
   description: String
   id: ID!

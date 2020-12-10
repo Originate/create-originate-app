@@ -33,9 +33,9 @@ export class Recipe {
   @Column({ nullable: true, type: "text" })
   description?: string
 
-  @Field({ nullable: true })
-  @Column({ default: true, nullable: true })
-  baked?: boolean
+  @Field()
+  @Column({ default: true })
+  baked!: boolean
 
   @ManyToMany(
     _type => Ingredient,
