@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command, program } from "commander"
 import * as path from "path"
 import chalk from "chalk"
