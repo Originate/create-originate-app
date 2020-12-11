@@ -35,6 +35,10 @@ export class ConfigService {
     }
   }
 
+  get isCi(): boolean {
+    return !!this.env.CI
+  }
+
   get isDev(): boolean {
     return this.env.NODE_ENV === "development"
   }
@@ -55,5 +59,12 @@ export class ConfigService {
   get isLocalDatabase(): boolean {
     const db = parse(this.env.DATABASE_URL)
     return db.hostname === "localhost"
+  }
+
+  /**
+   * This is `true` if we are running in test mode, but not in CI.
+   */
+  get isLocalTestDatabase(): boolean {
+    return this.isLocalDatabase && this.isTest && !this.isCi
   }
 }
