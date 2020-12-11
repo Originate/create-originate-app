@@ -2,6 +2,10 @@
   "name": "create-originate-app",
   "version": "0.1.0",
   "license": "MIT",
+  "author": "Originate, Inc.",
+  "description": "`npx create-originate-app my-app` to get started",
+  "homepage": "https://github.com/Originate/create-originate-app#readme",
+  "repository": "github:Originate/create-originate-app",
   "main": "dist/main.js",
   "typings": "dist/index.d.ts",
   "files": [

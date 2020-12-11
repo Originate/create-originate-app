@@ -1,7 +1,14 @@
-import { Command } from "commander"
+import { Command, program } from "commander"
 import * as path from "path"
 import chalk from "chalk"
-import { Ports, log, copyTemplate, updateTemplate } from "./helpers"
+import {
+  log,
+  getVersion,
+  expectPort,
+  Ports,
+  copyTemplate,
+  updateTemplate,
+} from "./helpers"
 
 const logo = () => {
   console.error(
@@ -17,30 +24,48 @@ const logo = () => {
 }
 
 main()
-  .then(result => {
-    log(result)
+  .then(() => {
     process.exit(0)
   })
   .catch(err => {
-    console.error(err)
+    console.error(`error: ${err.message}`)
     process.exit(1)
   })
 
 async function main() {
   logo()
-  const program = new Command()
 
   program
-    .command("create", { isDefault: true })
+    .version(getVersion())
+    .command("create <project_name>", { isDefault: true })
     .description("Make Something Original")
-    .option("-bp,--backend_port <port_number>", "Backend Port")
-    .option("-fp,--frontend_port <port_number>", "Frontend Port")
-    .option("-dbp,--db_port <port_number>", "Frontend Port")
-  program.parse(process.argv)
-  if (!program.args.length) program.help()
+    .option(
+      "-b, --backend-port <port_number>",
+      "dev backend API port",
+      expectPort,
+    )
+    .option(
+      "-f, --frontend-port <port_number>",
+      "dev frontend server port",
+      expectPort,
+    )
+    .option("-d, --db-port <port_number>", "dev database port", expectPort)
+    .action(async (appName: string, command: Command) =>
+      create(appName, command.opts()),
+    )
 
-  const ports = await Ports.setup(program.opts())
-  const appName = program.args[program.args.length - 1]
+  await program.parseAsync(process.argv)
+}
+
+async function create(
+  appName: string,
+  opts: {
+    frontendPort?: number
+    backendPort?: number
+    dbPort?: number
+  },
+) {
+  const ports = await Ports.setup(opts)
   const targetDir = path.resolve(appName)
 
   log(chalk.cyan.bold(`Creating ${appName}`))
@@ -49,5 +74,5 @@ async function main() {
   await copyTemplate(targetDir)
   updateTemplate(appName, targetDir, ports)
 
-  return chalk.cyan.bold("Finished")
+  log(chalk.cyan.bold("Finished"))
 }

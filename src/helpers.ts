@@ -8,6 +8,13 @@ import stripIndent from "strip-indent"
 
 export const log = console.log
 
+export function expectPort(input: unknown): number {
+  if (typeof input === "string" && input.match(/\d+/)) {
+    return parseInt(input, 10)
+  }
+  throw new Error(`Expected a port number, but got '${input}'`)
+}
+
 export enum Package {
   Frontend = "frontend",
   Backend = "backend",
@@ -22,19 +29,18 @@ export class Ports {
   ) {}
 
   static async setup(params: {
-    frontend_port?: string
-    backend_port?: string
-    db_port?: string
+    frontendPort?: number
+    backendPort?: number
+    dbPort?: number
   }): Promise<Ports> {
-    const normalizePort = async (p?: string) =>
-      p ? parseInt(p, 10) : getPort()
+    const normalizePort = async (p?: number) => p ?? getPort()
     // Run async functions in parallel using `Promise.all` to save precious
     // nanoseconds.
     return new Ports(
       ...(await Promise.all([
-        normalizePort(params.frontend_port),
-        normalizePort(params.backend_port),
-        normalizePort(params.db_port),
+        normalizePort(params.frontendPort),
+        normalizePort(params.backendPort),
+        normalizePort(params.dbPort),
       ])),
     )
   }
@@ -123,7 +129,7 @@ export function editFrontendPackageJson(
     `packages/${Package.Frontend}/package.json`,
   )
   try {
-    let json = JSON.parse(fs.readFileSync(filename).toString())
+    let json = JSON.parse(fs.readFileSync(filename, "utf8"))
     json.name = `@${appName}/${Package.Frontend}`
     json.scripts[
       "start:dev"
@@ -152,7 +158,7 @@ export function editBackendPackageJson(
     `packages/${Package.Backend}/package.json`,
   )
   try {
-    let json = JSON.parse(fs.readFileSync(filename).toString())
+    let json = JSON.parse(fs.readFileSync(filename, "utf8"))
     json.name = `@${appName}/${Package.Backend}`
     json.scripts[
       "db:start"
@@ -181,7 +187,7 @@ export function editBackendPackageJson(
 export function editBackendTopLevelJson(appName: string, targetDir: string) {
   const filename = path.join(targetDir, `package.json`)
   try {
-    let json = JSON.parse(fs.readFileSync(filename).toString())
+    let json = JSON.parse(fs.readFileSync(filename, "utf8"))
     json.scripts[
       "dev:frontend"
     ] = `yarn workspace @${appName}/frontend start:dev`
@@ -232,4 +238,12 @@ export function searchReplaceFile(
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`))
   }
+}
+
+export function getVersion(): string {
+  const json = fs.readFileSync(
+    path.join(__dirname, "..", "package.json"),
+    "utf8",
+  )
+  return JSON.parse(json).version
 }
