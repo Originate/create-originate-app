@@ -26,11 +26,6 @@
     "Jesse Hallett <jesse.hallett@originate.com>",
     "Danny Meyer <danny.meyer@originate.com>"
   ],
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "tryme"
-    ]
-  },
   "dependencies": {
     "@types/degit": "^2.8.0",
     "@types/fs-extra": "^9.0.4",
