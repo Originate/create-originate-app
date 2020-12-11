@@ -162,6 +162,8 @@ For more detailed documentation on working with the COA framework see
 
 ---
 
-## Read our design document
+## Automated releases
 
-For historical color, see [issue 1](https://github.com/Originate/create-originate-app/issues/1).
+This project uses an automated release system which requires that pull requests
+be merged in a special way. Please read the [contributing
+guidelines](./CONTRIBUTING.md) before merging pull requests.
