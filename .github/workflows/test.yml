@@ -11,19 +11,20 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: copy yarn.lock to top level so we can use stock yarn cache action
-        run: cp template/yarn.lock ./
-      - uses: c-hive/gha-yarn-cache@v1
+      - name: cli tests
+        run: yarn --frozen-lockfile && yarn test
 
       - run: yarn --frozen-lockfile
         working-directory: template
+
       - run: yarn typecheck
         working-directory: template
+
       - name: pre-fetch postgres docker image
         run: docker pull postgres:latest
-      - name: cli tests
-        run: yarn && yarn test
+
       - run: yarn test
         working-directory: template
+
       - run: yarn lint
         working-directory: template
