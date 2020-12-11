@@ -21,6 +21,8 @@ jobs:
         working-directory: template
       - name: pre-fetch postgres docker image
         run: docker pull postgres:latest
+      - name: cli tests
+        run: yarn && yarn test
       - run: yarn test
         working-directory: template
       - run: yarn lint

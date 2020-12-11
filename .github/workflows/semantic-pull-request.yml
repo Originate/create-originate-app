@@ -1,4 +1,4 @@
-name: 'PR title matches conventional commit format'
+name: "PR title matches conventional commit format"
 on:
   pull_request:
     types: [opened, edited, synchronize]

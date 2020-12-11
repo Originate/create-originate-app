@@ -29,9 +29,6 @@ export class Ingredient {
   @Column({ type: "enum", enum: IngredientCategory })
   category!: IngredientCategory
 
-  @ManyToMany(
-    _type => Recipe,
-    recipe => recipe.ingredients,
-  )
+  @ManyToMany(_type => Recipe, recipe => recipe.ingredients)
   recipes?: Recipe[]
 }

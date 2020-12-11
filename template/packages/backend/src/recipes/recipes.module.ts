@@ -5,10 +5,15 @@ import { Recipe } from "./models/recipe.entity"
 import { RecipeResolver } from "./recipe.resolver"
 import { RecipeService } from "./recipe.service"
 import { IngredientResolver } from "./ingredient/ingredient.resolver"
-import { IngredientService } from './ingredient/ingredient.service';
+import { IngredientService } from "./ingredient/ingredient.service"
 
 @Module({
   imports: [TypeOrmModule.forFeature([Ingredient, Recipe])],
-  providers: [RecipeResolver, RecipeService, IngredientResolver, IngredientService],
+  providers: [
+    RecipeResolver,
+    RecipeService,
+    IngredientResolver,
+    IngredientService,
+  ],
 })
 export class RecipesModule {}

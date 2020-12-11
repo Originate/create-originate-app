@@ -1,6 +1,7 @@
 # create-originate-app
 
-This project is designed to make it easy to set up a single-page React app!
+This project is designed to make it easy to set up a Nextjs/Nest/TypeORM app!
+Let's get you oriented with what's here and how to use it.
 
 ---
 
