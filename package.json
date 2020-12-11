@@ -7,7 +7,7 @@
   "homepage": "https://github.com/Originate/create-originate-app#readme",
   "repository": "github:Originate/create-originate-app",
   "main": "dist/main.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/main.d.ts",
   "files": [
     "dist"
   ],
