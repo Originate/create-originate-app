@@ -9,7 +9,9 @@ a **backend** API server, and a **frontend** server that serves React code.
 
 ## Getting started
 
-### Install Dependancies
+### Install Dependencies
+
+Install Docker, and make sure it is running. See https://docs.docker.com/get-docker/
 
 Install application dependencies by running: `yarn`
 
