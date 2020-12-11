@@ -58,7 +58,7 @@ export class UnreachableCaseError extends Error {
 }
 
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = "github:originate/create-originate-app/template#dm/cli"
+  const template_path = "github:originate/create-originate-app/template#master"
   try {
     const emitter = degit(template_path, {
       force: true,
