@@ -51,15 +51,8 @@ export const BACKEND_REGEXP = /PORT=\d+/g
 export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/
 export const README_REGEXP = /@replaceme/
 
-export class UnreachableCaseError extends Error {
-  constructor(val: never) {
-    super(`Unreachable case: ${JSON.stringify(val)}`)
-  }
-}
-
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path =
-    "github:originate/create-originate-app/template#dm/next_env"
+  const template_path = "github:originate/create-originate-app/template#master"
   try {
     const emitter = degit(template_path, {
       force: true,
@@ -87,7 +80,7 @@ export function updateTemplate(
   targetDir: string,
   ports: Ports,
 ) {
-  editReadme(appName, targetDir)
+  editReadme(appName, targetDir, ports)
   editFrontendPackageJson(appName, targetDir, ports)
   editBackendPackageJson(appName, targetDir, ports)
   editBackendTopLevelJson(appName, targetDir)
@@ -108,11 +101,17 @@ export function updateTemplate(
   )
 }
 
-export function editReadme(appName: string, targetDir: string) {
+export function editReadme(appName: string, targetDir: string, ports: Ports) {
   const filename = path.join(targetDir, `README.md`)
+  const FRONTEND_PORT_REGEXP = /@frontendPort/
+  const BACKEND_PORT_REGEXP = /@backendPort/
+  const DB_PORT_REGEXP = /@dbPort/
 
   try {
     searchReplaceFile(README_REGEXP, appName, filename)
+    searchReplaceFile(FRONTEND_PORT_REGEXP, ports.frontend.toString(), filename)
+    searchReplaceFile(BACKEND_PORT_REGEXP, ports.backend.toString(), filename)
+    searchReplaceFile(DB_PORT_REGEXP, ports.db.toString(), filename)
     log(chalk.blue(`Prepared ${filename}`))
   } catch (err) {
     throw new Error(chalk.red(`Error preparing ${filename}\n${err}`))

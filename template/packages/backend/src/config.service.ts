@@ -13,7 +13,10 @@ export class ConfigService {
   constructor() {
     config()
     try {
-      const env = loadEnvConfig("./", true).combinedEnv
+      // using @next/env to mirror frontend env handling.
+      // https://github.com/vercel/next.js/blob/7e387f0fce09b77f1cf2a777e2b5fbed874fbec0/docs/basic-features/environment-variables.md#loading-environment-variables
+      const env = loadEnvConfig("./", process.env.NODE_ENV !== "production")
+        .combinedEnv
       // `transformAndValidateSync` automatically checks its input object (`env`)
       // for required properties and applies validations based on the properties
       // and annotations in the reference class (`Env`).
