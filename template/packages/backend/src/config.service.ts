@@ -4,6 +4,7 @@ import { ValidationError } from "class-validator"
 import { config } from "dotenv"
 import { parse } from "url"
 import { Env } from "./env"
+import { loadEnvConfig } from "@next/env"
 
 @Injectable()
 export class ConfigService {
@@ -12,10 +13,12 @@ export class ConfigService {
   constructor() {
     config()
     try {
+      const env = loadEnvConfig("./", true).combinedEnv
       // `transformAndValidateSync` automatically checks its input object (`env`)
       // for required properties and applies validations based on the properties
       // and annotations in the reference class (`Env`).
-      this.env = transformAndValidateSync(Env, process.env)
+      //
+      this.env = transformAndValidateSync(Env, env)
     } catch (error) {
       // Format validation errors nicely
       if (Array.isArray(error)) {

@@ -58,7 +58,8 @@ export class UnreachableCaseError extends Error {
 }
 
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = "github:originate/create-originate-app/template#master"
+  const template_path =
+    "github:originate/create-originate-app/template#dm/next_env"
   try {
     const emitter = degit(template_path, {
       force: true,
@@ -212,7 +213,7 @@ export function editFrontendEnvFile(targetDir: string, ports: Ports) {
 }
 
 export function editBackendEnvFile(targetDir: string, ports: Ports) {
-  const filename = `${targetDir}/packages/${Package.Backend}/.env.example`
+  const filename = `${targetDir}/packages/${Package.Backend}/.env.development`
   let backend_port_replace = `PORT=${ports.backend}`
   searchReplaceFile(BACKEND_REGEXP, backend_port_replace, filename)
   let database_url_replace = `DATABASE_URL=postgres://postgres:password@localhost:${ports.db}/postgres`
