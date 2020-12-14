@@ -29,3 +29,9 @@ Setup your backend ENV. This will be handled more gracefully in the future.
 Start the Backend Nest server: `yarn dev:backend`
 
 (If you've previously used create-originate-app to create a application with the same name, you'll need to remove the database docker container from the previous run)
+
+You can access your application as follows: 
+  Frontend: http://localhost:@frontendPort
+  Backend: http://localhost:@backendPort 
+  GraphQL playground: http://localhost:@backendPort/graphql 
+  Database: postgres://postgres:password@localhost:@dbPort/postgres
