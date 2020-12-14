@@ -13,7 +13,8 @@ a **backend** API server, and a **frontend** server that serves React code.
 
 Install Docker, and make sure it is running. See https://docs.docker.com/get-docker/
 
-Install application dependencies by running: `yarn`
+### Install
+create-originate-app has already run `yarn` in this directory. 
 
 ### Frontend
 

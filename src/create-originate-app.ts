@@ -11,6 +11,7 @@ import {
   copyTemplate,
   updateTemplate,
 } from "./helpers"
+import { run_yarn } from "./cmd"
 
 const logo = () => {
   console.error(
@@ -75,6 +76,7 @@ async function create(
 
   await copyTemplate(targetDir)
   updateTemplate(appName, targetDir, ports)
+  await run_yarn(targetDir)
 
   log(chalk.cyan.bold("Finished"))
 }

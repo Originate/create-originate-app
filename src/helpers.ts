@@ -51,12 +51,6 @@ export const BACKEND_REGEXP = /PORT=\d+/g
 export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/
 export const README_REGEXP = /@replaceme/
 
-export class UnreachableCaseError extends Error {
-  constructor(val: never) {
-    super(`Unreachable case: ${JSON.stringify(val)}`)
-  }
-}
-
 export async function copyTemplate(targetDir: string): Promise<void> {
   const template_path = "github:originate/create-originate-app/template#master"
   try {
