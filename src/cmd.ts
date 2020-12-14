@@ -1,7 +1,8 @@
 import { ChildProcessByStdio, spawn } from "child_process"
 
 export async function run_yarn(targetDir: string): Promise<void> {
-  const childProcess = spawn("yarn", ["--cwd", targetDir], {
+  const childProcess = spawn("yarn", {
+    cwd: targetDir,
     stdio: [process.stdin, process.stdout, process.stderr],
   })
   const status = await onExit(childProcess)
