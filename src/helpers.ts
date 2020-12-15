@@ -52,7 +52,8 @@ export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@
 export const README_REGEXP = /@replaceme/
 
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = "github:originate/create-originate-app/template#master"
+  const template_path =
+    "github:originate/create-originate-app/template#dm/next_env"
   try {
     const emitter = degit(template_path, {
       force: true,

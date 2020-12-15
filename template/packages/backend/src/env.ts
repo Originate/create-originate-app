@@ -14,9 +14,6 @@ export class Env {
   })
   DATABASE_URL!: string
 
-  @IsIn(["development", "production", "test"])
-  NODE_ENV!: string
-
   @IsPort()
   @IsOptional()
   PORT = "3000"
