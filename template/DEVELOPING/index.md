@@ -5,6 +5,7 @@ a **backend** API server, and a **frontend** server that serves React code.
 
 ## Documentation Contents
 
+- [Environment Variables](./environment-variables.md)
 - [NestJS](./NestJS.md) for information on the backend API server
 
 ## Key Technologies
