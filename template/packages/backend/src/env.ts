@@ -1,4 +1,4 @@
-import { IsIn, IsOptional, IsPort, IsUrl } from "class-validator"
+import { IsOptional, IsPort, IsUrl } from "class-validator"
 
 export class Env {
   /**

@@ -58,7 +58,7 @@ export class ConfigService {
   }
 
   get isTest(): boolean {
-    return this.env.NODE_ENV === "test"
+    return process.env.NODE_ENV === "test"
   }
 
   get isLocalDatabase(): boolean {
