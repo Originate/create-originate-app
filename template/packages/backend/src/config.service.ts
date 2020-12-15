@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { transformAndValidateSync } from "class-transformer-validator"
 import { ValidationError } from "class-validator"
-import { config } from "dotenv"
 import { parse } from "url"
 import { Env } from "./env"
 import { loadEnvConfig } from "@next/env"
