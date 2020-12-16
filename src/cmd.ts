@@ -13,8 +13,7 @@ export async function run_yarn(targetDir: string): Promise<void> {
 
 export function git_branch_name(): string {
   try {
-    let branch = execSync("git branch --show-current")
-    return branch.toString()
+    return execSync("git branch --show-current", { encoding: "utf8" })
   } catch (err) {
     throw new ProcessError(err)
   }
