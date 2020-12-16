@@ -5,6 +5,7 @@ import chalk from "chalk"
 import getPort from "get-port"
 import degit from "degit"
 import stripIndent from "strip-indent"
+import { git_branch_name } from "./cmd"
 
 export const log = console.log
 
@@ -51,8 +52,21 @@ export const BACKEND_REGEXP = /PORT=\d+/g
 export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/
 export const README_REGEXP = /@replaceme/
 
+const isTest = (): boolean => {
+  return process.env.NODE_ENV === "test"
+}
+
+function getTemplatePath(): string {
+  if (isTest()) {
+    return `github:originate/create-originate-app/template#${git_branch_name()}`
+  } else {
+    return "github:originate/create-originate-app/template#master"
+  }
+}
+
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = "github:originate/create-originate-app/template#master"
+  const template_path = getTemplatePath()
+
   try {
     const emitter = degit(template_path, {
       force: true,
@@ -212,7 +226,7 @@ export function editFrontendEnvFile(targetDir: string, ports: Ports) {
 }
 
 export function editBackendEnvFile(targetDir: string, ports: Ports) {
-  const filename = `${targetDir}/packages/${Package.Backend}/.env.example`
+  const filename = `${targetDir}/packages/${Package.Backend}/.env.development`
   let backend_port_replace = `PORT=${ports.backend}`
   searchReplaceFile(BACKEND_REGEXP, backend_port_replace, filename)
   let database_url_replace = `DATABASE_URL=postgres://postgres:password@localhost:${ports.db}/postgres`

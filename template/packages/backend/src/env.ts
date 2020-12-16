@@ -1,4 +1,4 @@
-import { IsIn, IsOptional, IsPort, IsUrl } from "class-validator"
+import { IsOptional, IsPort, IsUrl } from "class-validator"
 
 export class Env {
   /**
@@ -13,9 +13,6 @@ export class Env {
     require_tld: false,
   })
   DATABASE_URL!: string
-
-  @IsIn(["development", "production", "test"])
-  NODE_ENV!: string
 
   @IsPort()
   @IsOptional()

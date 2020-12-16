@@ -1,21 +1,24 @@
 import { Injectable } from "@nestjs/common"
 import { transformAndValidateSync } from "class-transformer-validator"
 import { ValidationError } from "class-validator"
-import { config } from "dotenv"
 import { parse } from "url"
 import { Env } from "./env"
+import { loadEnvConfig } from "@next/env"
 
 @Injectable()
 export class ConfigService {
   env: Env
 
   constructor() {
-    config()
     try {
+      // using @next/env to mirror frontend env handling.
+      // https://github.com/vercel/next.js/blob/7e387f0fce09b77f1cf2a777e2b5fbed874fbec0/docs/basic-features/environment-variables.md#loading-environment-variables
+      const env = loadEnvConfig("./", this.isDev).combinedEnv
       // `transformAndValidateSync` automatically checks its input object (`env`)
       // for required properties and applies validations based on the properties
       // and annotations in the reference class (`Env`).
-      this.env = transformAndValidateSync(Env, process.env)
+      //
+      this.env = transformAndValidateSync(Env, env)
     } catch (error) {
       // Format validation errors nicely
       if (Array.isArray(error)) {
@@ -40,11 +43,13 @@ export class ConfigService {
   }
 
   get isDev(): boolean {
-    return this.env.NODE_ENV === "development"
+    return (
+      ["development", "dev", "", undefined].includes(process.env.NODE_ENV)
+    )
   }
 
   /**
-   * Checks that `NODE_ENV == "development"`, and adds an extra sanity check
+   * Checks that `NODE_ENV !== "production" or "test"`, and adds an extra sanity check
    * that `DATABASE_URL` is local to avoid synchronizing schema to a production
    * database.
    */
@@ -53,7 +58,7 @@ export class ConfigService {
   }
 
   get isTest(): boolean {
-    return this.env.NODE_ENV === "test"
+    return process.env.NODE_ENV === "test"
   }
 
   get isLocalDatabase(): boolean {

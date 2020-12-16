@@ -1,4 +1,4 @@
-import { ChildProcessByStdio, spawn } from "child_process"
+import { execSync, ChildProcessByStdio, spawn } from "child_process"
 
 export async function run_yarn(targetDir: string): Promise<void> {
   const childProcess = spawn("yarn", {
@@ -8,6 +8,14 @@ export async function run_yarn(targetDir: string): Promise<void> {
   const status = await onExit(childProcess)
   if (status !== 0) {
     throw new ProcessError(status)
+  }
+}
+
+export function git_branch_name(): string {
+  try {
+    return execSync("git branch --show-current", { encoding: "utf8" })
+  } catch (err) {
+    throw new ProcessError(err)
   }
 }
 

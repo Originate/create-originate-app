@@ -16,7 +16,7 @@
   },
   "bin": "dist/create-originate-app.js",
   "scripts": {
-    "dev": "ts-node src/create-originate-app.ts",
+    "dev": "NODE_ENV=test ts-node src/create-originate-app.ts",
     "prebuild": "rimraf dist",
     "build": "tsc",
     "test": "jest",
