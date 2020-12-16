@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 // import tmp from "tmp"
 
 // Running yarn on the project takes some time
-jest.setTimeout(30000)
+jest.setTimeout(300000)
 
 const appName = "tryme"
 const frontendPort = "123"
@@ -17,7 +17,7 @@ const testArgs = [
   "test",
   appName,
   "-f",
-  frontendPort.toString(),
+  frontendPort,
   "-b",
   backendPort,
   "-d",
