@@ -5,6 +5,7 @@ import chalk from "chalk"
 import getPort from "get-port"
 import degit from "degit"
 import stripIndent from "strip-indent"
+import { git_branch_name } from "./cmd"
 
 export const log = console.log
 
@@ -52,8 +53,8 @@ export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@
 export const README_REGEXP = /@replaceme/
 
 export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path =
-    "github:originate/create-originate-app/template#dm/next_env"
+  let template_path = `github:originate/create-originate-app/template#${git_branch_name()}`
+
   try {
     const emitter = degit(template_path, {
       force: true,
