@@ -39,10 +39,6 @@ each test file. The dev database is persistent, but can be recreated from
 scratch at any time by running `yarn workspace @/backend db:destroy`. Test
 database containers are deleted once tests complete.
 
-> ⚠️ TODO: We plan to enhance the dev database scripts so that you can run dev
-> databases for multiple projects simultaneously without port or container name
-> conflicts.
-
 ### Rapid development cycle
 
 The app database schema is inferred from code. In development mode when you make
