@@ -19,7 +19,7 @@
     "dev": "NODE_ENV=test ts-node src/create-originate-app.ts",
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "prepublishOnly": "yarn build && yarn test"
   },
   "contributors": [

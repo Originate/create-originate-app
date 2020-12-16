@@ -28,7 +28,7 @@ describe("cli_e2e", () => {
   beforeAll(async () => {
     await run(testArgs)
   })
-  test("frontend package.json", async () => {
+  test("frontend package.json", () => {
     const filename = path.join(
       path.resolve(appName),
       `/packages/frontend/package.json`,
@@ -39,7 +39,7 @@ describe("cli_e2e", () => {
       `concurrently -k 'next dev -p ${frontendPort}' 'yarn codegen:watch'`,
     )
   })
-  test("backend package.json", async () => {
+  test("backend package.json", () => {
     const filename = path.join(
       path.resolve(appName),
       `/packages/backend/package.json`,
@@ -58,7 +58,18 @@ describe("cli_e2e", () => {
     )
   })
 
-  test("frontend .env", async () => {
+  test("toplevel package.json", () => {
+    const filename = path.join(path.resolve(appName), `/package.json`)
+    let json = JSON.parse(fs.readFileSync(filename, "utf8"))
+    expect(json.scripts["dev:frontend"]).toBe(
+      `yarn workspace @${appName}/frontend start:dev`,
+    )
+    expect(json.scripts["dev:backend"]).toBe(
+      `yarn workspace @${appName}/backend start:dev`,
+    )
+  })
+
+  test("frontend .env", () => {
     const filename = path.join(
       path.resolve(appName),
       `/packages/frontend/.env.development`,
@@ -69,7 +80,7 @@ describe("cli_e2e", () => {
     )
   })
 
-  test("backend .env", async () => {
+  test("backend .env", () => {
     const filename = path.join(
       path.resolve(appName),
       `/packages/backend/.env.development`,
