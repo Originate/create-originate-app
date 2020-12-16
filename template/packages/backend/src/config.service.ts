@@ -44,7 +44,7 @@ export class ConfigService {
 
   get isDev(): boolean {
     return (
-      process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "test"
+      ["development", "dev", "", undefined].includes(process.env.NODE_ENV)
     )
   }
 
