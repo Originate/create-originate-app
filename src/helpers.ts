@@ -6,7 +6,9 @@ import getPort from "get-port"
 import degit from "degit"
 import stripIndent from "strip-indent"
 
-export const log = console.log
+export const log = (s: string) => {
+  process.stderr.write(s + "\n", "utf8")
+}
 
 export function expectPort(input: unknown): number {
   if (typeof input === "string" && input.match(/\d+/)) {
