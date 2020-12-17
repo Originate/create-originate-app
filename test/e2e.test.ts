@@ -1,8 +1,9 @@
-import { run } from "../src/app"
 import fs from "fs"
 import path from "path"
 import dotenv from "dotenv"
-// import tmp from "tmp"
+import tmp from "tmp"
+import { run } from "../src/app"
+import { git_branch_name } from "../src/cmd"
 
 // Running yarn on the project takes some time
 jest.setTimeout(300000)
@@ -22,12 +23,24 @@ const testArgs = [
   backendPort,
   "-d",
   dbPort,
+  "--without-yarn",
 ]
+
+tmp.setGracefulCleanup()
+const TEMP_DIR = tmp.dirSync({ unsafeCleanup: true })
 
 describe("cli_e2e", () => {
   beforeAll(async () => {
-    await run(testArgs)
+    const branch_name = git_branch_name()
+    process.chdir(TEMP_DIR.name)
+    await run(testArgs, branch_name)
   })
+
+  afterAll(() => {
+    // TEMP_DIR.removeCallback()
+    console.log(TEMP_DIR.name)
+  })
+
   test("frontend package.json", () => {
     const filename = path.join(
       path.resolve(appName),

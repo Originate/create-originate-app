@@ -5,7 +5,6 @@ import chalk from "chalk"
 import getPort from "get-port"
 import degit from "degit"
 import stripIndent from "strip-indent"
-import { git_branch_name } from "./cmd"
 
 export const log = console.log
 
@@ -56,16 +55,19 @@ const isTest = (): boolean => {
   return process.env.NODE_ENV === "test"
 }
 
-function getTemplatePath(): string {
+function getTemplatePath(branch_name: string): string {
   if (isTest()) {
-    return `github:originate/create-originate-app/template#${git_branch_name()}`
+    return `github:originate/create-originate-app/template#${branch_name}`
   } else {
     return "github:originate/create-originate-app/template#master"
   }
 }
 
-export async function copyTemplate(targetDir: string): Promise<void> {
-  const template_path = getTemplatePath()
+export async function copyTemplate(
+  targetDir: string,
+  branch_name: string,
+): Promise<void> {
+  const template_path = getTemplatePath(branch_name)
 
   try {
     const emitter = degit(template_path, {

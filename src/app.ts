@@ -11,7 +11,7 @@ import {
 } from "./helpers"
 import { run_yarn } from "./cmd"
 
-export async function run(args: string[]) {
+export async function run(args: string[], branch_name: string) {
   program
     .version(getVersion())
     .command("create <project_name>", { isDefault: true })
@@ -27,20 +27,22 @@ export async function run(args: string[]) {
       expectPort,
     )
     .option("-d, --db-port <port_number>", "dev database port", expectPort)
+    .option("-n, --without-yarn", "Do not run yarn in project dir")
     .action(async (appName: string, command: Command) =>
-      create(appName, command.opts()),
+      create(appName, branch_name, command.opts()),
     )
 
-  console.log(args)
   await program.parseAsync(args)
 }
 
 async function create(
   appName: string,
+  branch_name: string,
   opts: {
     frontendPort?: number
     backendPort?: number
     dbPort?: number
+    withoutYarn?: boolean
   },
 ) {
   const ports = await Ports.setup(opts)
@@ -49,9 +51,11 @@ async function create(
   log(chalk.cyan.bold(`Creating ${appName}`))
   log(chalk.blue(`Target Directory: ${targetDir}`))
 
-  await copyTemplate(targetDir)
+  await copyTemplate(targetDir, branch_name)
   updateTemplate(appName, targetDir, ports)
-  await run_yarn(targetDir)
+  if (!opts.withoutYarn) {
+    await run_yarn(targetDir)
+  }
 
   log(chalk.cyan.bold("Finished"))
 }

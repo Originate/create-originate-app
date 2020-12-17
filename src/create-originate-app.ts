@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import chalk from "chalk"
 import { run } from "./app"
+import { git_branch_name } from "./cmd"
 
 const logo = () => {
   console.error(
@@ -17,7 +18,8 @@ const logo = () => {
 
 async function main() {
   logo()
-  await run(process.argv)
+  const branch_name = git_branch_name()
+  await run(process.argv, branch_name)
 }
 
 main()
