@@ -5,8 +5,7 @@ import tmp from "tmp"
 import { run } from "../src/app"
 import { git_branch_name } from "../src/cmd"
 
-// Running yarn on the project takes some time
-jest.setTimeout(300000)
+jest.setTimeout(30000)
 
 const appName = "tryme"
 const frontendPort = "123"
@@ -26,7 +25,6 @@ const testArgs = [
   "--without-yarn",
 ]
 
-tmp.setGracefulCleanup()
 const TEMP_DIR = tmp.dirSync({ unsafeCleanup: true })
 
 describe("cli_e2e", () => {
@@ -37,8 +35,7 @@ describe("cli_e2e", () => {
   })
 
   afterAll(() => {
-    // TEMP_DIR.removeCallback()
-    console.log(TEMP_DIR.name)
+    TEMP_DIR.removeCallback()
   })
 
   test("frontend package.json", () => {
