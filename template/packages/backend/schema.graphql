@@ -39,14 +39,10 @@ input NewRecipeInput {
 }
 
 type Query {
-  """
-  Get a recipe by its ID
-  """
+  """Get a recipe by its ID"""
   recipe(id: ID!): Recipe!
 
-  """
-  Get recipes written by you, or that are publicly shared
-  """
+  """Get recipes written by you, or that are publicly shared"""
   recipes(skip: Int = 0, take: Int = 25, title: String, userId: ID): [Recipe!]!
 }
 
