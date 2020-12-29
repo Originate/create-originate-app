@@ -9,7 +9,7 @@ import { createConnection } from "typeorm"
 
 jest.setTimeout(15_000)
 
-describe("Recipes example (e2e)", () => {
+describe("Full api tests", () => {
   let app: INestApplication
   let stopDatabase: () => Promise<void> | undefined
 
@@ -38,19 +38,18 @@ describe("Recipes example (e2e)", () => {
   // recipes.e2e-spec.ts.
 
   it("serves an API", async () => {
-    expect(
-      await graphqlRequest(app, {
-        query: gql`
-          query genericQuery {
-            __schema {
-              types {
-                name
-              }
+    const result = await graphqlRequest(app, {
+      query: gql`
+        query genericQuery {
+          __schema {
+            types {
+              name
             }
           }
-        `,
-      }),
-    ).toMatchObject({
+        }
+      `,
+    })
+    expect(result).toMatchObject({
       data: { __schema: { types: expect.any(Array) } },
     })
   })
