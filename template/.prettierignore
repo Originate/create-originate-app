@@ -3,3 +3,5 @@ dist
 *.webpack.js
 ignored/
 .yarn/
+__generated__
+.schema.graphql

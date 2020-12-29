@@ -43,9 +43,7 @@ export class ConfigService {
   }
 
   get isDev(): boolean {
-    return (
-      ["development", "dev", "", undefined].includes(process.env.NODE_ENV)
-    )
+    return ["development", "dev", "", undefined].includes(process.env.NODE_ENV)
   }
 
   /**
