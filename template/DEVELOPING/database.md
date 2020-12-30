@@ -178,6 +178,10 @@ important data in your development database when necessary.
 
 [recipesmodule]: ../packages/backend/src/recipes/recipes.module.ts
 
+> ⚠ Try to avoid running migrations in local development unless you are willing
+> to destroy and recreate your development database. If you have used database
+> schema sync, and then run migrations the migrations are likely to fail.
+
 ## Generating Migrations
 
 You don't need migrations for local development and testing. But when you're
