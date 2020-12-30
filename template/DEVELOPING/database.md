@@ -168,7 +168,7 @@ important data in your development database when necessary.
 
 > ⚠ TypeORM needs to know about your entity class when syncing the database
 > schema. To make that happen every new entity class needs to be wired into
-> a NestJS module. For example this line from [RecipesModule][] wires in the
+> a [NestJS module][]. For example this line from [RecipesModule][] wires in the
 > `Ingredient` and `Recipe` entity classes,
 >
 >     imports: [TypeOrmModule.forFeature([Ingredient, Recipe])],
@@ -176,6 +176,7 @@ important data in your development database when necessary.
 > It's also important to use a file name for your class that ends with
 > `.entity.ts` so that the migration generation script can find it.
 
+[NestJS module]: ./NestJS.md#Modules
 [recipesmodule]: ../packages/backend/src/recipes/recipes.module.ts
 
 > ⚠ Try to avoid running migrations in local development unless you are willing
