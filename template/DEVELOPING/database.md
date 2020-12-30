@@ -176,7 +176,7 @@ important data in your development database when necessary.
 > It's also important to use a file name for your class that ends with
 > `.entity.ts` so that the migration generation script can find it.
 
-[NestJS module]: ./NestJS.md#Modules
+[NestJS module]: ./NestJS.md#modules
 [recipesmodule]: ../packages/backend/src/recipes/recipes.module.ts
 
 > ⚠ Try to avoid running migrations in local development unless you are willing
