@@ -1,4 +1,4 @@
-# GraphQL, implementing an API
+# GraphQL, Implementing an API
 
 Create-originate-app sets up a backend powered by NestJS which supports GraphQL
 and REST APIs out-of-the-box. But we encourage GraphQL APIs especially because
