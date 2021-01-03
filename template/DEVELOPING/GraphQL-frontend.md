@@ -20,7 +20,7 @@ and for query variables.
 GraphQL queries are written in `gql` template tags, and are dispatched using
 React hooks. Here is a basic example,
 
-```ts
+```tsx
 import { gql, useQuery } from "@apollo/client"
 
 const getRecipesQuery = gql`
