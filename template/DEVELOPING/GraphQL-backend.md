@@ -108,12 +108,15 @@ type Recipe {
 Object type classes are often not instantiated directly. (You might have noticed
 that `Recipe` has no constructor.) In the most common case an object type maps
 to a database table, and we use one class with both GraphQL and TypeORM
-annotations to represent both concepts. You can see that in the full definition
-of [Recipe][]. But it's also possible to define an object type class that is not
-a database entity. When constructing API responses you can instantiate your
-class, or you can write an object literal that is structurally-compatible with
-the class definition (has the same properties with compatible types), or you can
-use any other value with a type that is assignable to the class type.
+annotations to represent both concepts. (See [TypeORM Database Entities][]). You
+can see that in the full definition of [Recipe][]. But it's also possible to
+define an object type class that is not a database entity. When constructing API
+responses you can instantiate your class, or you can write an object literal
+that is structurally-compatible with the class definition (has the same
+properties with compatible types), or you can use any other value with a type
+that is assignable to the class type.
+
+[typeorm database entities]: ./database.md#typeorm-database-entities
 
 ## The Root Type
 

@@ -88,34 +88,15 @@ test module, database state does carry over between tests in the same module.
 > so if you stop one with `docker stop container_name` the container will be
 > removed automatically after it stops.
 
-## Schema Sync in Development vs Migrations in Production
+## TypeORM Database Entities
 
-When committing code that requires database schema changes it is important to
-include a migration in your commit that includes code for updating the
-production database schema. Migrations are good for production because they can
-be code-reviewed, and provide reproducible database schema state. But writing
-and running migrations results in a slow iteration cycle in development. So in
-local development instead of running migrations we use a database schema sync
-feature provided by TypeORM. Schema sync updates your development database
-schema in real time whenever you make code changes as long as you have the dev
-server running. The same feature provides always-up-to-date schemas in test
-databases when you run e2e tests locally.
+Create-originate-app sets up [TypeORM][] which encourages a code-first design which
+means that the database schema is inferred from TypeScript code. Database models
+are written as **entity** classes (classes that have an `@Entity()` annotation).
+For example, here is the [Recipe][] entity with all of the non-database-related
+annotations removed:
 
-> ℹ️ E2e tests use schema sync when run locally for a fast test-driven iteration
-> cycle. When run in CI e2e tests apply migrations instead to match the
-> production environment as closely as possible. This means that if your tests
-> are written well they will fail in CI if you forget to check in a migration
-> even if they pass locally. The logic for turning on schema sync is in
-> [AppModule][] in the `synchronize` option of the `TypeORM.forRoot`
-> configuration.
-
-[appmodule]: ../packages/backend/src/app.module.ts
-
-TypeORM encourages a code-first design which means that the database schema is
-inferred from TypeScript code. Database models are written as **entity** classes
-(classes that have an `@Entity()` annotation). For example, here is the [Recipe]
-entity with all of the non-database-related annotations removed:
-
+[typeorm]: https://typeorm.io/
 [recipe]: ../packages/backend/src/recipes/models/recipe.entity.ts
 
 ```ts
@@ -159,25 +140,52 @@ information to infer schemas for `ingredient` and
 > don't initialize them in the class definition. The exclamation mark is
 > a non-null assertion that instructs TypeScript not to show an error.
 
-In development mode and in local testing TypeORM infers the expected database
-schema from those annotations, computes a diff with the existing database
-schema, and automatically applies schema changes to make the actual schema match
-the expected schema. **Yes this is going to result in data loss sometimes** - so
-it's a good idea to build your work flow so that you can reconstruct any
-important data in your development database when necessary.
+### registering database entities with the application
 
-> ⚠ TypeORM needs to know about your entity class when syncing the database
-> schema. To make that happen every new entity class needs to be wired into
-> a [NestJS module][]. For example this line from [RecipesModule][] wires in the
-> `Ingredient` and `Recipe` entity classes,
->
->     imports: [TypeOrmModule.forFeature([Ingredient, Recipe])],
->
-> It's also important to use a file name for your class that ends with
-> `.entity.ts` so that the migration generation script can find it.
+TypeORM needs to know about your entity class when syncing the database schema.
+To make that happen every new entity class needs to be wired into a [NestJS
+module][]. For example this line from [RecipesModule][] wires in the
+`Ingredient` and `Recipe` entity classes,
 
-[NestJS module]: ./NestJS.md#modules
+```ts
+imports: [TypeOrmModule.forFeature([Ingredient, Recipe])],
+```
+
+It's also important to use a file name for your class that ends with
+`.entity.ts` so that the migration generation script can find it.
+
+[nestjs module]: ./NestJS.md#modules
 [recipesmodule]: ../packages/backend/src/recipes/recipes.module.ts
+
+## Schema Sync in Development vs Migrations in Production
+
+When committing code that requires database schema changes it is important to
+include a migration in your commit that includes code for updating the
+production database schema. Migrations are good for production because they can
+be code-reviewed, and provide reproducible database schema state. But writing
+and running migrations results in a slow iteration cycle in development. So in
+local development instead of running migrations we use a database schema sync
+feature provided by TypeORM. Schema-sync updates your development database
+schema in real time whenever you make code changes as long as you have the dev
+server running. The same feature provides always-up-to-date schemas in test
+databases when you run e2e tests locally.
+
+> ℹ️ E2e tests use schema sync when run locally for a fast test-driven iteration
+> cycle. When run in CI e2e tests apply migrations instead to match the
+> production environment as closely as possible. This means that if your tests
+> are written well they will fail in CI if you forget to check in a migration
+> even if they pass locally. The logic for turning on schema sync is in
+> [AppModule][] in the `synchronize` option of the `TypeORM.forRoot`
+> configuration.
+
+[appmodule]: ../packages/backend/src/app.module.ts
+
+In development mode and in local testing TypeORM infers the expected database
+schema from annotations in database entity classes, computes a diff with the
+existing database schema, and automatically applies schema changes to make the
+actual schema match the expected schema. **Yes this is going to result in data
+loss sometimes** - so it's a good idea to build your work flow so that you can
+reconstruct any important data in your development database when necessary.
 
 > ⚠ Try to avoid running migrations in local development unless you are willing
 > to destroy and recreate your development database. If you have used database
