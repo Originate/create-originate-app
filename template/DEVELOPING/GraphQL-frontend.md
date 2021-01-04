@@ -76,6 +76,16 @@ automatically-generated module. As long as you have the frontend dev server
 running those modules will be automatically created or updated whenever you make
 code changes.
 
+To sum up:
+
+- The first time you write a query or mutation, run `yarn lint --fix` to add the
+  necessary type assertion.
+- You don't need to do anything special when you change an existing query. But
+  the frontend dev server does need to be running to update the generated
+  types for the query. (The type assertion stays the same after changing
+  a query, but the generated module that is imported in the type assertion needs
+  to be updated.)
+
 ## Queries from the Browser vs Server-Side Rendering
 
 In most cases GraphQL queries will be dispatched from the browser directly to
