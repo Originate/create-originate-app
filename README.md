@@ -33,10 +33,10 @@ see [the developing docs][developing].
 
 When you run `yarn dev:backend` a postgres database automatically starts up in
 a docker container. Running backend end-to-end tests with
-`yarn workspace @/backend test:e2e --watch`
+`yarn workspace @myapp/backend test:e2e --watch`
 creates a fresh, temporary database for each run of
 each test file. The dev database is persistent, but can be recreated from
-scratch at any time by running `yarn workspace @/backend db:destroy`. Test
+scratch at any time by running `yarn workspace @myapp/backend db:destroy`. Test
 database containers are deleted once tests complete.
 
 ### Rapid development cycle
@@ -44,7 +44,7 @@ database containers are deleted once tests complete.
 The app database schema is inferred from code. In development mode when you make
 a change to your database code, the schema of the dev database updates instantly
 to match. When you're ready to commit changes generate a migration to run in
-production with `yarn workspace @/backend db:migration:generate -n MyMigration`.
+production with `yarn workspace @myapp/backend db:migration:generate -n MyMigration`.
 
 > ℹ️ After generation, migrations can be modified by hand to add custom indexes,
 > to massage data, etc.
@@ -125,20 +125,11 @@ Docker executable has to be called `docker`.
 
 ### 1. Generate an app
 
-TODO: We plan to set up a command to automatically generate a starter app using
-the template in the `template/` directory. In the meantime if you want to
-experiment with COA we recommend that you clone this repository, and make
-changes to it directly. The `template/` directory is the root of the app - run
-`yarn` commands from there.
+Run this command,
 
-### 2. Set up your environment
+    $ npx create-originate-app myapp
 
-Copy `template/packages/backend/.env.example` to
-`template/packages/backend/.env`.
-
-TODO: We should be able to make this step skippable like it is in the frontend.
-
-### 3. Start the app
+### 2. Start the app
 
 Start the backend and frontend in separate terminals with these commands:
 
