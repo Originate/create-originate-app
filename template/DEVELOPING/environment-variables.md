@@ -64,9 +64,9 @@ The reason for `.env.*.local` files is so that you can have variables checked
 into version control that can be overridden by `.local` files that are not in
 version control.
 
-In development and testing you probably want to use `.env` files, keeping
+In development and testing you probably want to use `.env.*` files, keeping
 private settings in `.env.*.local` files. In production you can use
-`.env.production`, or you can set variables by other means.
+`.env` and `.env.production`, or you can set variables by other means.
 
 Another feature of @next/env is the ability to interpolate variables. For
 example,
