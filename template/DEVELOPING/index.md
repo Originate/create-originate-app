@@ -7,6 +7,9 @@ a **backend** API server, and a **frontend** server that serves React code.
 
 - [Environment Variables](./environment-variables.md)
 - [NestJS](./NestJS.md) for information on the backend API server
+- [Working with the Database](./database.md) - running dev databases, migrations, etc.
+- [GraphQL, Implementing an API](./GraphQL-backend.md)
+- [GraphQL, Running Queries from React Code](./GraphQL-frontend.md)
 
 ## Key Technologies
 

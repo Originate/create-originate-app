@@ -28,11 +28,11 @@ Start the Backend Nest server: `yarn dev:backend`
 ### Environment Variables
 
 We use
-[@nest/env](https://github.com/vercel/next.js/blob/master/docs/basic-features/environment-variables.md#loading-environment-variables)
+[@next/env](https://nextjs.org/docs/basic-features/environment-variables)
 to load environment variables from `.env*` files in both the frontend and
 backend packages. See [the docs](./DEVELOPING/environment-variables.md) for
-details. Briefly you can have multiple env files that are loaded depending
-environment.
+details. Briefly you can have multiple env files that are loaded depending on
+the environment.
 
 - `.env` - always loaded
 - `.env.local` - always loaded, any variables here override values in `.env`
