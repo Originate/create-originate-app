@@ -85,11 +85,10 @@ are there.
 
 > ℹ️ Server-side rendering pairs very nicely with a CDN!
 
-### CI
+### CI Workflows
 
-TODO: We plan to ship a complete CI configuration using Github Actions. This
-will run tests, as well as sanity checks such as checking that generated GraphQL
-files are up-to-date, and that migrations are in sync with app code.
+A Github Actions workflow is included to run tests and sanity checks. If you use
+Github then your CI is ready to go out of the box.
 
 ### Ready to deploy
 

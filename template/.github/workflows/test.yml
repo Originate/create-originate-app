@@ -1,0 +1,43 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies from cache with yarn
+        uses: bahmutov/npm-install@v1.6.0
+
+      - run: yarn typecheck
+      - run: yarn lint
+
+      - name: Pre-fetch postgres docker image
+        run: docker pull postgres:latest
+      - run: yarn test
+
+      - name: Check for pending database schema changes (produces untracked file if so)
+        run: |
+          yarn db:migration:generate -n PendingSchemaChanges || true
+        working-directory: packages/backend
+
+      - name: Check for out-of-date GraphQL types modules (produces uncommitted changes if so)
+        run: yarn codegen
+        working-directory: packages/frontend
+
+      - name: Check for uncommitted changes or untracked files
+        id: check_changes
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
+
+      - name: Fail on uncommitted changes or untracked files
+        if: steps.check_changes.outputs.changes != ''
+        run: |
+          echo "There are uncommitted changes which could mean that generated files or migrations are not up-to-date."
+          echo "${{steps.check_changes.outputs.changes}}"
+          false
