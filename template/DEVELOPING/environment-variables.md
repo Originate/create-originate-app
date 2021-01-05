@@ -58,9 +58,9 @@ environment.
 - `.env.development.local` - loaded in development, any variables here override
   values in `.env.development`
 - `.env.test`, `.env.production` - loaded in test or production modes; and you
-  can provide `.env*.local` versions too
+  can provide `.env.*.local` versions too
 
-The reason for `.env*.local` files is so that you can have variables checked
+The reason for `.env.*.local` files is so that you can have variables checked
 into version control that can be overridden by `.local` files that are not in
 version control.
 
