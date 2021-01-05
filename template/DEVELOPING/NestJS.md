@@ -34,6 +34,44 @@ including this module the app gets database tables for the `Ingredient` and
 `IngredientResolver`, and services (`RecipeService` and `IngredientService`)
 which provide business logic that is called by the recipes API.
 
+```
+@Module({
+  imports: [TypeOrmModule.forFeature([Ingredient, Recipe])],
+  providers: [
+    RecipeResolver,
+    RecipeService,
+    IngredientResolver,
+    IngredientService,
+  ],
+})
+export class RecipesModule {}
+```
+
+> ℹ️ A module can declare **providers**, **imports**, and **exports**. See
+> [the docs][modules] for details. Here is a quick reference:
+>
+> - Providers are classes, factory functions, or singleton values that can be
+>   automatically injected into other providers that are declared in the same
+>   module. Providers can implement independent functionality, such as resolver
+>   classes which extend the app's GraphQL schema. The most common examples of
+>   providers are classes with a `@Resolver` or an `@Injectable` annotation.
+>
+> - Imports are references to other modules. Importing a module wires in
+>   resolvers and database entities from that module. Every module you want to
+>   use in your app needs to be imported either directly or transitively into
+>   the root module, [AppModule][]. Modules can be produced by factory
+>   functions, such as `TypeOrmModule.forFeature()`.
+>
+> - Exports are providers that are intended for use in other modules. Usually
+>   a provider can only be injected into another provider that is declared in
+>   the same module - but if module A exports provider P, and module B imports
+>   module A, then providers declared in module B can inject provider P.
+>   (Providers declared in module A can also inject provider P.) An exported
+>   provider appears in both the providers and exports lists in the module where
+>   it is declared.
+
+[appmodule]: ../packages/backend/src/app.module.ts
+
 Every Nest app has a root module. In COA that is
 [`app.module.ts`](../packages/backend/src/app.module.ts). All functionality from
 `recipes.module.ts` is wired into the main app by importing `RecipesModule`, and
@@ -47,3 +85,14 @@ Nest publishes packages that integrate a number of libraries into its module
 system. For example we use `@nestjs/typeorm` to automatically wire TypeORM
 entity classes into the app, and to allow TypeORM repositories to be injected
 into app code.
+
+> ℹ️ You might wonder why database entities, like the `Ingredient` and `Recipe`
+> classes, are not listed as providers like resolver classes are. Instead
+> entities are listed in an import created by `TypeOrmModule.forFeature()`.
+> Partly that is because NestJS has native support for resolvers; TypeORM was
+> not originally designed for NestJS so there is some compatibility logic
+> involved.
+
+For more details see the NestJS documentation on [modules][].
+
+[modules]: https://docs.nestjs.com/modules
