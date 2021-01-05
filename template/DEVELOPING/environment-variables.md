@@ -3,9 +3,9 @@
 ## Reading Environment Variables
 
 All of the environment variables that the app reads are declared in
-[backend/src/env.ts][env]. We use [class-validator][] to specify whether each
-variable is required, to provide default values, and to specify any additional
-validation. For example,
+[backend/src/env.ts][env]. We use decorators from the [class-validator][]
+package to specify whether each variable is required, to provide default values,
+and to specify any additional validation. For example,
 
 [env]: ../packages/backend/src/env.ts
 [class-validator]: https://github.com/typestack/class-validator#readme
