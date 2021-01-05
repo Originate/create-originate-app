@@ -35,8 +35,8 @@ If you want to introduce a new environment variable please add it to `Env` -
 avoid reading directly from `process.env`. That way we can look in one place to
 see all of the environment variables that the app uses.
 
-There is one instance of `Env` which is created by [ConfigService][]. And in
-turn ConfigService is initialized in [AppModule][].
+`Env` is a singleton initialized by [ConfigService][]. And in turn ConfigService
+is initialized in [AppModule][].
 
 [configservice]: ../packages/backend/src/config.service.ts
 [appmodule]: ../packages/backend/src/app.module.ts
