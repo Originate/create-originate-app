@@ -11,7 +11,7 @@ import {
 } from "./helpers"
 import { run_yarn } from "./cmd"
 
-export async function run(args: string[], branch_name: string) {
+export async function run(args: string[], branch_name: string = "master") {
   program
     .version(getVersion())
     .command("create <project_name>", { isDefault: true })

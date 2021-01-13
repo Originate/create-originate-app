@@ -53,23 +53,15 @@ export const BACKEND_REGEXP = /PORT=\d+/g
 export const DATABASE_URL_REGEXP = /DATABASE_URL=postgres:\/\/postgres:password@localhost\/postgres/
 export const README_REGEXP = /@replaceme/
 
-const isTest = (): boolean => {
-  return process.env.NODE_ENV === "test"
-}
-
-function getTemplatePath(branch_name: string): string {
-  if (isTest()) {
-    return `github:originate/create-originate-app/template#${branch_name}`
-  } else {
-    return "github:originate/create-originate-app/template#master"
-  }
+function getTemplateUri(branch_name: string): string {
+  return `github:originate/create-originate-app/template#${branch_name}`
 }
 
 export async function copyTemplate(
   targetDir: string,
   branch_name: string,
 ): Promise<void> {
-  const template_path = getTemplatePath(branch_name)
+  const template_path = getTemplateUri(branch_name)
 
   try {
     const emitter = degit(template_path, {
