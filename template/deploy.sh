@@ -25,10 +25,6 @@ if [[ $* == *--setup* ]]; then
   # Set appropriate procfiles
   heroku config:set -a $HEROKU_FRONTEND_NAME PROCFILE=frontend.Procfile
   heroku config:set -a $HEROKU_BACKEND_NAME PROCFILE=backend.Procfile
-
-  # heroku config:set -a $HEROKU_BACKEND_NAME NODE_MODULE_CACHE=false
-  heroku config:set -a $HEROKU_BACKEND_NAME NPM_CONFIG_PRODUCTION=true
-  heroku config:set -a $HEROKU_BACKEND_NAME NODE_ENV=production
 else
   git push https://git.heroku.com/$HEROKU_FRONTEND_NAME.git HEAD:main
   git push https://git.heroku.com/$HEROKU_BACKEND_NAME.git HEAD:main
