@@ -1,24 +1,24 @@
 {
   "private": true,
   "scripts": {
-    "dev:backend": "yarn workspace @coa-deploy/backend start:dev",
-    "dev:frontend": "yarn workspace @coa-deploy/frontend start:dev",
+    "dev:backend": "yarn workspace @/backend start:dev",
+    "dev:frontend": "yarn workspace @/frontend start:dev",
     "test": "yarn workspaces run test",
     "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
     "build": "yarn workspace @coa-deploy/backend build",
-    "start_frontend": "yarn workspace @coa-deploy/frontend start",
-    "start_backend": "yarn workspace @coa-deploy/backend start",
-    "db:run:migrations": "yarn workspace @coa-deploy/backend db:migration:run:prod"
-
-
+    "start_frontend": "yarn workspace @/frontend start",
+    "start_backend": "yarn workspace @/backend start",
+    "db:run:migrations": "yarn workspace @/backend db:migration:run:prod"
   },
   "engines": {
     "node": "15.x"
   },
   "workspaces": {
-    "packages": ["packages/*"],
+    "packages": [
+      "packages/*"
+    ],
     "nohoist": [
       "**/ts-graphql-plugin/**",
       "**/ts-graphql-plugin",
@@ -47,5 +47,7 @@
     "prettier": "^2.2.1",
     "typescript": "^4.1.3"
   },
-  "dependencies": { "nodemon": "^2.0.7" }
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
