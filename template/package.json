@@ -8,8 +8,8 @@
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
     "build": "yarn workspaces run build build",
-    "start_frontend": "yarn workspace @/frontend start",
-    "start_backend": "yarn workspace @/backend start",
+    "start:frontend": "yarn workspace @/frontend start",
+    "start:backend": "yarn workspace @/backend start",
     "db:run:migrations": "yarn workspace @/backend db:migration:run:prod"
   },
   "engines": {
