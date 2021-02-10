@@ -1,6 +1,3 @@
-
-# Setup
-
 # You will need the heroku-cli:
 # https://devcenter.heroku.com/articles/heroku-cli
 

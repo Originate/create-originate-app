@@ -1,3 +1,7 @@
+# Setup
+
+You will need the [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
+
 # Deploying
 
 Set `HEROKU_FRONTEND_NAME` and `HEROKU_BACKEND_NAME` in `deploy.sh`
