@@ -7,7 +7,7 @@
     "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
-    "build": "yarn workspace @coa-deploy/backend build",
+    "build": "yarn workspaces run build build",
     "start_frontend": "yarn workspace @/frontend start",
     "start_backend": "yarn workspace @/backend start",
     "db:run:migrations": "yarn workspace @/backend db:migration:run:prod"
