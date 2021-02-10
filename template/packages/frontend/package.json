@@ -1,12 +1,12 @@
 {
-  "name": "@replaceme/frontend",
+  "name": "@coa-deploy/frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "yarn start:dev",
     "build": "next build",
-    "start": "next start",
-    "start:dev": "concurrently -k 'next dev -p 3000' 'yarn codegen:watch'",
+    "start": "next start -p $PORT",
+    "start:dev": "concurrently -k 'next dev -p 46031' 'yarn codegen:watch'",
     "codegen": "ts-graphql-plugin typegen",
     "codegen:watch": "nodemon --ext ts,tsx --exec yarn codegen --ignore '/__generated__/'",
     "typecheck": "echo frontend && tsc --pretty",

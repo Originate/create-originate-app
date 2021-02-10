@@ -13,12 +13,17 @@ const config = new ConfigService()
       autoSchemaFile: join(process.cwd(), "schema.graphql"),
       sortSchema: true,
       debug: config.isDev,
-      playground: config.isDev,
+      playground: true,
+      introspection: true,
+      cors: {
+        credentials: true,
+      },
     }),
     RecipesModule,
     TypeOrmModule.forRoot({
       type: "postgres",
       url: config.env.DATABASE_URL,
+      ssl: { require: true, rejectUnauthorized: false },
 
       // When `autoLoadEntities` is on TypeORM entity classes (classes with the
       // `@Entity` annotation) are automatically wired into the main app *if*

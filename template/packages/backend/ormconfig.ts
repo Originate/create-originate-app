@@ -22,6 +22,8 @@ export = [
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/**/*.subscriber.ts"],
 
+    ssl: { require: true, rejectUnauthorized: false },
+
     cli: {
       entitiesDir: "src/entity",
       migrationsDir: "src/migration",
