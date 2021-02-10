@@ -27,7 +27,7 @@ export async function run(args: string[], branch_name: string = "master") {
       expectPort,
     )
     .option("-d, --db-port <port_number>", "dev database port", expectPort)
-    .option("-c, --current_branch", "use current branch")
+    .option("-c, --current-branch", "use current branch")
     .option("-n, --without-yarn", "Do not run yarn in project dir")
     .action(async (appName: string, command: Command) =>
       create(appName, branch_name, command.opts()),
@@ -44,7 +44,7 @@ async function create(
     backendPort?: number
     dbPort?: number
     withoutYarn?: boolean
-    current_branch?: boolean
+    currentBranch?: boolean
   },
 ) {
   const ports = await Ports.setup(opts)
@@ -53,7 +53,7 @@ async function create(
   log(chalk.cyan.bold(`Creating ${appName}`))
   log(chalk.blue(`Target Directory: ${targetDir}`))
 
-  if (opts.current_branch) {
+  if (opts.currentBranch) {
     branch_name = git_branch_name()
   }
 
