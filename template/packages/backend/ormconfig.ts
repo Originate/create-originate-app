@@ -22,7 +22,10 @@ export = [
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/**/*.subscriber.ts"],
 
-    ssl: { require: true, rejectUnauthorized: false },
+    ssl: {
+      require: process.env.NODE_ENV === "production",
+      rejectUnauthorized: false,
+    },
 
     cli: {
       entitiesDir: "src/entity",

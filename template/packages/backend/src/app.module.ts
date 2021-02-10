@@ -13,8 +13,8 @@ const config = new ConfigService()
       autoSchemaFile: join(process.cwd(), "schema.graphql"),
       sortSchema: true,
       debug: config.isDev,
-      playground: true,
-      introspection: true,
+      playground: config.isDev,
+      introspection: config.isDev,
       cors: {
         credentials: true,
       },
