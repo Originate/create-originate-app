@@ -1,1 +1,1 @@
-web: yarn start_frontend
+web: yarn start:frontend

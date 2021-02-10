@@ -4,8 +4,8 @@
 # You will need the heroku-cli:
 # https://devcenter.heroku.com/articles/heroku-cli
 
-HEROKU_FRONTEND_NAME=
-HEROKU_BACKEND_NAME=
+HEROKU_FRONTEND_NAME=coa-frontend-test2
+HEROKU_BACKEND_NAME=coa-backend-test2
 
 if [ -z ${HEROKU_FRONTEND_NAME+x} ]; then echo "Must HEROKU_FRONTEND_NAME in this script"; fi
 if [ -z ${HEROKU_BACKEND_NAME+x} ]; then echo "Must set HEROKU_BACKEND_NAME in this script"; fi
