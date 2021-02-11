@@ -46,6 +46,10 @@ export class ConfigService {
     return ["development", "dev", "", undefined].includes(process.env.NODE_ENV)
   }
 
+  get isProduction(): boolean {
+    return process.env.NODE_ENV === "production"
+  }
+
   /**
    * Checks that `NODE_ENV !== "production" or "test"`, and adds an extra sanity check
    * that `DATABASE_URL` is local to avoid synchronizing schema to a production

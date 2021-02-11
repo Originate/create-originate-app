@@ -23,7 +23,7 @@ const config = new ConfigService()
     TypeOrmModule.forRoot({
       type: "postgres",
       url: config.env.DATABASE_URL,
-      ssl: { require: true, rejectUnauthorized: false },
+      ssl: { require: config.isProduction, rejectUnauthorized: false },
 
       // When `autoLoadEntities` is on TypeORM entity classes (classes with the
       // `@Entity` annotation) are automatically wired into the main app *if*
