@@ -7,6 +7,11 @@ import { RecipesModule } from "./recipes/recipes.module"
 
 const config = new ConfigService()
 
+const ssl =
+  config.env.NODE_ENV === "production"
+    ? { require: true, rejectUnauthorized: false }
+    : false
+
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -14,16 +19,16 @@ const config = new ConfigService()
       sortSchema: true,
       debug: config.isDev,
       playground: config.isDev,
-      introspection: config.isDev,
+      introspection: !config.isProduction,
       cors: {
-        credentials: true,
+        credentials: config.isProduction,
       },
     }),
     RecipesModule,
     TypeOrmModule.forRoot({
       type: "postgres",
       url: config.env.DATABASE_URL,
-      ssl: { require: config.isProduction, rejectUnauthorized: false },
+      ssl,
 
       // When `autoLoadEntities` is on TypeORM entity classes (classes with the
       // `@Entity` annotation) are automatically wired into the main app *if*
