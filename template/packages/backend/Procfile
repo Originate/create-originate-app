@@ -1,2 +1,2 @@
-release: yarn db:migration:run
-web: yarn start
+release: cd packages/backend && yarn db:migration:run
+web: cd packages/backend && yarn start
