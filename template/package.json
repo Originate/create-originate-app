@@ -7,7 +7,7 @@
     "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
-    "build": "yarn workspaces run build build"
+    "build": "yarn workspaces run build"
   },
   "engines": {
     "node": "14.x"
