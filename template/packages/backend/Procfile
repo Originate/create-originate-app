@@ -1,0 +1,2 @@
+release: cd packages/backend && yarn db:migration:run
+web: cd packages/backend && yarn start

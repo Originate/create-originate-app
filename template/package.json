@@ -6,7 +6,11 @@
     "test": "yarn workspaces run test",
     "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
-    "fix": "yarn workspaces run lint --fix"
+    "fix": "yarn workspaces run lint --fix",
+    "build": "yarn workspaces run build"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "workspaces": {
     "packages": [

@@ -27,6 +27,7 @@ export async function run(args: string[], branch_name: string = "master") {
       expectPort,
     )
     .option("-d, --db-port <port_number>", "dev database port", expectPort)
+    .option("-r, --revision <revision>", "git revision")
     .option("-n, --without-yarn", "Do not run yarn in project dir")
     .action(async (appName: string, command: Command) =>
       create(appName, branch_name, command.opts()),
@@ -43,6 +44,7 @@ async function create(
     backendPort?: number
     dbPort?: number
     withoutYarn?: boolean
+    revision?: string
   },
 ) {
   const ports = await Ports.setup(opts)
@@ -50,6 +52,10 @@ async function create(
 
   log(chalk.cyan.bold(`Creating ${appName}`))
   log(chalk.blue(`Target Directory: ${targetDir}`))
+
+  if (opts.revision) {
+    branch_name = opts.revision
+  }
 
   await copyTemplate(targetDir, branch_name)
   updateTemplate(appName, targetDir, ports)

@@ -202,6 +202,8 @@ export function editBackendTopLevelJson(appName: string, targetDir: string) {
       "dev:frontend"
     ] = `yarn workspace @${appName}/frontend start:dev`
     json.scripts["dev:backend"] = `yarn workspace @${appName}/backend start:dev`
+    json.scripts["build"] = `yarn workspaces run build`
+
     fs.writeFileSync(
       filename,
       prettier.format(JSON.stringify(json), { semi: false, parser: "json" }),

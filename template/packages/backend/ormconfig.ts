@@ -12,6 +12,11 @@ if (!dbUrl) {
   )
 }
 
+const ssl =
+  process.env.NODE_ENV === "production"
+    ? { require: true, rejectUnauthorized: false }
+    : false
+
 export = [
   // Default connection
   {
@@ -21,6 +26,8 @@ export = [
     entities: ["src/**/*.entity.ts"],
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/**/*.subscriber.ts"],
+
+    ssl,
 
     cli: {
       entitiesDir: "src/entity",

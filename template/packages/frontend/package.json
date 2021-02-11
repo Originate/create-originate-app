@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "yarn start:dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "start:dev": "concurrently -k 'next dev -p 3000' 'yarn codegen:watch'",
     "codegen": "ts-graphql-plugin typegen",
     "codegen:watch": "nodemon --ext ts,tsx --exec yarn codegen --ignore '/__generated__/'",
