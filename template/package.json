@@ -10,7 +10,7 @@
     "build": "yarn workspaces run build build",
     "start:frontend": "yarn workspace @/frontend start",
     "start:backend": "yarn workspace @/backend start",
-    "db:run:migrations": "yarn workspace @/backend db:migration:run:prod"
+    "db:run:migrations": "yarn workspace @/backend db:migration:run"
   },
   "engines": {
     "node": "14.x"

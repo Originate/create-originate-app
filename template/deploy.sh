@@ -1,6 +1,7 @@
 # You will need the heroku-cli:
 # https://devcenter.heroku.com/articles/heroku-cli
 
+#TODO: This should be read from the environment and then split into separate scripts. 
 HEROKU_FRONTEND_NAME=
 HEROKU_BACKEND_NAME=
 
@@ -23,8 +24,8 @@ if [[ $* == *--setup* ]]; then
   heroku addons:create -a $HEROKU_BACKEND_NAME heroku-postgresql:hobby-dev
 
   # Set appropriate procfiles
-  heroku config:set -a $HEROKU_FRONTEND_NAME PROCFILE=frontend.Procfile
-  heroku config:set -a $HEROKU_BACKEND_NAME PROCFILE=backend.Procfile
+  heroku config:set -a $HEROKU_FRONTEND_NAME PROCFILE=Procfile.frontend
+  heroku config:set -a $HEROKU_BACKEND_NAME PROCFILE=Procfile.backend
 else
   git push https://git.heroku.com/$HEROKU_FRONTEND_NAME.git HEAD:main
   git push https://git.heroku.com/$HEROKU_BACKEND_NAME.git HEAD:main

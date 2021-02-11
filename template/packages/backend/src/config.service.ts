@@ -47,7 +47,7 @@ export class ConfigService {
   }
 
   get isProduction(): boolean {
-    return process.env.NODE_ENV === "production"
+    return this.env.NODE_ENV === "production"
   }
 
   /**

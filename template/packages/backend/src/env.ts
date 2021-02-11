@@ -7,6 +7,9 @@ export class Env {
   @IsOptional()
   CI: string | undefined
 
+  @IsOptional()
+  NODE_ENV: string | undefined
+
   @IsUrl({
     require_protocol: true,
     require_valid_protocol: false,
