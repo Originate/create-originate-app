@@ -9,7 +9,7 @@ import {
   copyTemplate,
   updateTemplate,
 } from "./helpers"
-import { git_branch_name, run_yarn } from "./cmd"
+import { run_yarn } from "./cmd"
 
 export async function run(args: string[], branch_name: string = "master") {
   program
@@ -27,7 +27,7 @@ export async function run(args: string[], branch_name: string = "master") {
       expectPort,
     )
     .option("-d, --db-port <port_number>", "dev database port", expectPort)
-    .option("-c, --current-branch", "use current branch")
+    .option("-r, --revision <revision>", "git revision")
     .option("-n, --without-yarn", "Do not run yarn in project dir")
     .action(async (appName: string, command: Command) =>
       create(appName, branch_name, command.opts()),
@@ -44,7 +44,7 @@ async function create(
     backendPort?: number
     dbPort?: number
     withoutYarn?: boolean
-    currentBranch?: boolean
+    revision?: string
   },
 ) {
   const ports = await Ports.setup(opts)
@@ -53,8 +53,8 @@ async function create(
   log(chalk.cyan.bold(`Creating ${appName}`))
   log(chalk.blue(`Target Directory: ${targetDir}`))
 
-  if (opts.currentBranch) {
-    branch_name = git_branch_name()
+  if (opts.revision) {
+    branch_name = opts.revision
   }
 
   await copyTemplate(targetDir, branch_name)
