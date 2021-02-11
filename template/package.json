@@ -7,10 +7,7 @@
     "typecheck": "yarn workspaces run typecheck",
     "lint": "yarn workspaces run lint",
     "fix": "yarn workspaces run lint --fix",
-    "build": "yarn workspaces run build build",
-    "start:frontend": "yarn workspace @/frontend start",
-    "start:backend": "yarn workspace @/backend start",
-    "db:run:migrations": "yarn workspace @/backend db:migration:run"
+    "build": "yarn workspaces run build build"
   },
   "engines": {
     "node": "14.x"

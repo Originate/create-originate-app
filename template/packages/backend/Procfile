@@ -1,0 +1,2 @@
+release: yarn db:migration:run
+web: yarn start
