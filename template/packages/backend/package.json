@@ -42,7 +42,7 @@
     "dataloader": "^2.0.0",
     "graphql": "^15.3.0",
     "graphql-tools": "^7.0.2",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "pg": "^8.4.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
