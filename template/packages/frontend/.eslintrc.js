@@ -1,6 +1,7 @@
 module.exports = {
   extends: "../.eslintrc.base.js",
   parserOptions: {
+    tsconfigRootDir: __dirname,
     project: "./tsconfig.json",
   },
   env: {
@@ -22,4 +23,14 @@ module.exports = {
     "graphql/template-strings": ["error", { env: "apollo" }],
     "@originate/ts-graphql/gql-type-assertion": "error",
   },
+  overrides: [
+    {
+      files: ["*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": ["off"],
+        "@typescript-eslint/explicit-module-boundary-types": ["off"],
+      },
+    },
+  ],
+  ignorePatterns: ["__generated__", "cypress"],
 }

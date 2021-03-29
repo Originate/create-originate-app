@@ -1,6 +1,14 @@
-{
+  {  
+    "include": [
+    "**/*.ts",
+    "**/*.js",
+    "test/**/*.json",
+    ".eslintrc.js"
+  ],
+  "exclude": ["node_modules", "dist"],
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "allowJs": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
