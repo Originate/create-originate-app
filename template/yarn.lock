@@ -13126,10 +13126,10 @@ original@^1.0.0:
   dependencies:
     url-parse "^1.4.3"
 
-originate-scripts@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/originate-scripts/-/originate-scripts-1.0.4.tgz#f319e4ef85a75378e0164de88bb07ae007e5afad"
-  integrity sha512-rhI6ZcTRI1Tv8CwWLCb37tBFZEZapzSHxSdISyevmzHR2naY+ngiC4gA7DIO6wl7R0NDF1bRQNUulck8f7Sgog==
+originate-scripts@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/originate-scripts/-/originate-scripts-1.1.0.tgz#15de058b7f56d9d85da61b6153c8274c9571f124"
+  integrity sha512-X4s7cfLQIwEgzL7mLVF3cSM0DoLkDC4+0Ql9Gmebmrk0OZFLmSt24crp3Vx2ASnRJc2cBzgVQ2A5dMgo2wT52g==
   dependencies:
     "@next/env" "^10.0.3"
     "@originate/docker-await-postgres" "^1.1.0"
