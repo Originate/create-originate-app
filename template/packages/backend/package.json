@@ -41,7 +41,7 @@
     "class-validator": "^0.13.1",
     "dataloader": "^2.0.0",
     "graphql": "^15.5.0",
-    "graphql-tools": "^7.0.4",
+    "graphql-tools": "^7.0.5",
     "lodash": "^4.17.21",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
