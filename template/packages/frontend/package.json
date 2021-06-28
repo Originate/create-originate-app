@@ -27,7 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@originate/eslint-plugin-ts-graphql": "^1.0.0",
-    "@storybook/addon-docs": "^6.2.9",
+    "@storybook/addon-docs": "^6.3.1",
     "@storybook/react": "^6.2.7",
     "@types/node": "^15.12.2",
     "@types/react": "^17.0.8",
