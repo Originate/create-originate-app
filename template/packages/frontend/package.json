@@ -29,7 +29,7 @@
     "@originate/eslint-plugin-ts-graphql": "^1.0.0",
     "@storybook/addon-docs": "^6.3.1",
     "@storybook/react": "^6.2.7",
-    "@types/node": "^15.12.2",
+    "@types/node": "^16.3.3",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.8",
     "@types/storybook__react": "^5.2.1",
